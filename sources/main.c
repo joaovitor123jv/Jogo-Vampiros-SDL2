@@ -22,7 +22,7 @@ int main( int argc, char* args[] )
 	//	SDL_Event Evento;
 	
 	sprite player;
-	player.velocidade = 2;
+	player.velocidade = 4;
 	
 	int FPESSES;
 	unsigned short int cima=false, baixo=false, esquerda=false, direita=false;
@@ -124,34 +124,38 @@ int main( int argc, char* args[] )
 		
 		if(FPESSES +10 < SDL_GetTicks())
 		{
-			if(cima == true)
+			if(cima == true )
 			{
-				player.posicao.y -= player.velocidade;
+				if(player.posicao.y-player.velocidade > 0 && player.posicao.y-player.velocidade< SCREEN_HEIGHT)
+					player.posicao.y -= player.velocidade;
 			}
 			if(baixo == true)
 			{
-				player.posicao.y += player.velocidade;
+				if(player.posicao.y+player.velocidade > 0 && player.posicao.y+player.velocidade< SCREEN_HEIGHT)
+					player.posicao.y += player.velocidade;
 			}
 			if(esquerda == true)
 			{
-				player.posicao.x -= player.velocidade;
+				if(player.posicao.x-player.velocidade > 0 && player.posicao.x-player.velocidade< SCREEN_WIDTH)
+					player.posicao.x -= player.velocidade;
 			}
 			if(direita == true)
 			{
-				player.posicao.x += player.velocidade;
+				if(player.posicao.x+player.velocidade > 0 && player.posicao.x+player.velocidade< SCREEN_WIDTH)
+					player.posicao.x += player.velocidade;
 			}
 			FPESSES = SDL_GetTicks();
 		}
-		
+
 		SDL_RenderClear(Renderizador);
 		SDL_RenderCopy( Renderizador, player.textura, NULL, &player.posicao);
 		SDL_RenderPresent(Renderizador);
 		//	SDL_FillRect( tela_fundo, NULL, SDL_MapRGB( tela_fundo->format, 32, 44, 100 ));
 		//		SDL_UpdateWindowSurface( window );
 	}
-	
+
 	sair(window);
-	
+
 	return 0;
 }
 
