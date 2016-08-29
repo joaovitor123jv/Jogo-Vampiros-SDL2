@@ -124,9 +124,3 @@ int main( int argc, char* args[] )
 
 	return 0;
 }
-
-void sair(SDL_Window *janela)
-{
-	SDL_DestroyWindow(janela);
-	SDL_Quit();
-}
