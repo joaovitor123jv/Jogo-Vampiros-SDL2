@@ -1,17 +1,5 @@
-#include <SDL2/SDL.h>
-#include<SDL2/SDL_image.h>
-#include<SDL2/SDL_ttf.h>
-#include<SDL2/SDL_mixer.h>
-#include <stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include "estruturas.h"
+#include"Includes.h"
 
-const unsigned short false = 0;
-const unsigned short true = 1;
-
-int SCREEN_WIDTH = 800;
-int SCREEN_HEIGHT = 600; 
 void sair(SDL_Window *janela);
 
 int main( int argc, char* args[] )
@@ -21,49 +9,25 @@ int main( int argc, char* args[] )
 	//	SDL_Surface *screenSurface = NULL;
 	//	SDL_Event Evento;
 	
-	sprite player;
-	player.velocidade = 4;
 	
-	int FPESSES;
-	unsigned short int cima=false, baixo=false, esquerda=false, direita=false;
-	
-	
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-	{
-		printf( "Erro ao inicializar SDL, código => %s\n", SDL_GetError() );
-	}
-	else
-	{
-		window = SDL_CreateWindow( nomejanela, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL );
-		if( window == NULL )
-		{
-			printf("Erro ao inicializar Janela, código => %s\n", SDL_GetError() );
-		}
-		else
-		{
-			//			tela_fundo = SDL_GetWindowSurface( window );
-			Renderizador = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
-			if(Renderizador == NULL)
-			{
-				printf("Erro, janela Renderizada nao foi criada , %s\n", SDL_GetError());
-			}
-			else
-			{
-				SDL_SetRenderDrawColor( Renderizador, 0, 134, 140, 0);
-				player.textura = IMG_LoadTexture( Renderizador, "images/sprites/player.png");
-				SDL_QueryTexture(player.textura, NULL, NULL, &player.w, &player.h);
-				player.x = 10;
-				player.y = 10;
-				player.posicao.w = player.w;
-				player.posicao.h = player.h;
-				player.posicao.x = player.x;
-				player.posicao.y = player.y;
-			}
-		}
-	}
-	FPESSES = SDL_GetTicks();
 	unsigned short close=false;
-	printf("Close = %d\n", close);
+	int FPESSES;
+	int w, h;
+	Player* player = new_player();
+	
+	Tela* tela = new_tela();
+	tela_setTitle(tela, "Teste de orientação a objetos em C ");
+	tela_setSize(tela, 800, 600);
+	
+
+	player_setVelocidade(player,  5);
+	player_setTextura(player, tela, "images/sprites/player.png");
+	player_setX(player, 10);
+	player_setY(player, 10);
+	player_toString(player);
+
+	FPESSES = SDL_GetTicks();
+
 	while(close==false)
 	{
 		while(SDL_PollEvent( &Evento )!=0)
@@ -77,16 +41,16 @@ int main( int argc, char* args[] )
 				switch(Evento.key.keysym.sym)
 				{
 					case(SDLK_w):
-						cima = true;
+						player_setCima(player,true);
 						break;
 					case(SDLK_a):
-						esquerda = true;
+						player_setEsquerda(player, true);
 						break;
 					case(SDLK_s):
-						baixo = true;
+						player_setBaixo(player, true);
 						break;
 					case(SDLK_d):
-						direita = true;
+						player_setDireita(player, true);
 						break;
 					default:
 						break;
@@ -97,16 +61,16 @@ int main( int argc, char* args[] )
 				switch(Evento.key.keysym.sym)
 				{
 					case(SDLK_w):
-						cima = false;
+						player_setCima(player,false);
 						break;
 					case(SDLK_a):
-						esquerda = false;
+						player_setEsquerda(player, false);
 						break;
 					case(SDLK_s):
-						baixo = false;
+						player_setBaixo(player, false);
 						break;
 					case(SDLK_d):
-						direita = false;
+						player_setDireita(player, false);
 						break;
 					default:
 						break;
@@ -124,37 +88,39 @@ int main( int argc, char* args[] )
 		
 		if(FPESSES +10 < SDL_GetTicks())
 		{
-			if(cima == true )
+			if(player_getCima(player))
 			{
-				if(player.posicao.y-player.velocidade > 0 && player.posicao.y-player.velocidade< SCREEN_HEIGHT)
-					player.posicao.y -= player.velocidade;
+				if(player_getY(player)-player_getVelocidade(player) > 0 && player_getY(player)-player_getVelocidade(player)< tela_getHeight(tela))
+					player_setY(player, player_getY(player)-player_getVelocidade(player));
 			}
-			if(baixo == true)
+			if(player_getBaixo(player))
 			{
-				if(player.posicao.y+player.velocidade > 0 && player.posicao.y+player.velocidade< SCREEN_HEIGHT)
-					player.posicao.y += player.velocidade;
+				if(player_getY(player)+player_getVelocidade(player) > 0 && player_getY(player)+player_getVelocidade(player)< tela_getHeight(tela))
+					player_setY(player, player_getY(player)+player_getVelocidade(player));
 			}
-			if(esquerda == true)
+			if(player_getEsquerda(player))
 			{
-				if(player.posicao.x-player.velocidade > 0 && player.posicao.x-player.velocidade< SCREEN_WIDTH)
-					player.posicao.x -= player.velocidade;
+				if(player_getX(player)-player_getVelocidade(player) > 0 && player_getX(player)-player_getVelocidade(player)< tela_getWidth(tela))
+					player_setX(player, player_getX(player)-player_getVelocidade(player));
 			}
-			if(direita == true)
+			if(player_getDireita(player))
 			{
-				if(player.posicao.x+player.velocidade > 0 && player.posicao.x+player.velocidade< SCREEN_WIDTH)
-					player.posicao.x += player.velocidade;
+				if(player_getX(player)+player_getVelocidade(player) > 0 && player_getX(player)+player_getVelocidade(player)< tela_getWidth(tela))
+					player_setX(player, player_getX(player)+player_getVelocidade(player));
 			}
 			FPESSES = SDL_GetTicks();
 		}
 
-		SDL_RenderClear(Renderizador);
-		SDL_RenderCopy( Renderizador, player.textura, NULL, &player.posicao);
-		SDL_RenderPresent(Renderizador);
+		SDL_RenderClear(tela_getRenderizador(tela));
+		SDL_RenderCopy( tela_getRenderizador(tela), player_getTextura(player), NULL, player_getPosicao(player));
+		SDL_RenderPresent(tela_getRenderizador(tela));
 		//	SDL_FillRect( tela_fundo, NULL, SDL_MapRGB( tela_fundo->format, 32, 44, 100 ));
 		//		SDL_UpdateWindowSurface( window );
 	}
 
-	sair(window);
+	delete_tela(tela);
+	delete_player(player);
+//	sair(window);
 
 	return 0;
 }
