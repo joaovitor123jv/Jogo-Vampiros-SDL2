@@ -8,6 +8,7 @@ limpar os arquivos objetos "*.o"
 
 
 Para rodar o programa há duas maneiras (pelo terminal)
+
 	→Usando o Make
 		→Basta digitar onde o "Makefile" estiver (supondo que não moveu nenhum arquivo do lugar):
 			make run
