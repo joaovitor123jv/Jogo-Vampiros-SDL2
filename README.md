@@ -1,4 +1,9 @@
 # Jogo-Vampiros-SDL2
+
+
+#Anotação:
+	→Tipo char consegue "simular" booleano em C, e economiza memoria (1 byte  = char VS 4 bytes int VS 2 bytes unsigned short int)
+
 Isso será um "Futuro jogo de Vampiros" escrito em C
 
 para compilar (NO GNU/LINUX) faça-o com "make"
