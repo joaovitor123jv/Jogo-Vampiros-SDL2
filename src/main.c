@@ -35,7 +35,6 @@ int main( int argc, char* args[] )
 			close = tela_getSair(tela);
 			if(tela_getTeclaApertada(tela))
 			{
-				printf("Tecla apertada");
 				switch(tela_getTecla(tela))
 				{
 					case(SDLK_w):
@@ -56,7 +55,6 @@ int main( int argc, char* args[] )
 			}
 			if(tela_getTeclaSolta(tela) == true)
 			{
-				printf("Tecla Solta");
 				switch(tela_getTecla(tela))
 				{
 					case(SDLK_w):

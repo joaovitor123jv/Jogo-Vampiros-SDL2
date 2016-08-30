@@ -3,6 +3,6 @@
 #define false 0
 
 #ifndef bool
-#define bool unsigned int
+#define bool char
 #endif
 

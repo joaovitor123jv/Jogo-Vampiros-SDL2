@@ -132,7 +132,6 @@ SDL_Keycode tela_getTecla(Tela* tela)
 
 bool tela_getTeclaApertada(Tela* tela)
 {
-	printf("Entrou aqrui\n");
 	if(tela->evento.type == SDL_KEYDOWN)
 	{
 		return true;

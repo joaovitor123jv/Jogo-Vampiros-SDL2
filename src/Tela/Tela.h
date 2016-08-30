@@ -12,7 +12,7 @@
 #endif
 
 #ifndef bool
-#define bool unsigned int
+#define bool char
 #endif
 
 #ifndef true
