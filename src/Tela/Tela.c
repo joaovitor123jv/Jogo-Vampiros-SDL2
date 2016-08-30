@@ -175,3 +175,18 @@ int tela_upgrade(Tela* tela)
 	return  OK;
 }
 
+void tela_update(Tela* tela)
+{
+	if(tela != NULL)
+	{
+		SDL_RenderPresent(tela->renderizador);
+	}
+}
+
+void tela_limpa(Tela* tela)
+{
+	if(tela !=NULL)
+	{
+		SDL_RenderClear(tela->renderizador);
+	}
+}

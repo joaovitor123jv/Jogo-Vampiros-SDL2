@@ -41,5 +41,7 @@ SDL_Keycode tela_getTecla(Tela*);
 bool tela_getEvento(Tela*);
 bool tela_getSair(Tela*);
 
-
 SDL_Renderer* tela_getRenderizador(Tela* tela);
+
+void tela_update(Tela*);
+void tela_limpa(Tela*);

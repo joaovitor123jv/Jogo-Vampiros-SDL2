@@ -81,9 +81,9 @@ int main( int argc, char* args[] )
 			FPESSES = SDL_GetTicks();
 		}
 
-		SDL_RenderClear(tela_getRenderizador(tela));
+		tela_limpa(tela);
 		player_print(player, tela);
-		SDL_RenderPresent(tela_getRenderizador(tela));
+		tela_update(tela);
 	}
 
 	delete_tela(tela);
