@@ -14,7 +14,9 @@ EXE = jogo
 
 #Bandeiras de Compilador
 PASSO1 = -c
-PASSO2 = -o
+PASSO2 =-o3 -o
+
+#Atenção! Passo 2 com Otimização 3  (de 0 → 3)
 
 #LINKERS
 LINKER= -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer 
