@@ -28,17 +28,15 @@ int main( int argc, char* args[] )
 
 	FPESSES = SDL_GetTicks();
 
-	while(close==false)
+	while(!close)
 	{
-		while(SDL_PollEvent( &Evento )!=0)
+		while(tela_getEvento(tela))
 		{
-			if(Evento.type == SDL_QUIT)
+			close = tela_getSair(tela);
+			if(tela_getTeclaApertada(tela))
 			{
-				close =true;
-			}
-			if(Evento.type == SDL_KEYDOWN)
-			{
-				switch(Evento.key.keysym.sym)
+				printf("Tecla apertada");
+				switch(tela_getTecla(tela))
 				{
 					case(SDLK_w):
 						player_setCima(player,true);
@@ -56,9 +54,10 @@ int main( int argc, char* args[] )
 						break;
 				}
 			}
-			if(Evento.type == SDL_KEYUP)
+			if(tela_getTeclaSolta(tela) == true)
 			{
-				switch(Evento.key.keysym.sym)
+				printf("Tecla Solta");
+				switch(tela_getTecla(tela))
 				{
 					case(SDLK_w):
 						player_setCima(player,false);
@@ -76,46 +75,17 @@ int main( int argc, char* args[] )
 						break;
 				}
 			}
-			//			if(Evento.type == SDL_KEYUP)
-			//			{
-			//				switch(Evento.key.keysym.sym)
-			//				{
-			//					case(asd):
-			//						break;
-			//				}
-			//			}
 		}
 		
 		if(FPESSES +10 < SDL_GetTicks())
 		{
-			if(player_getCima(player))
-			{
-				if(player_getY(player)-player_getVelocidade(player) > 0 && player_getY(player)-player_getVelocidade(player)< tela_getHeight(tela))
-					player_setY(player, player_getY(player)-player_getVelocidade(player));
-			}
-			if(player_getBaixo(player))
-			{
-				if(player_getY(player)+player_getVelocidade(player) > 0 && player_getY(player)+player_getVelocidade(player)< tela_getHeight(tela))
-					player_setY(player, player_getY(player)+player_getVelocidade(player));
-			}
-			if(player_getEsquerda(player))
-			{
-				if(player_getX(player)-player_getVelocidade(player) > 0 && player_getX(player)-player_getVelocidade(player)< tela_getWidth(tela))
-					player_setX(player, player_getX(player)-player_getVelocidade(player));
-			}
-			if(player_getDireita(player))
-			{
-				if(player_getX(player)+player_getVelocidade(player) > 0 && player_getX(player)+player_getVelocidade(player)< tela_getWidth(tela))
-					player_setX(player, player_getX(player)+player_getVelocidade(player));
-			}
+			player_movimenta(player, tela);//Leia: player se movimenta pela tela
 			FPESSES = SDL_GetTicks();
 		}
 
 		SDL_RenderClear(tela_getRenderizador(tela));
-		SDL_RenderCopy( tela_getRenderizador(tela), player_getTextura(player), NULL, player_getPosicao(player));
+		player_print(player, tela);
 		SDL_RenderPresent(tela_getRenderizador(tela));
-		//	SDL_FillRect( tela_fundo, NULL, SDL_MapRGB( tela_fundo->format, 32, 44, 100 ));
-		//		SDL_UpdateWindowSurface( window );
 	}
 
 	delete_tela(tela);

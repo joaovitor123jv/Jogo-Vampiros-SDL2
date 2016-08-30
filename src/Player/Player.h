@@ -18,6 +18,10 @@
 #define false 0
 #endif
 
+#ifndef bool
+#define bool char
+#endif
+
 typedef struct Player Player;
 
 Player* new_player(void);//construtor
@@ -55,3 +59,6 @@ int player_setTextura(Player* player, Tela* tela, char* endereco);
 
 void player_toString(Player* player);
 
+//COMANDOS
+bool player_print(Player *, Tela*);
+void player_movimenta(Player*, Tela*);

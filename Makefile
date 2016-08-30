@@ -5,7 +5,7 @@ TELA=Tela.c
 PLAYER=Player.c
 
 OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o)
-PASTA_FONTE=sources
+PASTA_FONTE=src
 PASTA_TELA=Tela
 PASTA_PLAYER=Player
 
