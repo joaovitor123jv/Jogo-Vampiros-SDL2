@@ -22,7 +22,8 @@ typedef struct Player Player;
 
 Player* new_player(void);//construtor
 
-int delete_player(Player* player);//destrutor
+//int delete_player(Player* player);//destrutor
+int delete_player();
 
 //Getters
 int player_getHeight(Player* player);
@@ -53,3 +54,4 @@ void player_setCima(Player* player, unsigned short x);
 int player_setTextura(Player* player, Tela* tela, char* endereco);
 
 void player_toString(Player* player);
+
