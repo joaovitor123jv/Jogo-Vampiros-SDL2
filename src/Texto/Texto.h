@@ -31,6 +31,7 @@ bool texto_setFonte(Texto*, char*, int);
 void texto_setCor(Texto*, int, int, int);
 void texto_setTexto(Texto*, char*);
 void texto_updateTexto(Texto*, Tela*);
+void texto_setPosicao(Texto*, int, int);
 
 //COMANDOS
 void texto_toString(Texto*);

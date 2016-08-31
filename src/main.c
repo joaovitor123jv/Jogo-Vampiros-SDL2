@@ -20,7 +20,7 @@ int main( int argc, char* args[] )
 	tela_setTitle(tela, "Teste de orientação a objetos em C ");
 	tela_setSize(tela, 800, 600);
 	
-	texto_setFonte(texto, "fonte.ttf", 20);
+	texto_setFonte(texto, "fonte.ttf", 50);
 	SDL_Color cor;
 	cor.r = 10;
 	cor.g = 50;
@@ -28,15 +28,15 @@ int main( int argc, char* args[] )
 	texto_setCor(texto, 10, 50, 100);
 	texto_setTexto(texto, "Testando");
 	texto_updateTexto(texto,tela);
-	printf("\n\n\n");
-	texto_toString(texto);
+	texto_setPosicao(texto, 200, 300);
 
 	player_setVelocidade(player,  5);
 	player_setTextura(player, tela, "images/sprites/player.png");
 	player_setX(player, 10);
 	player_setY(player, 10);
-	player_toString(player);
 
+	player_toString(player);
+	texto_toString(texto);
 	FPESSES = SDL_GetTicks();
 
 	while(!close)
