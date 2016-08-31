@@ -4,12 +4,15 @@ USUARIO=Usuario.c
 TELA=Tela.c
 PLAYER=Player.c
 TEXTO=Texto.c
+RETANGULO=Retangulo.c
 
-OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o)
 PASTA_FONTE=src
 PASTA_TELA=Tela
 PASTA_PLAYER=Player
 PASTA_TEXTO=Texto
+PASTA_RETANGULO=Retangulo
+
+OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o)
 
 #EXE especifica o nome do executavel
 EXE = jogo
@@ -39,6 +42,9 @@ all :
 	echo "Compilando arquivos para funcionamento do texto"
 	cd $(PASTA_FONTE)/$(PASTA_TEXTO); $(CC) $(PASSO1) $(TEXTO)
 	cd $(PASTA_FONTE)/$(PASTA_TEXTO); mv $(TEXTO:.c=.o) ../
+	echo "Compilando arquivos para funcionamento do Retângulo (Botão) (1)"
+	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); $(CC) $(PASSO1) $(RETANGULO)
+	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); mv $(RETANGULO:.c=.o) ../
 	echo "Compilando arquivos para funcionamento do principal"
 	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(FONTE)
 	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(OBJETO) $(LINKER)

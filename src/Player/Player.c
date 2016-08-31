@@ -258,22 +258,22 @@ void player_movimenta(Player* player, Tela* tela)
 {
 	if(player_getCima(player))
 	{
-		if(player_getY(player)-player_getVelocidade(player) > 0 && player_getY(player)-player_getVelocidade(player)< tela_getHeight(tela))
+		if(player_getY(player)-player_getVelocidade(player) >= 0 && player_getY(player)-player_getVelocidade(player)<= (tela_getHeight(tela)-player_getHeight(player)))
 			player_setY(player, player_getY(player)-player_getVelocidade(player));
 	}
 	if(player_getBaixo(player))
 	{
-		if(player_getY(player)+player_getVelocidade(player) > 0 && player_getY(player)+player_getVelocidade(player)< tela_getHeight(tela))
+		if(player_getY(player)+player_getVelocidade(player) >= 0 && player_getY(player)+player_getVelocidade(player)<= (tela_getHeight(tela)-player_getHeight(player)))
 			player_setY(player, player_getY(player)+player_getVelocidade(player));
 	}
 	if(player_getEsquerda(player))
 	{
-		if(player_getX(player)-player_getVelocidade(player) > 0 && player_getX(player)-player_getVelocidade(player)< tela_getWidth(tela))
+		if(player_getX(player)-player_getVelocidade(player) >= 0 && player_getX(player)-player_getVelocidade(player)<= tela_getWidth(tela) - player_getWidth(player))
 			player_setX(player, player_getX(player)-player_getVelocidade(player));
 	}
 	if(player_getDireita(player))
 	{
-		if(player_getX(player)+player_getVelocidade(player) > 0 && player_getX(player)+player_getVelocidade(player)< tela_getWidth(tela))
+		if(player_getX(player)+player_getVelocidade(player) >= 0 && player_getX(player)+player_getVelocidade(player)<= tela_getWidth(tela) - player_getWidth(player))
 			player_setX(player, player_getX(player)+player_getVelocidade(player));
 	}
 }
