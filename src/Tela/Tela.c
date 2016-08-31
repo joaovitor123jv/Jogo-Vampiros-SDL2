@@ -3,6 +3,7 @@
 
 struct Tela
 {
+	SDL_Color cor;
 	SDL_Surface *tela;
 	SDL_Window *janela;
 	char *titulo;
@@ -24,6 +25,10 @@ Tela* new_tela(void)
 	tela->width = 100;
 	tela->height = 100;
 	tela->titulo = "Janela";
+	tela->cor.r = 50;
+	tela->cor.g = 150;
+	tela->cor.b = 90;
+	tela->cor.a = 0xFF;
 	if(tela_upgrade(tela) == ERRO)
 	{
 		return NULL;
@@ -76,6 +81,26 @@ int tela_setTitle(Tela* tela, char *titulo)
 		return TELA_NAO_INICIALIZADA;
 	}
 	tela->titulo = titulo;
+}
+
+int tela_setCor(Tela* tela, int r, int g, int b)
+{
+	if(tela == NULL)
+	{
+		return TELA_NAO_INICIALIZADA;
+	}
+	tela->cor.g = g;
+	tela->cor.r = r;
+	tela->cor.b = b;
+}
+
+int tela_setAlpha(Tela* tela, int alpha)
+{
+	if(tela == NULL)
+	{
+		return TELA_NAO_INICIALIZADA;
+	}
+	tela->cor.a = alpha;
 }
 
 
@@ -171,7 +196,7 @@ int tela_upgrade(Tela* tela)
 		printf("Erro ao renderizar janela\n");
 		return ERRO;
 	}
-	SDL_SetRenderDrawColor(tela->renderizador, 0, 134, 140, 0);
+	SDL_SetRenderDrawColor(tela->renderizador, tela->cor.r, tela->cor.g, tela->cor.b, tela->cor.a);
 	return  OK;
 }
 
@@ -187,6 +212,7 @@ void tela_limpa(Tela* tela)
 {
 	if(tela !=NULL)
 	{
+		SDL_SetRenderDrawColor(tela->renderizador, tela->cor.r, tela->cor.g, tela->cor.b, tela->cor.a);
 		SDL_RenderClear(tela->renderizador);
 	}
 }

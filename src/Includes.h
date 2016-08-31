@@ -10,4 +10,6 @@
 #include "Tela/Tela.h"
 #include "Player/Player.h"
 #include "Texto/Texto.h"
+#include "Retangulo/Retangulo.h"
+
 #include "estruturas.h"

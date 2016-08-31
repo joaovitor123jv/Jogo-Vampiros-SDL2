@@ -10,10 +10,16 @@ int main( int argc, char* args[] )
 	Player* player = new_player();
 	Player* player2 = new_player();
 	Texto* texto = new_texto();
+	Retangulo* retangulo = new_retangulo();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Teste de orientação a objetos em C ");
 	tela_setSize(tela, 800, 600);
+	tela_setCor(tela, 50, 50, 50);
+
+	retangulo_setTamanho(retangulo, 300, 200);
+	retangulo_setPosicao(retangulo, 200, 300);
+	retangulo_setCor(retangulo, 32, 120, 14);
 	
 	texto_setFonte(texto, "fonte.ttf", 50);
 	SDL_Color cor;
@@ -104,6 +110,7 @@ int main( int argc, char* args[] )
 
 		tela_limpa(tela);
 		player_print(player, tela);
+		retangulo_printCompleto(retangulo, tela);
 		player_print(player2, tela);
 		texto_print(texto, tela);
 		tela_update(tela);

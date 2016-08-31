@@ -1,3 +1,5 @@
+#pragma once
+
 #include<SDL2/SDL.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -32,6 +34,8 @@ int delete_tela(Tela* tela);
 //SETTERS
 int tela_setSize(Tela* tela, int width, int height);
 int tela_setTitle(Tela* tela, char *titulo);
+int tela_setCor(Tela*, int, int, int);
+int tela_setAlpha(Tela*, int);
 //GETTERS
 int tela_getWidth(Tela* tela);
 int tela_getHeight(Tela* tela);
