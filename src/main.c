@@ -14,11 +14,22 @@ int main( int argc, char* args[] )
 	int FPESSES;
 	int w, h;
 	Player* player = new_player();
+	Texto* texto = new_texto();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Teste de orientação a objetos em C ");
 	tela_setSize(tela, 800, 600);
 	
+	texto_setFonte(texto, "fonte.ttf", 20);
+	SDL_Color cor;
+	cor.r = 10;
+	cor.g = 50;
+	cor.b = 100;
+	texto_setCor(texto, 10, 50, 100);
+	texto_setTexto(texto, "Testando");
+	texto_updateTexto(texto,tela);
+	printf("\n\n\n");
+	texto_toString(texto);
 
 	player_setVelocidade(player,  5);
 	player_setTextura(player, tela, "images/sprites/player.png");
@@ -83,9 +94,11 @@ int main( int argc, char* args[] )
 
 		tela_limpa(tela);
 		player_print(player, tela);
+		texto_print(texto, tela);
 		tela_update(tela);
 	}
 
+	delete_texto(texto);
 	delete_tela(tela);
 	delete_player(player);
 //	sair(window);

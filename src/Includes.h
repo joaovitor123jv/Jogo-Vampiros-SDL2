@@ -9,4 +9,5 @@
 
 #include "Tela/Tela.h"
 #include "Player/Player.h"
+#include "Texto/Texto.h"
 #include "estruturas.h"
