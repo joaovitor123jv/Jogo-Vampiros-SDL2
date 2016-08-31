@@ -15,8 +15,8 @@ PASTA_TEXTO=Texto
 EXE = jogo
 
 #Bandeiras de Compilador
-#OTIMIZADOR=-o3
-OTIMIZADOR=
+OTIMIZADOR=-o3
+#OTIMIZADOR=
 PASSO1 = -c
 PASSO2 =$(OTIMIZADOR) -o
 
