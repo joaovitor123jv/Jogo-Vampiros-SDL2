@@ -89,6 +89,42 @@ void texto_getDimensao(Texto* texto, SDL_Surface* surface)
 	texto->posicao.h = surface->h;
 }
 
+int texto_getWidth(Texto* texto)
+{
+	if(texto != NULL)
+	{
+		return texto->posicao.w;
+	}
+	return ERRO;
+}
+
+int texto_getHeight(Texto* texto)
+{
+	if(texto != NULL)
+	{
+		return texto->posicao.h;
+	}
+	return ERRO;
+}
+
+int texto_getX(Texto* texto)
+{
+	if(texto != NULL)
+	{
+		return texto->posicao.x;
+	}
+	return ERRO;
+}
+
+int texto_getY(Texto* texto)
+{
+	if(texto != NULL)
+	{
+		return texto->posicao.y;
+	}
+	return ERRO;
+}
+
 
 //SETTERS
 bool texto_setFonte(Texto* texto, char* endereco, int tamanhoFonte) //OK
@@ -166,7 +202,7 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 		return;
 	}
 	SDL_Surface* surface = NULL;
-//	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);
+	//	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);
 	surface = TTF_RenderText_Solid(texto->fonte, texto->texto, texto->cor);
 	texto_getDimensao(texto, surface);
 	if(surface == NULL)

@@ -21,6 +21,10 @@
 #define TAMANHO_MAX_TEXTO 300
 #endif
 
+#ifndef ERRO
+#define ERRO -1
+#endif
+
 typedef struct Texto Texto;
 
 Texto* new_texto(void);
@@ -32,6 +36,12 @@ void texto_setCor(Texto*, int, int, int);
 void texto_setTexto(Texto*, char*);
 void texto_updateTexto(Texto*, Tela*);
 void texto_setPosicao(Texto*, int, int);
+
+//GETTERS
+int texto_getY(Texto*);
+int texto_getX(Texto*);
+int texto_getWidth(Texto*);
+int texto_getHeight(Texto*);
 
 //COMANDOS
 void texto_toString(Texto*);

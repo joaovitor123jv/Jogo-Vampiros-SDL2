@@ -11,6 +11,7 @@ int main( int argc, char* args[] )
 	Player* player2 = new_player();
 	Texto* texto = new_texto();
 	Retangulo* retangulo = new_retangulo();
+	Botao* botao = new_botao();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Teste de orientação a objetos em C ");
@@ -39,6 +40,11 @@ int main( int argc, char* args[] )
 	player_setTextura(player2, tela, "images/sprites/player.png");
 	player_setX(player2, 90);
 	player_setY(player2, 90);
+
+	botao_setCorTexto(botao, 132, 223, 123);
+	botao_setTexto(botao, "Testando 1 2 3");
+	botao_update(botao, tela);
+	botao_setPosicao(botao, 400, 200);
 
 
 	player_toString(player2);
@@ -109,6 +115,7 @@ int main( int argc, char* args[] )
 		}
 
 		tela_limpa(tela);
+		botao_print(botao, tela);
 		player_print(player, tela);
 		retangulo_printCompleto(retangulo, tela);
 		player_print(player2, tela);
@@ -116,6 +123,7 @@ int main( int argc, char* args[] )
 		tela_update(tela);
 	}
 
+	delete_botao(botao);
 	delete_texto(texto);
 	delete_tela(tela);
 	delete_player(player);

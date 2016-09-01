@@ -5,21 +5,22 @@ TELA=Tela.c
 PLAYER=Player.c
 TEXTO=Texto.c
 RETANGULO=Retangulo.c
+BOTAO=Botao.c
 
 PASTA_FONTE=src
 PASTA_TELA=Tela
 PASTA_PLAYER=Player
 PASTA_TEXTO=Texto
 PASTA_RETANGULO=Retangulo
+PASTA_BOTAO=Botao
 
-OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o)
+OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o)
 
 #EXE especifica o nome do executavel
 EXE = jogo
 
 #Bandeiras de Compilador
 OTIMIZADOR=-o3
-#OTIMIZADOR=
 PASSO1 = -c
 PASSO2 =$(OTIMIZADOR) -o
 
@@ -45,6 +46,9 @@ all :
 	echo "Compilando arquivos para funcionamento do Retângulo (Botão) (1)"
 	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); $(CC) $(PASSO1) $(RETANGULO)
 	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); mv $(RETANGULO:.c=.o) ../
+	echo "Compilando arquivos para funcionamento do Retângulo (Botão) (1)"
+	cd $(PASTA_FONTE)/$(PASTA_BOTAO); $(CC) $(PASSO1) $(BOTAO)
+	cd $(PASTA_FONTE)/$(PASTA_BOTAO); mv $(BOTAO:.c=.o) ../
 	echo "Compilando arquivos para funcionamento do principal"
 	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(FONTE)
 	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(OBJETO) $(LINKER)
