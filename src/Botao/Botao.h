@@ -1,5 +1,19 @@
+#pragma once
+
 #include "../Texto/Texto.h"
 #include "../Retangulo/Retangulo.h"
+
+#ifndef bool
+#define bool char
+#endif
+
+#ifndef true
+#define true 1
+#endif
+
+#ifndef false
+#define false 0
+#endif
 
 #ifndef FONTE_PADRAO
 #define FONTE_PADRAO "fonte.ttf"
@@ -30,4 +44,4 @@ void botao_setPosicao(Botao*, int, int);
 //COMANDOS
 void botao_print(Botao*, Tela*);
 void botao_update(Botao*, Tela*);
-void botao_ouvinte(Botao*, Tela*);
+bool botao_ouvinte(Botao*, Tela*);

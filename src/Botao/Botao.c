@@ -144,12 +144,12 @@ void botao_update(Botao* botao, Tela* tela)
 	retangulo_setTamanho(botao->retangulo, texto_getWidth(botao->texto), texto_getHeight(botao->texto));
 }
 
-void botao_ouvinte(Botao* botao, Tela* tela)
+bool botao_ouvinte(Botao* botao, Tela* tela)
 {
 	int x, y;
 	if(tela == NULL || botao == NULL)
 	{
-		return;
+		return false;
 	}
 
 	tela_getMousePos(tela, &x, &y);//Obtem posição do mouse
@@ -166,9 +166,15 @@ void botao_ouvinte(Botao* botao, Tela* tela)
 	if((x >= retangulo_getX(botao->retangulo) && x <= (retangulo_getX(botao->retangulo)) + retangulo_getWidth(botao->retangulo)) && (y >= retangulo_getY(botao->retangulo) && y <= (retangulo_getY(botao->retangulo) + retangulo_getHeight(botao->retangulo))))
 	{
 		botao->dentro = true;
+		if(botao->clique)
+		{
+			return true;
+		}
 	}
 	else
 	{
 		botao->dentro = false;
+		return false;
 	}
+	return false;
 }

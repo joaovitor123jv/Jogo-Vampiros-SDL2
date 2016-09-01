@@ -12,10 +12,11 @@ int main( int argc, char* args[] )
 	Texto* texto = new_texto();
 	Retangulo* retangulo = new_retangulo();
 	Botao* botao = new_botao();
+	Botao* btSair = new_botao();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Teste de orientação a objetos em C ");
-	tela_setSize(tela, 800, 600);
+	tela_setSize(tela, 1000, 700);
 	tela_setCor(tela, 50, 50, 50);
 
 	retangulo_setTamanho(retangulo, 300, 200);
@@ -44,10 +45,18 @@ int main( int argc, char* args[] )
 	botao_setCorTexto(botao, 132, 223, 123);
 	botao_setCorDentro(botao, 100, 40, 50);
 	botao_setCorFora(botao, 40, 100, 50);
-	botao_setCorDentro(botao, 50, 40, 100);
+	botao_setCorClique(botao, 50, 40, 100);
 	botao_setTexto(botao, "Testando 1 2 3");
 	botao_update(botao, tela);
 	botao_setPosicao(botao, 400, 200);
+
+	botao_setCorTexto(btSair, 200, 30, 50);
+	botao_setCorDentro(btSair, 40, 200, 200);
+	botao_setCorFora(btSair, 40, 100, 100);
+	botao_setCorClique(btSair, 50, 100, 100);
+	botao_setTexto(btSair, "Sair");
+	botao_update(btSair, tela);
+	botao_setPosicao(btSair, 400, 500);
 
 
 	player_toString(player2);
@@ -112,6 +121,7 @@ int main( int argc, char* args[] )
 			{
 				tela_getMouse(tela);
 				botao_ouvinte(botao, tela);
+				close = botao_ouvinte(btSair, tela);
 			}
 
 
@@ -130,10 +140,12 @@ int main( int argc, char* args[] )
 		retangulo_printCompleto(retangulo, tela);
 		player_print(player2, tela);
 		texto_print(texto, tela);
+		botao_print(btSair, tela);
 		tela_update(tela);
 	}
 
 	delete_botao(botao);
+	delete_botao(btSair);
 	delete_texto(texto);
 	delete_tela(tela);
 	delete_player(player);
