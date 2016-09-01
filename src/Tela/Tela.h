@@ -44,6 +44,8 @@ bool tela_getTeclaSolta(Tela* tela);
 SDL_Keycode tela_getTecla(Tela*);
 bool tela_getEvento(Tela*);
 bool tela_getSair(Tela*);
+void tela_getMouse(Tela*);
+void tela_getMousePos(Tela*, int*, int*);
 
 SDL_Renderer* tela_getRenderizador(Tela* tela);
 

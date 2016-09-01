@@ -8,6 +8,7 @@ struct Tela
 	SDL_Window *janela;
 	char *titulo;
 	SDL_Event evento;
+	SDL_Point mouse;
 	SDL_Renderer *renderizador;
 	unsigned int width;
 	unsigned int height;
@@ -29,6 +30,8 @@ Tela* new_tela(void)
 	tela->cor.g = 150;
 	tela->cor.b = 90;
 	tela->cor.a = 0xFF;
+	tela->mouse.x = 0;
+	tela->mouse.y = 0;
 	if(tela_upgrade(tela) == ERRO)
 	{
 		return NULL;
@@ -134,6 +137,17 @@ bool tela_getEvento(Tela* tela)
 	return SDL_PollEvent( &tela->evento );
 }
 
+void tela_getMousePos(Tela* tela, int *x, int *y)
+{
+	if(tela == NULL)
+	{
+		return;
+	}
+	*x = tela->mouse.x;
+	*y = tela->mouse.y;
+}
+
+
 SDL_Renderer* tela_getRenderizador(Tela* tela)
 {
 	return tela->renderizador;
@@ -153,6 +167,15 @@ SDL_Keycode tela_getTecla(Tela* tela)
 	{
 		return tela->evento.key.keysym.sym;
 	}
+}
+
+void tela_getMouse(Tela* tela)
+{
+	if(tela == NULL)
+	{
+		return;
+	}
+	SDL_GetMouseState(&tela->mouse.x, &tela->mouse.y);
 }
 
 bool tela_getTeclaApertada(Tela* tela)

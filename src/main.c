@@ -42,6 +42,9 @@ int main( int argc, char* args[] )
 	player_setY(player2, 90);
 
 	botao_setCorTexto(botao, 132, 223, 123);
+	botao_setCorDentro(botao, 100, 40, 50);
+	botao_setCorFora(botao, 40, 100, 50);
+	botao_setCorDentro(botao, 50, 40, 100);
 	botao_setTexto(botao, "Testando 1 2 3");
 	botao_update(botao, tela);
 	botao_setPosicao(botao, 400, 200);
@@ -81,7 +84,7 @@ int main( int argc, char* args[] )
 						break;
 				}
 			}
-			if(tela_getTeclaSolta(tela) == true)
+			else if(tela_getTeclaSolta(tela) == true)
 			{
 				switch(tela_getTecla(tela))
 				{
@@ -105,6 +108,13 @@ int main( int argc, char* args[] )
 						break;
 				}
 			}
+			else
+			{
+				tela_getMouse(tela);
+				botao_ouvinte(botao, tela);
+			}
+
+
 		}
 		
 		if(FPESSES +10 < SDL_GetTicks())

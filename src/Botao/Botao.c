@@ -7,6 +7,8 @@ struct Botao
 	SDL_Color cor1;
 	SDL_Color cor2;
 	SDL_Color cor3;
+	bool clique;
+	bool dentro;
 };
 
 //CONSTRUTOR
@@ -60,9 +62,9 @@ void botao_setCorFora(Botao* botao, int r, int g, int b)
 	{
 		return;
 	}
-	botao->cor2.r = r;
-	botao->cor2.g = g;
-	botao->cor2.b = b;
+	botao->cor3.r = r;
+	botao->cor3.g = g;
+	botao->cor3.b = b;
 }
 
 void botao_setCorClique(Botao* botao, int r, int g, int b)
@@ -71,9 +73,9 @@ void botao_setCorClique(Botao* botao, int r, int g, int b)
 	{
 		return;
 	}
-	botao->cor3.r = r;
-	botao->cor3.g = g;
-	botao->cor3.b = b;
+	botao->cor2.r = r;
+	botao->cor2.g = g;
+	botao->cor2.b = b;
 }
 
 void botao_setCorTexto(Botao* botao, int r, int g, int b)
@@ -116,6 +118,18 @@ void botao_setTamanho(Botao* botao, int tamanho)
 //TODO
 void botao_print(Botao* botao, Tela* tela)
 {
+	if(botao->dentro)
+	{
+		retangulo_setCor(botao->retangulo, botao->cor1.r, botao->cor1.g, botao->cor1.b);
+		if(botao->clique)
+		{
+			retangulo_setCor(botao->retangulo, botao->cor2.r, botao->cor2.g, botao->cor2.b);
+		}
+	}
+	if(!botao->dentro)
+	{
+		retangulo_setCor(botao->retangulo, botao->cor3.r, botao->cor3.g, botao->cor3.b);
+	}
 	retangulo_printCompleto(botao->retangulo, tela);
 	texto_print(botao->texto, tela);
 }
@@ -128,4 +142,33 @@ void botao_update(Botao* botao, Tela* tela)
 	}
 	texto_updateTexto(botao->texto, tela);
 	retangulo_setTamanho(botao->retangulo, texto_getWidth(botao->texto), texto_getHeight(botao->texto));
+}
+
+void botao_ouvinte(Botao* botao, Tela* tela)
+{
+	int x, y;
+	if(tela == NULL || botao == NULL)
+	{
+		return;
+	}
+
+	tela_getMousePos(tela, &x, &y);//Obtem posição do mouse
+
+	if(tela_getTipoEvento(tela) == SDL_MOUSEBUTTONDOWN)
+	{
+		botao->clique = true;
+	}
+	else
+	{
+		botao->clique = false;
+	}
+
+	if((x >= retangulo_getX(botao->retangulo) && x <= (retangulo_getX(botao->retangulo)) + retangulo_getWidth(botao->retangulo)) && (y >= retangulo_getY(botao->retangulo) && y <= (retangulo_getY(botao->retangulo) + retangulo_getHeight(botao->retangulo))))
+	{
+		botao->dentro = true;
+	}
+	else
+	{
+		botao->dentro = false;
+	}
 }

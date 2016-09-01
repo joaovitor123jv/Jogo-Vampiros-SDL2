@@ -30,3 +30,4 @@ void botao_setPosicao(Botao*, int, int);
 //COMANDOS
 void botao_print(Botao*, Tela*);
 void botao_update(Botao*, Tela*);
+void botao_ouvinte(Botao*, Tela*);
