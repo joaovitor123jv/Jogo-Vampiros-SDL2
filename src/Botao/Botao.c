@@ -109,8 +109,11 @@ void botao_setPosicao(Botao* botao, int x, int y)
 }
 
 //TODO
-void botao_setTamanho(Botao* botao, int tamanho)
+void botao_setTamanho(Botao* botao, Tela* tela, int tamanho)
 {
+	texto_setTamanho(botao->texto, tamanho);
+	texto_updateTexto(botao->texto, tela);
+	retangulo_setTamanho(botao->retangulo, texto_getWidth(botao->texto), texto_getHeight(botao->texto));
 }
 
 

@@ -36,12 +36,14 @@ void texto_setCor(Texto*, int, int, int);
 void texto_setTexto(Texto*, char*);
 void texto_updateTexto(Texto*, Tela*);
 void texto_setPosicao(Texto*, int, int);
+void texto_setTamanho(Texto*, int);
 
 //GETTERS
 int texto_getY(Texto*);
 int texto_getX(Texto*);
 int texto_getWidth(Texto*);
 int texto_getHeight(Texto*);
+char* texto_getTexto(Texto*);
 
 //COMANDOS
 void texto_toString(Texto*);

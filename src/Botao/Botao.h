@@ -38,7 +38,7 @@ void botao_setCorClique(Botao*, int, int, int);
 void botao_setCorTexto(Botao*, int, int, int);
 void botao_setTexto(Botao*, char*);
 void botao_setPosicao(Botao*, int, int);
-//void botao_setTamanho(Botao*, int);
+void botao_setTamanho(Botao*, Tela*, int);
 
 
 //COMANDOS

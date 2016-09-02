@@ -6,6 +6,7 @@ PLAYER=Player.c
 TEXTO=Texto.c
 RETANGULO=Retangulo.c
 BOTAO=Botao.c
+IMAGEM=Imagem.c
 
 PASTA_FONTE=src
 PASTA_TELA=Tela
@@ -13,8 +14,9 @@ PASTA_PLAYER=Player
 PASTA_TEXTO=Texto
 PASTA_RETANGULO=Retangulo
 PASTA_BOTAO=Botao
+PASTA_IMAGEM=Imagem
 
-OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o)
+OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o) $(IMAGEM:.c=.o)
 
 #EXE especifica o nome do executavel
 EXE = jogo
@@ -46,9 +48,12 @@ all :
 	echo "Compilando arquivos para funcionamento do Retângulo (Botão) (1)"
 	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); $(CC) $(PASSO1) $(RETANGULO)
 	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); mv $(RETANGULO:.c=.o) ../
-	echo "Compilando arquivos para funcionamento do Retângulo (Botão) (1)"
+	echo "Compilando arquivos para funcionamento do Botao (Botão) (2)"
 	cd $(PASTA_FONTE)/$(PASTA_BOTAO); $(CC) $(PASSO1) $(BOTAO)
 	cd $(PASTA_FONTE)/$(PASTA_BOTAO); mv $(BOTAO:.c=.o) ../
+	echo "Compilando arquivos para funcionamento de Imagem "
+	cd $(PASTA_FONTE)/$(PASTA_IMAGEM); $(CC) $(PASSO1) $(IMAGEM)
+	cd $(PASTA_FONTE)/$(PASTA_IMAGEM); mv $(IMAGEM:.c=.o) ../
 	echo "Compilando arquivos para funcionamento do principal"
 	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(FONTE)
 	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(OBJETO) $(LINKER)

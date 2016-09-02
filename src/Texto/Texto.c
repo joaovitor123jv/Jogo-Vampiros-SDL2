@@ -83,6 +83,15 @@ void delete_texto(Texto* texto)
 //GETTERS
 
 //Função privada
+char* texto_getTexto(Texto* texto)
+{
+	if(texto == NULL)
+	{
+		return NULL;
+	}
+	return texto->texto;
+}
+
 void texto_getDimensao(Texto* texto, SDL_Surface* surface)
 {
 	texto->posicao.w = surface->w;
@@ -194,6 +203,29 @@ void texto_setTexto(Texto* texto, char* linha)//OK
 	}
 }
 
+
+void texto_setPosicao(Texto* texto, int x, int y)
+{
+	if(texto == NULL)
+	{
+		printf("Estrutura não inicializada\n");
+		return;
+	}
+	texto->posicao.x = x;
+	texto->posicao.y = y;
+}
+
+void texto_setTamanho(Texto* texto, int tamanho)
+{
+	if(texto == NULL)
+	{
+		return;
+	}
+	texto_setFonte(texto, texto_getTexto(texto), tamanho);
+}
+
+//COMANDOS
+
 void texto_updateTexto(Texto* texto, Tela* tela)
 {
 	if(texto == NULL || tela == NULL)
@@ -222,19 +254,7 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 	surface=NULL;
 }
 
-void texto_setPosicao(Texto* texto, int x, int y)
-{
-	if(texto == NULL)
-	{
-		printf("Estrutura não inicializada\n");
-		return;
-	}
-	texto->posicao.x = x;
-	texto->posicao.y = y;
-}
 
-
-//COMANDOS
 
 void texto_toString(Texto* texto)
 {
