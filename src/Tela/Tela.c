@@ -180,9 +180,14 @@ void tela_getMouse(Tela* tela)
 
 bool tela_getTeclaApertada(Tela* tela)
 {
+	if(tela == NULL)
+	{
+		return false;
+	}
 	if(tela->evento.type == SDL_KEYDOWN)
 	{
 		return true;
+	
 	}
 	else
 	{
@@ -192,7 +197,27 @@ bool tela_getTeclaApertada(Tela* tela)
 
 bool tela_getTeclaSolta(Tela* tela)
 {
+	if(tela == NULL)
+	{
+		return false;
+	}
 	if(tela_getTipoEvento(tela) == SDL_KEYUP)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool tela_getMovimentoMouse(Tela* tela)
+{
+	if(tela == NULL)
+	{
+		return false;
+	}
+	if(tela_getTipoEvento(tela) == SDL_MOUSEMOTION)
 	{
 		return true;
 	}

@@ -93,7 +93,7 @@ int main( int argc, char* args[] )
 						break;
 				}
 			}
-			else if(tela_getTeclaSolta(tela) == true)
+			else if(tela_getTeclaSolta(tela))
 			{
 				switch(tela_getTecla(tela))
 				{
@@ -117,7 +117,7 @@ int main( int argc, char* args[] )
 						break;
 				}
 			}
-			else
+			else 
 			{
 				tela_getMouse(tela);
 				botao_ouvinte(botao, tela);

@@ -46,6 +46,7 @@ bool tela_getEvento(Tela*);
 bool tela_getSair(Tela*);
 void tela_getMouse(Tela*);
 void tela_getMousePos(Tela*, int*, int*);
+bool tela_getMovimentoMouse(Tela*);
 
 SDL_Renderer* tela_getRenderizador(Tela* tela);
 

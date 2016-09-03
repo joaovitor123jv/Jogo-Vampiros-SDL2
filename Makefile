@@ -59,3 +59,7 @@ all :
 	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(OBJETO) $(LINKER)
 	echo "Removendo Arquivos remanescentes da compilação"
 	cd $(PASTA_FONTE); rm $(OBJETO)
+
+
+run:
+	./$(EXE)
