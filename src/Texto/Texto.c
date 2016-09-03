@@ -235,7 +235,7 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 	}
 	SDL_Surface* surface = NULL;
 	//	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);
-	surface = TTF_RenderText_Solid(texto->fonte, texto->texto, texto->cor);
+	surface = TTF_RenderUTF8_Solid(texto->fonte, texto->texto, texto->cor);
 	texto_getDimensao(texto, surface);
 	if(surface == NULL)
 	{

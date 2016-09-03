@@ -20,8 +20,8 @@ int main( int argc, char* args[] )
 	tela_setCor(tela, 20, 20, 22);
 	
 	texto_setFonte(texto, "fonte.ttf", 50);
-	texto_setCor(texto, 163, 163, 163);
-	texto_setTexto(texto, "Tela de Autenticacao");
+	texto_setCor(texto, 30, 30, 30);
+	texto_setTexto(texto, "Tela de Autenticação");
 	texto_updateTexto(texto,tela);
 	texto_setPosicao(texto, (tela_getWidth(tela)-texto_getWidth(texto))/2, 50);
 
