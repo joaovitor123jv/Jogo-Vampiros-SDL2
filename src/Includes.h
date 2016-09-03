@@ -12,5 +12,6 @@
 #include "Texto/Texto.h"
 #include "Retangulo/Retangulo.h"
 #include "Botao/Botao.h"
+#include "Imagem/Imagem.h"
 
 #include "estruturas.h"

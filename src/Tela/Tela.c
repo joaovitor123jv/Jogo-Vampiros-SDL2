@@ -153,6 +153,16 @@ SDL_Renderer* tela_getRenderizador(Tela* tela)
 	return tela->renderizador;
 }
 
+SDL_Window* tela_getJanela(Tela* tela)
+{
+	if(tela == NULL)
+	{
+		printf("ERRO, tela não inicializada\n");
+		return NULL;
+	}
+	return tela->janela;
+}
+
 SDL_EventType tela_getTipoEvento(Tela* tela)
 {
 	if(tela != NULL)
