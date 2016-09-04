@@ -77,6 +77,23 @@ int tela_setSize(Tela* tela, int width, int height)
 	return tela_upgrade(tela);
 }
 
+bool tela_setFullScreen(Tela* tela)
+{
+	if(tela == NULL)
+	{
+		return false;
+	}
+	if(SDL_GetWindowFlags(tela->janela) != SDL_WINDOW_FULLSCREEN)
+	{
+		SDL_SetWindowFullscreen(tela->janela, SDL_WINDOW_FULLSCREEN);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(tela->janela, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
+	return true;
+}
+
 int tela_setTitle(Tela* tela, char *titulo)
 {
 	if(tela == NULL)
@@ -236,6 +253,17 @@ bool tela_getMovimentoMouse(Tela* tela)
 		return false;
 	}
 }
+
+
+SDL_Event* tela_getEventoRaw(Tela* tela)
+{
+	if(tela == NULL)
+	{
+		return NULL;
+	}
+	return &tela->evento;
+}
+
 
 
 //COMANDOS

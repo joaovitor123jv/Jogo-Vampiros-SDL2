@@ -7,6 +7,7 @@ TEXTO=Texto.c
 RETANGULO=Retangulo.c
 BOTAO=Botao.c
 IMAGEM=Imagem.c
+CAIXA_TEXTO=CaixaTexto.c
 
 PASTA_FONTE=src
 PASTA_TELA=Tela
@@ -15,8 +16,9 @@ PASTA_TEXTO=Texto
 PASTA_RETANGULO=Retangulo
 PASTA_BOTAO=Botao
 PASTA_IMAGEM=Imagem
+PASTA_CAIXA_TEXTO=CaixaTexto
 
-OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o) $(IMAGEM:.c=.o)
+OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o) $(IMAGEM:.c=.o) $(CAIXA_TEXTO:.c=.o)
 
 #EXE especifica o nome do executavel
 EXE = jogo
@@ -54,6 +56,9 @@ all :
 	echo "Compilando arquivos para funcionamento de Imagem "
 	cd $(PASTA_FONTE)/$(PASTA_IMAGEM); $(CC) $(PASSO1) $(IMAGEM)
 	cd $(PASTA_FONTE)/$(PASTA_IMAGEM); mv $(IMAGEM:.c=.o) ../
+	echo "Compilando arquivos para funcionamento de Entrada de Texto "
+	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); $(CC) $(PASSO1) $(CAIXA_TEXTO)
+	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); mv $(CAIXA_TEXTO:.c=.o) ../
 	echo "Compilando arquivos para funcionamento do principal"
 	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(FONTE)
 	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(OBJETO) $(LINKER)

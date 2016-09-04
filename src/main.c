@@ -12,6 +12,7 @@ int main( int argc, char* args[] )
 	Texto* texto = new_texto();
 	Botao* botao = new_botao();
 	Botao* btSair = new_botao();
+	Botao* btFullScreen = new_botao();
 	Imagem* imagem = new_imagem();
 	
 	Tela* tela = new_tela();
@@ -51,6 +52,14 @@ int main( int argc, char* args[] )
 	botao_setTexto(btSair, "Sair");
 	botao_update(btSair, tela);
 	botao_setPosicao(btSair, 450, 500);
+
+	botao_setCorTexto(btFullScreen, 255, 216, 0);
+	botao_setCorDentro(btFullScreen, 0, 81, 131);
+	botao_setCorFora(btFullScreen, 0, 52, 83);
+	botao_setCorClique(btFullScreen, 36, 0, 205);
+	botao_setTexto(btFullScreen, "Tela Cheia");
+	botao_update(btFullScreen, tela);
+	botao_setPosicao(btFullScreen, 50, 500);
 
 	FPESSES = SDL_GetTicks();
 
@@ -115,6 +124,10 @@ int main( int argc, char* args[] )
 				{
 					close = botao_ouvinte(btSair, tela);
 				}
+				if(botao_ouvinte(btFullScreen, tela))
+				{
+					tela_setFullScreen(tela);
+				}
 			}
 
 
@@ -134,10 +147,12 @@ int main( int argc, char* args[] )
 		player_print(player2, tela);
 		texto_print(texto, tela);
 		botao_print(btSair, tela);
+		botao_print(btFullScreen, tela);
 		tela_update(tela);
 	}
 
 	delete_botao(botao);
+	delete_botao(btFullScreen);
 	delete_botao(btSair);
 	delete_texto(texto);
 	delete_tela(tela);
