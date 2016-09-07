@@ -17,7 +17,7 @@ CaixaTexto* new_caixaTexto(void)
 	CaixaTexto* caixaTexto = malloc(sizeof(CaixaTexto));
 	if(caixaTexto == NULL)
 	{
-		printf("ERRO: Não foi possível criar Caix de Texto\n");
+		printf("ERRO: Não foi possível criar Caixa de Texto\n");
 		return NULL;
 	}
 	caixaTexto->retangulo = new_retangulo();
@@ -30,6 +30,11 @@ CaixaTexto* new_caixaTexto(void)
 	if(caixaTexto->texto == NULL)
 	{
 		printf("ERRO: Não foi possível criar o Texto da caixa de texto \n");
+		return NULL;
+	}
+	if(!texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO))
+	{
+		printf("Entrada de texto indisponível (CaixaTexto->Construtor->setFonte())\n");
 		return NULL;
 	}
 	texto_setCor(caixaTexto->texto, 0, 0, 0);//Cor preta por padrão
@@ -60,13 +65,33 @@ void delete_caixaTexto(CaixaTexto* caixaTexto)
 
 
 //SETTERS
-void caixaTexto_setTamanho(CaixaTexto* caixaTexto, int w, int h)
+void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)
 {
-	if(caixaTexto == NULL)
+	if(caixaTexto == NULL || tela == NULL)
 	{
 		return;
 	}
+	texto_setTamanho(caixaTexto->texto, h);
+//	texto_updateTexto(caixaTexto->texto, tela);
 	retangulo_setTamanho(caixaTexto->retangulo, w, h);
+}
+
+void caixaTexto_setFonte(CaixaTexto* caixaTexto, char *fonte, int tamanho)
+{
+	if(caixaTexto == NULL)
+	{
+		printf("Caixa de texto não criada (CaixaTexto->setFonte)\n");
+		return ;
+	}
+	if(caixaTexto->texto == NULL)
+	{
+		printf("ERRO: Não foi possível criar o Texto da caixa de texto \n");
+		return ;
+	}
+	if(!texto_setFonte(caixaTexto->texto, fonte, tamanho))//ERRO AQUI
+	{
+		printf("Aviso: Não foi possível definir fonte padrão a ser usada!(CaixaTexto->Construtor)\n");
+	}
 }
 
 
@@ -79,4 +104,49 @@ void caixaTexto_print(CaixaTexto* caixaTexto, Tela* tela)
 	}
 	retangulo_printCompleto(caixaTexto->retangulo, tela);
 	texto_print(caixaTexto->texto, tela);
+}
+
+void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
+{
+	int x ,y;
+	if(caixaTexto == NULL || tela == NULL)
+	{
+		return;
+	}
+	SDL_Event* evento = tela_getEventoRaw(tela);
+	if(tela_getTipoEvento(tela) == SDL_TEXTINPUT)
+	{
+		strcat(caixaTexto->entrada, evento->text.text);
+		texto_setTexto(caixaTexto->texto, caixaTexto->entrada); 
+		texto_updateTexto(caixaTexto->texto, tela);
+		return;
+	}
+	if(tela_getTipoEvento(tela) == SDL_TEXTEDITING)
+	{
+		caixaTexto->composicao = evento->edit.text;
+		caixaTexto->cursor = evento->edit.start;
+		caixaTexto->selecao = evento->edit.length;
+		return;
+	}
+	else
+	{
+		tela_getMousePos(tela, &x, &y);
+		if((x >= retangulo_getX(caixaTexto->retangulo) && x <= (retangulo_getX(caixaTexto->retangulo)) + retangulo_getWidth(caixaTexto->retangulo)) && (y >= retangulo_getY(caixaTexto->retangulo) && y <= (retangulo_getY(caixaTexto->retangulo) + retangulo_getHeight(caixaTexto->retangulo))))
+		{
+			if(tela_getTipoEvento(tela) == SDL_MOUSEBUTTONDOWN)
+			{
+				SDL_StartTextInput();
+			}
+			return;
+		}
+		else
+		{
+			if(tela_getTipoEvento(tela) == SDL_MOUSEBUTTONUP)
+			{
+				SDL_StopTextInput();
+			}
+			return;
+		}
+	}
+	return;
 }

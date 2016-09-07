@@ -13,5 +13,6 @@
 #include "Retangulo/Retangulo.h"
 #include "Botao/Botao.h"
 #include "Imagem/Imagem.h"
+#include "CaixaTexto/CaixaTexto.h"
 
 #include "estruturas.h"

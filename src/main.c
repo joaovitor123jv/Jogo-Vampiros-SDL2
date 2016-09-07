@@ -14,6 +14,7 @@ int main( int argc, char* args[] )
 	Botao* btSair = new_botao();
 	Botao* btFullScreen = new_botao();
 	Imagem* imagem = new_imagem();
+	CaixaTexto* caixaTexto = new_caixaTexto();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Tela de Login ");
@@ -60,6 +61,9 @@ int main( int argc, char* args[] )
 	botao_setTexto(btFullScreen, "Tela Cheia");
 	botao_update(btFullScreen, tela);
 	botao_setPosicao(btFullScreen, 50, 500);
+
+//	caixaTexto_setFonte(caixaTexto, "fonte.ttf", 50);
+	caixaTexto_setTamanho(caixaTexto, tela, 300, 200);
 
 	FPESSES = SDL_GetTicks();
 
@@ -128,6 +132,7 @@ int main( int argc, char* args[] )
 				{
 					tela_setFullScreen(tela);
 				}
+				caixaTexto_ouvinte(caixaTexto, tela);
 			}
 
 
@@ -145,6 +150,7 @@ int main( int argc, char* args[] )
 		botao_print(botao, tela);
 		player_print(player, tela);
 		player_print(player2, tela);
+		caixaTexto_print(caixaTexto, tela);
 		texto_print(texto, tela);
 		botao_print(btSair, tela);
 		botao_print(btFullScreen, tela);
@@ -158,6 +164,7 @@ int main( int argc, char* args[] )
 	delete_tela(tela);
 	delete_player(player);
 	delete_player(player2);
+	delete_caixaTexto(caixaTexto);
 //	sair(window);
 
 	return 0;

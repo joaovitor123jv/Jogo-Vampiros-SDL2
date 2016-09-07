@@ -139,15 +139,21 @@ int texto_getY(Texto* texto)
 bool texto_setFonte(Texto* texto, char* endereco, int tamanhoFonte) //OK
 {
 	int size;
+	if(texto == NULL)
+	{
+		printf("ERRO: Texto não inicializado\n");
+		return false;
+	}
 	if(endereco == NULL)
 	{
-		printf("Endereço inválido\n");
+		printf("Endereço inválido TEXTO->setFonte \n");
+		printf("Fonte passada == %s\n", endereco);
 		return false;
 	}
 	size = strlen(endereco);
 	if(!(size < TAMANHO_MAX_TEXTO))
 	{
-		printf("Endereço muito extenso\n");
+		printf("Endereço muito extenso TEXTO->setFonte\n");
 		return false;
 	}
 	texto->nomeFonte = malloc( size * sizeof(char) );
@@ -230,8 +236,12 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 {
 	if(texto == NULL || tela == NULL)
 	{
-		printf("Estrutura não inicializada\n");
+		printf("Estrutura não inicializada (TEXTO->updateTexto)\n");
 		return;
+	}
+	if(texto->fonte == NULL)
+	{
+		printf("ERRO: Fonte == NULL (TEXTO->updateTexto)\n");
 	}
 	SDL_Surface* surface = NULL;
 	//	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);
