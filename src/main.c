@@ -10,6 +10,7 @@ int main( int argc, char* args[] )
 	Player* player = new_player();
 	Player* player2 = new_player();
 	Texto* texto = new_texto();
+	Texto* texto2 = new_texto();
 	Botao* botao = new_botao();
 	Botao* btSair = new_botao();
 	Botao* btFullScreen = new_botao();
@@ -26,6 +27,13 @@ int main( int argc, char* args[] )
 	texto_setTexto(texto, "Tela de Autenticação");
 	texto_updateTexto(texto,tela);
 	texto_setPosicao(texto, (tela_getWidth(tela)-texto_getWidth(texto))/2, 50);
+
+
+	texto_setFonte(texto2, "fonte2.ttf", 50);
+	texto_setCor(texto2, 30, 30, 30);
+	texto_setTexto(texto2, "Tela de Autenticação");
+	texto_updateTexto(texto2,tela);
+	texto_setPosicao(texto2, (tela_getWidth(tela)-texto_getWidth(texto))/2, 100);
 
 	imagem_setImagem(imagem, tela, "images/fundo.png");
 
@@ -132,7 +140,7 @@ int main( int argc, char* args[] )
 				{
 					tela_setFullScreen(tela);
 				}
-				caixaTexto_ouvinte(caixaTexto, tela);
+		//		caixaTexto_ouvinte(caixaTexto, tela);
 			}
 
 
@@ -152,6 +160,7 @@ int main( int argc, char* args[] )
 		player_print(player2, tela);
 		caixaTexto_print(caixaTexto, tela);
 		texto_print(texto, tela);
+		texto_print(texto2, tela);
 		botao_print(btSair, tela);
 		botao_print(btFullScreen, tela);
 		tela_update(tela);
@@ -161,6 +170,7 @@ int main( int argc, char* args[] )
 	delete_botao(btFullScreen);
 	delete_botao(btSair);
 	delete_texto(texto);
+	delete_texto(texto2);
 	delete_tela(tela);
 	delete_player(player);
 	delete_player(player2);
