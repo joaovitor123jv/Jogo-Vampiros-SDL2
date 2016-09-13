@@ -65,14 +65,18 @@ void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)
 {
 	if(caixaTexto == NULL || tela == NULL)
 	{
+		printf("EM: CaixaTexto -> setTamanho(CaixaTexto*, Tela*)\n");
+		printf("\t Estrutura (CaixaTexto ou Tela), nao inicializada \n");
 		return;
 	}
-	texto_setTamanho(caixaTexto->texto, h);
 	if(caixaTexto->texto == NULL)
 	{
 		printf("EM: CaixaTexto -> caixaTexto_setTamanho(CaixaTexto*, Tela*, int, int)\n");
+		printf("\t texto (da caixa de texto) não existe\n");
 	}
-	texto_updateTexto(caixaTexto->texto, tela);
+	texto_setTamanho(caixaTexto->texto, h);//PROBLEMA EM setTamanho Resolvido
+	texto_updateTexto(caixaTexto->texto, tela);//RESOLVER
+	printf("ALL OK CARINHAS \n");
 	retangulo_setTamanho(caixaTexto->retangulo, w, h);
 }
 

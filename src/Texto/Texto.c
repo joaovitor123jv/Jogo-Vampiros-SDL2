@@ -142,13 +142,15 @@ bool texto_setFonte(Texto* texto, char* endereco, int tamanhoFonte) //OK
 	int size;
 	if(texto == NULL)
 	{
-		printf("ERRO: Texto não inicializado\n");
+		printf("EM: Texto-> texto_setFonte(Texto*, char*, int)\n");
+		printf("\tERRO: Texto não inicializado\n");
 		return false;
 	}
 	if(endereco == NULL)
 	{
-		printf("Endereço inválido TEXTO->setFonte \n");
-		printf("Fonte passada == %s\n", endereco);
+		printf("Em: Texto-> setFonte(Texto*, char*, int)\n");
+		printf("\tEndereço inválido TEXTO->setFonte \n");
+		printf("\tFonte passada == %s\n", endereco);
 		return false;
 	}
 	if(tamanhoFonte == 0)
@@ -251,17 +253,22 @@ void texto_setTamanho(Texto* texto, int tamanho)
 {
 	if(texto == NULL)
 	{
-		printf("EM: Texto -> texto_setTamanho()\n");
+		printf("EM: Texto -> texto_setTamanho(Texto*, int)\n");
 		printf("\t Estrutura (Texto) não inicializada\n");
 		return;
 	}
 	if(tamanho <0)
 	{
-		printf("EM: Texto -> texto_setTamanho()\n");
+		printf("EM: Texto -> texto_setTamanho(Texto*, int)\n");
 		printf("\t Tamanho inválido \n");
 		return;
 	}
-	texto_setFonte(texto, texto_getTexto(texto), tamanho);
+	if(texto->nomeFonte == NULL)
+	{
+		printf("EM: Texto-> texto_setTamanho(Texto*, int)\n");
+		printf("\tNome da fonte de texto, inexistente\n");
+	}
+	texto_setFonte(texto, texto->nomeFonte, tamanho);
 	return;
 }
 
@@ -283,6 +290,8 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 	SDL_Surface* surface = NULL;
 	//	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);
 	surface = TTF_RenderUTF8_Solid(texto->fonte, texto->texto, texto->cor);
+	//TODO
+	printf("Até aqui ok\n");
 	texto_getDimensao(texto, surface);
 	if(surface == NULL)
 	{
