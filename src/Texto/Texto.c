@@ -150,6 +150,11 @@ bool texto_setFonte(Texto* texto, char* endereco, int tamanhoFonte) //OK
 		printf("Fonte passada == %s\n", endereco);
 		return false;
 	}
+	if(tamanhoFonte == 0)
+	{
+		printf("Aviso Em: (Texto) -> texto_setFonte(Texto*, char*, int)\n");
+		printf("\tTamanho de fonte invisível (0), continuar ?\n");
+	}
 	size = strlen(endereco);
 	if(!(size < TAMANHO_MAX_TEXTO))
 	{
@@ -159,16 +164,24 @@ bool texto_setFonte(Texto* texto, char* endereco, int tamanhoFonte) //OK
 	texto->nomeFonte = malloc( size * sizeof(char) );
 	if(tamanhoFonte < 0 )
 	{
+		printf("EM: Texto->texto_setFonte(Texto*, char*, int)\n");
 		printf("Tamanho inválido para a fonte \n");
 		return false;
 	}
 	texto->tamanhoFonte = tamanhoFonte;
 	if(texto->nomeFonte == NULL)
 	{
-		printf("Erro: não foi possível inicializar fonte (memória insuficiente)\n");
+		printf("Em: Texto->texto_setFonte(Texto*, char*, int)\n");
+		printf("\tErro: não foi possível inicializar fonte (memória insuficiente)\n");
 		return false;
 	}
 	texto->nomeFonte = endereco;
+	if(texto->nomeFonte == NULL)
+	{
+		printf("EM: Texto-> texto_setFonte(Texto*, char*, int) \n");
+		printf("ERRO: Texto apontando para NULL (não foi possível atribuir fonte selecionada)\n");
+		return false;
+	}
 	texto->fonte = TTF_OpenFont(texto->nomeFonte, texto->tamanhoFonte);
 	if(texto->fonte == NULL)
 	{
@@ -182,6 +195,17 @@ void texto_setCor(Texto* texto, int r, int g, int b)//OK
 {
 	if(texto !=NULL)
 	{
+		if((r > 255 || r < 0 ) || (g > 255 || g < 0 ) || (b > 255 || b < 0 ) )
+		{
+			printf("EM: Texto-> texto_setCor(Texto*, int, int, int)\n");
+			printf("\t Valores de cor inválidos\n");
+			return;
+		}
+		if(r == 0 && b == 0 && g == 0)
+		{
+			printf("Aviso em Texto-> setCor\n");
+			printf("\tTodas as cores selecionadas estão com valor zerado, é preto ?\n");
+		}
 		texto->cor.r = r;
 		texto->cor.g = g;
 		texto->cor.b = b;
@@ -194,7 +218,7 @@ void texto_setTexto(Texto* texto, char* linha)//OK
 	{
 		int size;
 		size = strlen(linha);
-		if(!(size < TAMANHO_MAX_TEXTO))
+		if(size > TAMANHO_MAX_TEXTO)
 		{
 			printf("Erro, Texto muito extenso\n");
 			return;
@@ -202,7 +226,8 @@ void texto_setTexto(Texto* texto, char* linha)//OK
 		texto->texto = malloc( size * sizeof(char) );
 		if(texto->texto == NULL)
 		{
-			printf("Erro: não foi possível inicializar texto(string) (memória insuficiente)\n");
+			printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
+			printf("\tErro: não foi possível inicializar texto(string) (memória insuficiente)\n");
 			return;
 		}
 		texto->texto = linha;

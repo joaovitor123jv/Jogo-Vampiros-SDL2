@@ -34,10 +34,11 @@ CaixaTexto* new_caixaTexto(void)
 	}
 	if(!texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO))
 	{
-		printf("Entrada de texto indisponível (CaixaTexto->Construtor->setFonte())\n");
+		printf("EM: CaixaTexto-> new_caixaTexto()\n");
+		printf("\tEntrada de texto indisponível (CaixaTexto->Construtor->setFonte())\n");
 		return NULL;
 	}
-	texto_setCor(caixaTexto->texto, 0, 0, 0);//Cor preta por padrão
+//	texto_setCor(caixaTexto->texto, 0, 0, 0);//Cor preta por padrão  (o que o Texto já faz)
 	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);//Cor branca por padrão
 	caixaTexto->entrada = NULL;
 	caixaTexto->composicao = NULL;

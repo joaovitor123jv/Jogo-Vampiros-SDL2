@@ -17,7 +17,7 @@ Botao* new_botao()
 	Botao* botao = malloc(sizeof(Botao));
 	botao->texto = new_texto();
 	texto_setFonte(botao->texto, FONTE_PADRAO, TAMANHO_PADRAO);
-	texto_setCor(botao->texto, 0, 0, 0);
+//	texto_setCor(botao->texto, 0, 0, 0);  (Texto já faz isso no construtor)
 	botao->retangulo = new_retangulo();
 	botao->cor1.r = 0;
 	botao->cor1.g = 0;
