@@ -48,7 +48,8 @@ void delete_texto(Texto* texto)
 {
 	if(texto == NULL)
 	{
-		printf("Estrutura não inicializada\n");
+		printf("Em: Texto-> delete_texto()\n");
+		printf("\tEstrutura não inicializada\n");
 		return;
 	}
 	if(texto->nomeFonte != NULL)
@@ -301,7 +302,8 @@ void texto_print(Texto* texto, Tela* tela)
 {
 	if(texto == NULL || tela == NULL)
 	{
-		printf("Erro, Estrutura(s) não inicializada(s)\n");
+		printf("EM: Texto-> texto_print(Texto*, Tela*)\n");
+		printf("\tErro, Estrutura(s) não inicializada(s)\n");
 		return;
 	}
 	SDL_RenderCopy( tela_getRenderizador(tela), texto->textura, NULL, &texto->posicao);

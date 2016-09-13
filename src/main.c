@@ -11,11 +11,11 @@ int main( int argc, char* args[] )
 	Player* player2 = new_player();
 	Texto* texto = new_texto();
 	Texto* texto2 = new_texto();
+	CaixaTexto* caixaTexto = new_caixaTexto();
 	Botao* botao = new_botao();
 	Botao* btSair = new_botao();
 	Botao* btFullScreen = new_botao();
 	Imagem* imagem = new_imagem();
-	CaixaTexto* caixaTexto = new_caixaTexto();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Tela de Login ");
@@ -71,7 +71,7 @@ int main( int argc, char* args[] )
 	botao_setPosicao(btFullScreen, 50, 500);
 
 //	caixaTexto_setFonte(caixaTexto, "fonte.ttf", 50);
-	caixaTexto_setTamanho(caixaTexto, tela, 300, 200);
+//	caixaTexto_setTamanho(caixaTexto, tela, 300, 200);
 
 	FPESSES = SDL_GetTicks();
 

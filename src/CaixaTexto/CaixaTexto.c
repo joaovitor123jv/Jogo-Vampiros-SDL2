@@ -15,36 +15,21 @@ struct CaixaTexto
 CaixaTexto* new_caixaTexto(void)
 {
 	CaixaTexto* caixaTexto = malloc(sizeof(CaixaTexto));
-	if(caixaTexto == NULL)
-	{
-		printf("ERRO: Não foi possível criar Caixa de Texto\n");
-		return NULL;
-	}
+	caixaTexto->texto = new_texto();
 	caixaTexto->retangulo = new_retangulo();
 	if(caixaTexto-> retangulo == NULL)
 	{
 		printf("ERRO: Não foi possível criar o retângulo da caixa de texto\n");
 		return NULL;
 	}
-	caixaTexto->texto = new_texto();
-	if(caixaTexto->texto == NULL)
-	{
-		printf("ERRO: Não foi possível criar o Texto da caixa de texto \n");
-		return NULL;
-	}
-	if(!texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO))
-	{
-		printf("EM: CaixaTexto-> new_caixaTexto()\n");
-		printf("\tEntrada de texto indisponível (CaixaTexto->Construtor->setFonte())\n");
-		return NULL;
-	}
-//	texto_setCor(caixaTexto->texto, 0, 0, 0);//Cor preta por padrão  (o que o Texto já faz)
+	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO);//Texto se encarrega do tratamento de erros
 	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);//Cor branca por padrão
 	caixaTexto->entrada = NULL;
 	caixaTexto->composicao = NULL;
 	caixaTexto->cursor = 0;
 	caixaTexto->selecao = 0;	
-	return caixaTexto;
+	printf("SEM PROBLEMAS ATÉ AQUI\n");
+	return caixaTexto;//Sem problemas até aqui
 }
 
 
@@ -55,10 +40,20 @@ void delete_caixaTexto(CaixaTexto* caixaTexto)
 	{
 		return;
 	}
+	if(caixaTexto->retangulo == NULL)
+	{
+		printf("EM: CaixaTexto -> delete_caixaTexto(CaixaTexto*)\n");
+		printf("Estrutura (retângulo, não inicializada)\n");
+	}
+	if(caixaTexto->texto == NULL)
+	{
+		printf("EM: CaixaTexto -> delete_caixaTexto(CaixaTexto*)\n");
+		printf("Estrutura (texto, não inicializada)\n");
+	}
 	delete_retangulo(caixaTexto->retangulo);
 	caixaTexto->retangulo = NULL;
-	caixaTexto->texto = NULL;
 	caixaTexto->composicao = NULL;
+	caixaTexto->entrada = NULL;
 	delete_texto(caixaTexto->texto);
 	caixaTexto->texto = NULL;
 	return;
