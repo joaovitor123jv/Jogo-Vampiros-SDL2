@@ -42,6 +42,7 @@ void delete_botao(Botao* botao)
 	delete_retangulo(botao->retangulo);
 	free(botao);
 	botao = NULL;
+	return;
 }
 
 //SETTERS
@@ -49,6 +50,12 @@ void botao_setCorDentro(Botao* botao, int r, int g, int b)
 {
 	if(botao == NULL)
 	{
+		return;
+	}
+	if( (r<0||r>255) || (g<0||g>255) || (b<0||b>255) )
+	{
+		printf("EM: Botao-> botao_setCorDentro(Botao*, int, int, int)\n");
+		printf("\tValor(es) de cor inválido(s)\n");
 		return;
 	}
 	botao->cor1.r = r;
@@ -62,6 +69,12 @@ void botao_setCorFora(Botao* botao, int r, int g, int b)
 	{
 		return;
 	}
+	if( (r<0||r>255) || (g<0||g>255) || (b<0||b>255) )
+	{
+		printf("EM: Botao-> botao_setCorFora(Botao*, int, int, int)\n");
+		printf("\tValor(es) de cor inválido(s)\n");
+		return;
+	}
 	botao->cor3.r = r;
 	botao->cor3.g = g;
 	botao->cor3.b = b;
@@ -73,6 +86,12 @@ void botao_setCorClique(Botao* botao, int r, int g, int b)
 	{
 		return;
 	}
+	if( (r<0||r>255) || (g<0||g>255) || (b<0||b>255) )
+	{
+		printf("EM: Botao-> botao_setCorClique(Botao*, int, int, int)\n");
+		printf("\tValor(es) de cor inválido(s)\n");
+		return;
+	}
 	botao->cor2.r = r;
 	botao->cor2.g = g;
 	botao->cor2.b = b;
@@ -82,6 +101,12 @@ void botao_setCorTexto(Botao* botao, int r, int g, int b)
 {
 	if(botao == NULL)
 	{
+		return;
+	}
+	if( (r<0||r>255) || (g<0||g>255) || (b<0||b>255) )
+	{
+		printf("EM: Botao-> botao_setCorTexto(Botao*, int, int, int)\n");
+		printf("\tValor(es) de cor inválido(s)\n");
 		return;
 	}
 	texto_setCor(botao->texto, r, g, b);
