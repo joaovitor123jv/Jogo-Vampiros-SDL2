@@ -251,9 +251,18 @@ void texto_setTamanho(Texto* texto, int tamanho)
 {
 	if(texto == NULL)
 	{
+		printf("EM: Texto -> texto_setTamanho()\n");
+		printf("\t Estrutura (Texto) não inicializada\n");
+		return;
+	}
+	if(tamanho <0)
+	{
+		printf("EM: Texto -> texto_setTamanho()\n");
+		printf("\t Tamanho inválido \n");
 		return;
 	}
 	texto_setFonte(texto, texto_getTexto(texto), tamanho);
+	return;
 }
 
 //COMANDOS
@@ -262,12 +271,14 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 {
 	if(texto == NULL || tela == NULL)
 	{
-		printf("Estrutura não inicializada (TEXTO->updateTexto)\n");
+		printf("EM: Texto-> texto_updateTexto(Texto*, Tela*)\n");
+		printf("\tEstrutura (Texto ou Tela) não inicializada \n");
 		return;
 	}
 	if(texto->fonte == NULL)
 	{
-		printf("ERRO: Fonte == NULL (TEXTO->updateTexto)\n");
+		printf("EM: Texto -> texto_updateTexto(Texto*, Tela*)\n");
+		printf("\tERRO: Fonte == NULL (nao inicializada) \n");
 	}
 	SDL_Surface* surface = NULL;
 	//	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);

@@ -70,7 +70,7 @@ int main( int argc, char* args[] )
 	botao_update(btFullScreen, tela);
 	botao_setPosicao(btFullScreen, 50, 500);
 
-//	caixaTexto_setFonte(caixaTexto, "fonte.ttf", 50);
+	caixaTexto_setFonte(caixaTexto, "fonte.ttf", 50);
 //	caixaTexto_setTamanho(caixaTexto, tela, 300, 200);
 
 	FPESSES = SDL_GetTicks();

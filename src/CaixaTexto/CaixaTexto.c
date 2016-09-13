@@ -68,7 +68,11 @@ void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)
 		return;
 	}
 	texto_setTamanho(caixaTexto->texto, h);
-//	texto_updateTexto(caixaTexto->texto, tela);
+	if(caixaTexto->texto == NULL)
+	{
+		printf("EM: CaixaTexto -> caixaTexto_setTamanho(CaixaTexto*, Tela*, int, int)\n");
+	}
+	texto_updateTexto(caixaTexto->texto, tela);
 	retangulo_setTamanho(caixaTexto->retangulo, w, h);
 }
 
