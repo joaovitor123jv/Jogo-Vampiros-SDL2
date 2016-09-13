@@ -21,6 +21,8 @@ void delete_caixaTexto(CaixaTexto*);
 //SETTERS
 void caixaTexto_setTamanho(CaixaTexto*, Tela*, int, int);
 //void caixaTexto_setFonte(CaixaTexto*, char*, int);
+void caixaTexto_setCorFundo(CaixaTexto*, int, int, int);
+void caixaTexto_setCorTexto(CaixaTexto*, int, int, int);
 
 //COMANDOS
 void caixaTexto_ouvinte(CaixaTexto*, Tela*);

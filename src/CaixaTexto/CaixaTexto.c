@@ -2,12 +2,12 @@
 
 struct CaixaTexto
 {
+	Texto* texto;
+	Retangulo* retangulo;
 	char* entrada;
 	char* composicao;
 	int cursor;
 	int selecao;
-	Retangulo* retangulo;
-	Texto* texto;
 };
 
 
@@ -76,11 +76,36 @@ void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)
 	retangulo_setTamanho(caixaTexto->retangulo, w, h);
 }
 
+void caixaTexto_setCorFundo(CaixaTexto* caixaTexto, int r, int g, int b)
+{
+	if(caixaTexto == NULL)
+	{
+		printf("em CaixaTexto:	caixaTexto_setCorFundo(CaixaTexto*, int, int, int) \n");
+		printf("caixaTexto não inicializada\n");
+		return;
+	}
+	retangulo_setCor(caixaTexto->retangulo, r, g, b);
+	return;
+}
+
+
+void caixaTexto_setCorTexto(CaixaTexto* caixaTexto, int r, int g, int b)
+{
+	if(caixaTexto == NULL)
+	{
+		printf("em CaixaTexto:	caixaTexto_setCorTexto(CaixaTexto*, int, int, int) \n");
+		printf("caixaTexto não inicializada\n");
+		return;
+	}
+	texto_setCor(caixaTexto->texto, r, g, b);
+	return;
+}
+
 void caixaTexto_setFonte(CaixaTexto* caixaTexto, char *fonte, int tamanho)
 {
 	if(caixaTexto == NULL)
 	{
-		printf("Caixa de texto não criada (CaixaTexto->setFonte)\n");
+		printf("Caixa de texto não criada (CaixaTexto->setFonte(CaixaTexto*, int, int, int))\n");
 		return ;
 	}
 	if(caixaTexto->texto == NULL)
