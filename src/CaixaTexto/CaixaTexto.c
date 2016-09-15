@@ -23,6 +23,7 @@ CaixaTexto* new_caixaTexto(void)
 		return NULL;
 	}
 	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO);//Texto se encarrega do tratamento de erros
+	texto_setTexto(caixaTexto->texto, " ");//Por padrão inicializa zerado
 	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);//Cor branca por padrão
 	caixaTexto->entrada = NULL;
 	caixaTexto->composicao = NULL;
@@ -61,7 +62,7 @@ void delete_caixaTexto(CaixaTexto* caixaTexto)
 
 
 //SETTERS
-void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)
+void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)//OK
 {
 	if(caixaTexto == NULL || tela == NULL)
 	{
@@ -76,8 +77,8 @@ void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)
 	}
 	texto_setTamanho(caixaTexto->texto, h);//PROBLEMA EM setTamanho Resolvido
 	texto_updateTexto(caixaTexto->texto, tela);//RESOLVER
-	printf("ALL OK CARINHAS \n");
 	retangulo_setTamanho(caixaTexto->retangulo, w, h);
+	return;
 }
 
 void caixaTexto_setCorFundo(CaixaTexto* caixaTexto, int r, int g, int b)

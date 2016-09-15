@@ -95,6 +95,18 @@ char* texto_getTexto(Texto* texto)
 
 void texto_getDimensao(Texto* texto, SDL_Surface* surface)
 {
+	if(texto == NULL)
+	{
+		printf("EM: Texto->texto_getDimensao(Texto*, SDL_Surface*);\n");
+		printf("\t ERRO: Texto* não existe (NULL)\n");
+		return;
+	}
+	if(surface == NULL)
+	{
+		printf("EM: Texto->texto_getDimensao(Texto*, SDL_Surface*);\n");
+		printf("\t ERRO: SDL_Surface* não existe (NULL)\n");
+		return;
+	}
 	texto->posicao.w = surface->w;
 	texto->posicao.h = surface->h;
 }
@@ -234,7 +246,24 @@ void texto_setTexto(Texto* texto, char* linha)//OK
 			return;
 		}
 		texto->texto = linha;
+		if(texto->texto == NULL)
+		{
+			printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
+			printf("\tErro: não foi possível copiar string\n");
+			return;
+		}
+		return;
 	}
+	if(texto == NULL)
+	{
+		printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
+		printf("\tErro: Texto == NULL\n");
+		return;
+	}
+	printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
+	printf("\tErro: Desconhecido\n");
+	printf("\tJá pode entrar em pânico\n");
+	return;
 }
 
 
@@ -289,25 +318,51 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 	}
 	SDL_Surface* surface = NULL;
 	//	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);
+	if(texto->fonte == NULL)
+	{
+		printf("EM: Texto -> texto_updateTexto(Texto*, Tela*)\n");
+		printf("\t ERRO: Fonte do texto == NULL\n");
+		return;
+	}
+	if(texto->texto == NULL)
+	{
+		printf("EM: Texto -> texto_updateTexto(Texto*, Tela*)\n");
+		printf("\t ERRO: Texto do texto (string) == NULL\n");
+		return;
+	}
+//	if(texto->cor == NULL)
+//	{
+//		printf("EM: Texto -> texto_updateTexto(Texto*, Tela*)\n");
+//		printf("\t ERRO: Cor do texto não foi setada (NULL)\n");
+//		return;
+//	}
+
 	surface = TTF_RenderUTF8_Solid(texto->fonte, texto->texto, texto->cor);
-	//TODO
-	printf("Até aqui ok\n");
-	texto_getDimensao(texto, surface);
 	if(surface == NULL)
 	{
-		printf("Erro, não foi possível gerar Surface\n");
+		printf("EM: Texto->texto_updateTexto(Texto*, Tela*);\n");
+		printf("\tERRO: Não foi possível renderizar texto corretamente\n");
+		printf("\tLog da SDL: %s\n", SDL_GetError());
+		return;
+	}
+	texto_getDimensao(texto, surface);//TODO
+	if(surface == NULL)
+	{
+		printf("EM: Texto->texto_updateTexto(Texto*, Tela);\n");
+		printf("\tErro, não foi possível gerar surface\n");
 		return;
 	}
 	texto->textura = SDL_CreateTextureFromSurface(tela_getRenderizador(tela), surface);
 	if(texto->textura == NULL)
 	{
-		printf("Erro, não foi possível criar textura a partir de surface\n");
+		printf("EM: Texto->texto_updateTexto(Texto*, Tela*)\n");
+		printf("\tErro, não foi possível criar textura a partir de surface\n");
 		return;
 	}
 	SDL_QueryTexture(texto->textura, NULL, NULL, &texto->posicao.w, &texto->posicao.h);
-
 	SDL_FreeSurface(surface);
 	surface=NULL;
+	return;
 }
 
 
