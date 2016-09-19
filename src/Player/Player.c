@@ -12,7 +12,7 @@ struct Player
 	SDL_Texture* textura;
 };
 
-//Construtor
+/*Construtor*/
 Player* new_player(void)
 {
 	Player* player = malloc(sizeof(Player));
@@ -32,7 +32,7 @@ Player* new_player(void)
 	return player;
 }
 
-//Destrutor
+/*Destrutor*/
 int delete_player(Player* player)
 {
 	if(player == NULL)
@@ -47,7 +47,7 @@ int delete_player(Player* player)
 	return OK;
 }
 
-//GETTERS
+/*GETTERS*/
 int player_getVelocidade(Player* player)
 {
 	if(player == NULL)
@@ -141,7 +141,7 @@ SDL_Texture* player_getTextura(Player* player)
 	return player->textura;
 }
 
-//SETTERS
+/*SETTERS*/
 void player_setWidth(Player* player, int w)
 {
 	if(player != NULL)
@@ -240,7 +240,7 @@ void player_toString(Player* player)
 	printf("Jogador:  X = %d,  Y = %d,  W = %d,  H = %d,   Velocidade = %d\n ", player->posicao.x, player->posicao.y, player->posicao.w, player->posicao.h, player->velocidade);
 }
 
-//COMANDOS
+/*COMANDOS*/
 bool player_print(Player* player, Tela* tela)
 {
 	if(player == NULL)

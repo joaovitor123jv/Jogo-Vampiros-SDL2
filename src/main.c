@@ -148,7 +148,7 @@ int main( int argc, char* args[] )
 		
 		if(FPESSES +10 < SDL_GetTicks())
 		{
-			player_movimenta(player, tela);//Leia: player se movimenta pela tela
+			player_movimenta(player, tela);/*Leia: player se movimenta pela tela*/
 			player_movimenta(player2, tela);
 			FPESSES = SDL_GetTicks();
 		}
@@ -175,7 +175,7 @@ int main( int argc, char* args[] )
 	delete_player(player);
 	delete_player(player2);
 	delete_caixaTexto(caixaTexto);
-//	sair(window);
+/*	sair(window);*/
 
 	return 0;
 }

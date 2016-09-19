@@ -1,7 +1,7 @@
 #pragma once
 
 #include<SDL2/SDL.h>
-#include<stdio.h>//Para debuggers
+#include<stdio.h>/*Para debuggers*/
 #include"../Tela/Tela.h"
 
 #ifndef bool
@@ -22,24 +22,24 @@
 
 typedef struct Retangulo Retangulo;
 
-//CONSTRUTOR
+/*CONSTRUTOR*/
 Retangulo* new_retangulo();
 
-//DESTRUTOR
+/*DESTRUTOR*/
 void delete_retangulo(Retangulo*);
 
-//SETTERS
+/*SETTERS*/
 bool retangulo_setTamanho(Retangulo*, int, int);
 bool retangulo_setPosicao(Retangulo*, int, int);
 bool retangulo_setCor(Retangulo*, int, int, int);
 bool retangulo_setAlpha(Retangulo*, int);
 
-//GETTERS
+/*GETTERS*/
 int retangulo_getX(Retangulo*);
 int retangulo_getY(Retangulo*);
 int retangulo_getHeight(Retangulo*);
 int retangulo_getWidth(Retangulo*);
 
-//COMANDOS
-bool retangulo_print(Retangulo*, Tela*);//Desenha contorno do retângulo
-bool retangulo_printCompleto(Retangulo*, Tela*);//Preenche toda a área do retângulo
+/*COMANDOS*/
+bool retangulo_print(Retangulo*, Tela*);/*Desenha contorno do retângulo*/
+bool retangulo_printCompleto(Retangulo*, Tela*);/*Preenche toda a área do retângulo*/

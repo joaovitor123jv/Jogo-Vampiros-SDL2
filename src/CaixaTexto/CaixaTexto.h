@@ -12,18 +12,18 @@
 
 typedef struct CaixaTexto CaixaTexto;
 
-//CONSTRUTOR
+/*CONSTRUTOR*/
 CaixaTexto* new_caixaTexto(void);
 
-//DESTRUTOR
+/*DESTRUTOR*/
 void delete_caixaTexto(CaixaTexto*);
 
-//SETTERS
+/*SETTERS*/
 void caixaTexto_setTamanho(CaixaTexto*, Tela*, int, int);
-//void caixaTexto_setFonte(CaixaTexto*, char*, int);
+/*void caixaTexto_setFonte(CaixaTexto*, char*, int);*/
 void caixaTexto_setCorFundo(CaixaTexto*, int, int, int);
 void caixaTexto_setCorTexto(CaixaTexto*, int, int, int);
 
-//COMANDOS
+/*COMANDOS*/
 void caixaTexto_ouvinte(CaixaTexto*, Tela*);
 void caixaTexto_print(CaixaTexto*, Tela*);

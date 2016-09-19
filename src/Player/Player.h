@@ -25,12 +25,12 @@
 
 typedef struct Player Player;
 
-Player* new_player(void);//construtor
+Player* new_player(void);/*construtor*/
 
-//int delete_player(Player* player);//destrutor
-int delete_player();
+int delete_player(Player* player);/*destrutor*/
+/*int delete_player();*/
 
-//Getters
+/*Getters*/
 int player_getHeight(Player* player);
 int player_getWidth(Player* player);
 int player_getX(Player* player);
@@ -45,7 +45,7 @@ unsigned short player_getDireita(Player* player);
 SDL_Texture* player_getTextura(Player* player);
 SDL_Rect* player_getPosicao(Player* player);
 
-//Setters
+/*Setters*/
 void player_setVelocidade(Player* player, int velocidade);
 void player_setY(Player* player, int y);
 void player_setX(Player* player, int x);
@@ -60,6 +60,6 @@ int player_setTextura(Player* player, Tela* tela, char* endereco);
 
 void player_toString(Player* player);
 
-//COMANDOS
+/*COMANDOS*/
 bool player_print(Player *, Tela*);
 void player_movimenta(Player*, Tela*);

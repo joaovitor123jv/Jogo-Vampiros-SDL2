@@ -23,8 +23,8 @@ OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO
 EXE = jogo
 
 #Bandeiras de Compilador
-OTIMIZADOR=-o3
-PASSO1 = -c
+OTIMIZADOR=-o3 -ansi
+PASSO1 = -c -ansi
 PASSO2 =$(OTIMIZADOR) -o
 
 #Atenção! Passo 2 com Otimização 3  (de 0 → 3)

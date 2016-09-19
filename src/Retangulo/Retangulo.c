@@ -6,7 +6,7 @@ struct Retangulo
 	SDL_Rect posicao;
 };
 
-//CONSTRUTOR
+/*CONSTRUTOR*/
 Retangulo* new_retangulo()
 {
 	Retangulo* retangulo = malloc(sizeof(Retangulo));
@@ -26,7 +26,7 @@ Retangulo* new_retangulo()
 	return retangulo;
 }
 
-//DESTRUTOR
+/*DESTRUTOR*/
 void delete_retangulo(Retangulo* retangulo)
 {
 	if(retangulo == NULL)
@@ -38,7 +38,7 @@ void delete_retangulo(Retangulo* retangulo)
 	retangulo = NULL;
 }
 
-//SETTERS
+/*SETTERS*/
 bool retangulo_setTamanho(Retangulo* retangulo, int width, int height)
 {
 	if(retangulo == NULL)
@@ -81,7 +81,7 @@ bool retangulo_setAlpha(Retangulo* retangulo, int alpha)
 	retangulo->cor.a = alpha;
 }
 
-//GETTERS
+/*GETTERS*/
 int retangulo_getX(Retangulo* retangulo)
 {
 	if(retangulo == NULL)
@@ -118,14 +118,14 @@ int retangulo_getHeight(Retangulo* retangulo)
 	return retangulo->posicao.h;
 }
 
-//COMANDOS
+/*COMANDOS*/
 bool retangulo_print(Retangulo* retangulo, Tela* tela)
 {
 	if(retangulo == NULL || tela == NULL)
 	{
 		return false;
 	}
-	SDL_SetRenderDrawColor(tela_getRenderizador(tela), retangulo->cor.r, retangulo->cor.g, retangulo->cor.b, retangulo->cor.a);//Esse 0xFF é o "alpha"
+	SDL_SetRenderDrawColor(tela_getRenderizador(tela), retangulo->cor.r, retangulo->cor.g, retangulo->cor.b, retangulo->cor.a);/*Esse 0xFF é o "alpha"*/
 	SDL_RenderDrawRect(tela_getRenderizador(tela), &retangulo->posicao);
 	return true;
 }
@@ -136,7 +136,7 @@ bool retangulo_printCompleto(Retangulo* retangulo, Tela* tela)
 	{
 		return false;
 	}
-	SDL_SetRenderDrawColor(tela_getRenderizador(tela), retangulo->cor.r, retangulo->cor.g, retangulo->cor.b, retangulo->cor.a);//Esse 0xFF é o "alpha"
+	SDL_SetRenderDrawColor(tela_getRenderizador(tela), retangulo->cor.r, retangulo->cor.g, retangulo->cor.b, retangulo->cor.a);/*Esse 0xFF é o "alpha"*/
 	SDL_RenderFillRect(tela_getRenderizador(tela), &retangulo->posicao);
 	return true;
 }

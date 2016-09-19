@@ -21,16 +21,16 @@
 
 typedef struct Imagem Imagem;
 
-//CONSTRUTOR
+/*CONSTRUTOR*/
 Imagem* new_imagem(void);
 
-//DESTRUTOR
+/*DESTRUTOR*/
 void delete_imagem(Imagem*);
 
-//SETTERS
+/*SETTERS*/
 void imagem_setPosicao(Imagem*, int, int);
 void imagem_setTamanho(Imagem*, int, int);
 bool imagem_setImagem(Imagem*, Tela*, char*);
 
-//COMANDOS
+/*COMANDOS*/
 void imagem_print(Imagem*, Tela*);

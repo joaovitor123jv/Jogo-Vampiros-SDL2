@@ -8,7 +8,7 @@ struct Imagem
 };
 
 
-//CONSTRUTOR
+/*CONSTRUTOR*/
 Imagem* new_imagem(void)
 {
 	Imagem* imagem = malloc(sizeof(Imagem));
@@ -21,7 +21,7 @@ Imagem* new_imagem(void)
 	return imagem;
 }
 
-//DESTRUTOR
+/*DESTRUTOR*/
 void delete_imagem(Imagem* imagem)
 {
 	if(imagem == NULL)
@@ -41,7 +41,7 @@ void delete_imagem(Imagem* imagem)
 	imagem = NULL;
 }
 
-//COMANDOS
+/*COMANDOS*/
 void imagem_print(Imagem* imagem, Tela* tela)
 {
 	if(imagem == NULL || tela == NULL)
@@ -72,7 +72,7 @@ SDL_Surface* imagem_carregaImagem(Imagem* imagem, Tela* tela, char* endereco)
 		return NULL;
 	}
 	imagem->endereco = malloc(tamanho * sizeof(char));
-//	imagem->endereco = endereco;
+/*	imagem->endereco = endereco;*/
 	strcpy(imagem->endereco, endereco);
 	if(imagem->endereco == NULL)
 	{
@@ -99,7 +99,7 @@ SDL_Surface* imagem_carregaImagem(Imagem* imagem, Tela* tela, char* endereco)
 
 }
 
-//SETTERS
+/*SETTERS*/
 void imagem_setPosicao(Imagem* imagem, int x, int y)
 {
 	if(imagem == NULL)

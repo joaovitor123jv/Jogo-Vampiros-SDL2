@@ -56,6 +56,6 @@ SDL_Event* tela_getEventoRaw(Tela*);
 SDL_Window* tela_getJanela(Tela*);
 SDL_Renderer* tela_getRenderizador(Tela* tela);
 
-/*COMANDOS*/
+//COMANDOS
 void tela_update(Tela*);
 void tela_limpa(Tela*);

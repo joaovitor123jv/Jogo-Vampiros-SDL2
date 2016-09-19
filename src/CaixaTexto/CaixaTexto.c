@@ -11,7 +11,7 @@ struct CaixaTexto
 };
 
 
-//CONSTRUTOR
+/*CONSTRUTOR*/
 CaixaTexto* new_caixaTexto(void)
 {
 	CaixaTexto* caixaTexto = malloc(sizeof(CaixaTexto));
@@ -22,19 +22,19 @@ CaixaTexto* new_caixaTexto(void)
 		printf("ERRO: Não foi possível criar o retângulo da caixa de texto\n");
 		return NULL;
 	}
-	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO);//Texto se encarrega do tratamento de erros
-	texto_setTexto(caixaTexto->texto, " ");//Por padrão inicializa zerado
-	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);//Cor branca por padrão
+	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO);/*Texto se encarrega do tratamento de erros*/
+	texto_setTexto(caixaTexto->texto, " ");/*Por padrão inicializa zerado*/
+	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);/*Cor branca por padrão*/
 	caixaTexto->entrada = NULL;
 	caixaTexto->composicao = NULL;
 	caixaTexto->cursor = 0;
 	caixaTexto->selecao = 0;	
 	printf("SEM PROBLEMAS ATÉ AQUI\n");
-	return caixaTexto;//Sem problemas até aqui
+	return caixaTexto;/*Sem problemas até aqui*/
 }
 
 
-//DESTRUTOR
+/*DESTRUTOR*/
 void delete_caixaTexto(CaixaTexto* caixaTexto)
 {
 	if(caixaTexto == NULL)
@@ -61,8 +61,8 @@ void delete_caixaTexto(CaixaTexto* caixaTexto)
 }
 
 
-//SETTERS
-void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)//OK
+/*SETTERS*/
+void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)/*OK*/
 {
 	if(caixaTexto == NULL || tela == NULL)
 	{
@@ -75,8 +75,8 @@ void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)//OK
 		printf("EM: CaixaTexto -> caixaTexto_setTamanho(CaixaTexto*, Tela*, int, int)\n");
 		printf("\t texto (da caixa de texto) não existe\n");
 	}
-	texto_setTamanho(caixaTexto->texto, h);//PROBLEMA EM setTamanho Resolvido
-	texto_updateTexto(caixaTexto->texto, tela);//RESOLVER
+	texto_setTamanho(caixaTexto->texto, h);/*PROBLEMA EM setTamanho Resolvido*/
+	texto_updateTexto(caixaTexto->texto, tela);/*RESOLVER*/
 	retangulo_setTamanho(caixaTexto->retangulo, w, h);
 	return;
 }
@@ -118,14 +118,14 @@ void caixaTexto_setFonte(CaixaTexto* caixaTexto, char *fonte, int tamanho)
 		printf("ERRO: Não foi possível criar o Texto da caixa de texto \n");
 		return ;
 	}
-	if(!texto_setFonte(caixaTexto->texto, fonte, tamanho))//ERRO AQUI
+	if(!texto_setFonte(caixaTexto->texto, fonte, tamanho))/*ERRO AQUI*/
 	{
 		printf("Aviso: Não foi possível definir fonte padrão a ser usada!(CaixaTexto->Construtor)\n");
 	}
 }
 
 
-//COMANDOS
+/*COMANDOS*/
 void caixaTexto_print(CaixaTexto* caixaTexto, Tela* tela)
 {
 	if(caixaTexto == NULL || tela == NULL)
