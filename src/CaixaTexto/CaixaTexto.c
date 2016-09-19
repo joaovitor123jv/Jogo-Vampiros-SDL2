@@ -141,6 +141,8 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 	int x ,y;
 	if(caixaTexto == NULL || tela == NULL)
 	{
+		printf("Em: CaixaTexto-> caixaTexto_ouvinte(CaixaTexto*, Tela*);\n");
+		printf("\t CaixaTexto ou Tela == NULL\n");
 		return;
 	}
 	SDL_Event* evento = tela_getEventoRaw(tela);
