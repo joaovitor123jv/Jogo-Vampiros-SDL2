@@ -1,4 +1,3 @@
-#FONTE Especifica quais arquivos vão ser compilados como parte do projeto
 FONTE=main.c
 USUARIO=Usuario.c
 TELA=Tela.c
@@ -38,31 +37,40 @@ CC = gcc
 
 #Esse é o Alvo que compila o executável
 all :
-	echo "Compilando arquivos para funcionamento da tela"
+	@echo
+	@echo "Compilando arquivos para funcionamento da tela"
 	cd $(PASTA_FONTE)/$(PASTA_TELA); $(CC) $(PASSO1) $(TELA)
 	cd $(PASTA_FONTE)/$(PASTA_TELA); mv $(TELA:.c=.o) ../
-	echo "Compilando arquivos para funcionamento do player"
+	@echo
+	@echo "Compilando arquivos para funcionamento do player"
 	cd $(PASTA_FONTE)/$(PASTA_PLAYER); $(CC) $(PASSO1) $(PLAYER)
 	cd $(PASTA_FONTE)/$(PASTA_PLAYER); mv $(PLAYER:.c=.o) ../
-	echo "Compilando arquivos para funcionamento do texto"
+	@echo
+	@echo "Compilando arquivos para funcionamento do texto"
 	cd $(PASTA_FONTE)/$(PASTA_TEXTO); $(CC) $(PASSO1) $(TEXTO)
 	cd $(PASTA_FONTE)/$(PASTA_TEXTO); mv $(TEXTO:.c=.o) ../
-	echo "Compilando arquivos para funcionamento do Retângulo (Botão) (1)"
+	@echo
+	@echo "Compilando arquivos para funcionamento do Retângulo (Botão) (1)"
 	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); $(CC) $(PASSO1) $(RETANGULO)
 	cd $(PASTA_FONTE)/$(PASTA_RETANGULO); mv $(RETANGULO:.c=.o) ../
-	echo "Compilando arquivos para funcionamento do Botao (Botão) (2)"
+	@echo
+	@echo "Compilando arquivos para funcionamento do Botao (Botão) (2)"
 	cd $(PASTA_FONTE)/$(PASTA_BOTAO); $(CC) $(PASSO1) $(BOTAO)
 	cd $(PASTA_FONTE)/$(PASTA_BOTAO); mv $(BOTAO:.c=.o) ../
-	echo "Compilando arquivos para funcionamento de Imagem "
+	@echo
+	@echo "Compilando arquivos para funcionamento de Imagem "
 	cd $(PASTA_FONTE)/$(PASTA_IMAGEM); $(CC) $(PASSO1) $(IMAGEM)
 	cd $(PASTA_FONTE)/$(PASTA_IMAGEM); mv $(IMAGEM:.c=.o) ../
-	echo "Compilando arquivos para funcionamento de Entrada de Texto "
+	@echo
+	@echo "Compilando arquivos para funcionamento de Entrada de Texto "
 	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); $(CC) $(PASSO1) $(CAIXA_TEXTO)
 	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); mv $(CAIXA_TEXTO:.c=.o) ../
-	echo "Compilando arquivos para funcionamento do principal"
+	@echo
+	@echo "Compilando arquivos para funcionamento do principal"
 	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(FONTE)
 	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(OBJETO) $(LINKER)
-	echo "Removendo Arquivos remanescentes da compilação"
+	@echo
+	@echo "Removendo Arquivos remanescentes da compilação"
 	cd $(PASTA_FONTE); rm $(OBJETO)
 
 

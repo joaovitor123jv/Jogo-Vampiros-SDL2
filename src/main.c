@@ -140,7 +140,7 @@ int main( int argc, char* args[] )
 				{
 					tela_setFullScreen(tela);
 				}
-		//		caixaTexto_ouvinte(caixaTexto, tela);
+				caixaTexto_ouvinte(caixaTexto, tela);
 			}
 
 
