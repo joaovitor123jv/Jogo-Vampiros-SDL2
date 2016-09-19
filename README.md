@@ -27,3 +27,9 @@ Para rodar o programa há duas maneiras (pelo terminal)
 		→Arquivos de gerenciamento da janela/tela em  Tela/
 		→Arquivos de gerenciamento de animações/player em Player/ (por enquanto)
 
+
+Testado em:
+	→GNU/Linux Debian Jessie (8)
+	→GNU/Linux Slackware 14.2
+	→GNU/Lunux Linux Mint Rebecca
+	→GNU/Linux Ubuntu 14.04
