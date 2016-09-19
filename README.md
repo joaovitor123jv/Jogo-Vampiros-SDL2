@@ -1,15 +1,10 @@
 # Jogo-Vampiros-SDL2
 
+#Isso será um "Futuro jogo de Vampiros" escrito em C
 
-#Anotação:
-	→Tipo char consegue "simular" booleano em C, e economiza memoria (1 byte  = char VS 4 bytes int VS 2 bytes unsigned short int)
-
-Isso será um "Futuro jogo de Vampiros" escrito em C
-
-para compilar (NO GNU/LINUX) faça-o com "make"
-como o "jogo" é pequeno demais, ainda não é necessária sua instalação
-o comando "make" irá compilar, linkar tudo, gerar seu executavel, e
-limpar os arquivos objetos "*.o"
+Para compilar (NO GNU/LINUX) faça-o com "make"
+Como o "jogo" é pequeno demais, ainda não é necessária sua instalação
+O comando "make" irá compilar, linkar tudo, gerar seu executavel, e limpar os arquivos objetos "*.o"
 
 
 Para rodar o programa há duas maneiras (pelo terminal)
@@ -22,11 +17,13 @@ Para rodar o programa há duas maneiras (pelo terminal)
 		→Supondo que não moveu qualquer arquivo do lugar, haverá um arquivo executavel (de nome "jogo") na pasta do projeto, execute-o com:
 			./jogo
 
-→ Ambos os comandos são para a pasta que estão os dados doa arquivos
-→ Faz-se necessária a instalação, na ausência da biblioteca SDL2, SDL2-image
-→ Recomendo a instalação de SDL2-mixer e SDL2-ttf também, para compilar no futuro
+→ Ambos os comandos são para a pasta que estão os dados dos arquivos
+
+→ Faz-se necessária a instalação  das bibliotecas SDL2, SDL2_image, SDL2_ttf
+
+→ Recomendo a instalação de SDL2-mixer também, para compilar no futuro (suporte a áudio)
 
 	→Organização melhorada
 		→Arquivos de gerenciamento da janela/tela em  Tela/
-		→Arquivos de gerenciamento de animaçoes/player em Player/ (por enquanto)
+		→Arquivos de gerenciamento de animações/player em Player/ (por enquanto)
 

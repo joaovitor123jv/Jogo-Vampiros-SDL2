@@ -29,7 +29,7 @@ CaixaTexto* new_caixaTexto(void)
 	caixaTexto->composicao = NULL;
 	caixaTexto->cursor = 0;
 	caixaTexto->selecao = 0;	
-	printf("SEM PROBLEMAS ATÉ AQUI\n");
+/*	printf("SEM PROBLEMAS ATÉ AQUI\n");*/
 	return caixaTexto;/*Sem problemas até aqui*/
 }
 
