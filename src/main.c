@@ -11,7 +11,8 @@ int main( int argc, char* args[] )
 	Player* player2 = new_player();
 	Texto* texto = new_texto();
 	Texto* texto2 = new_texto();
-/*	CaixaTexto* caixaTexto = new_caixaTexto();*/
+	CaixaTexto* caixaTexto = new_caixaTexto();
+	CaixaTexto* cxSenha = new_caixaTexto();
 	Botao* botao = new_botao();
 	Botao* btSair = new_botao();
 	Botao* btFullScreen = new_botao();
@@ -69,10 +70,15 @@ int main( int argc, char* args[] )
 	botao_setTexto(btFullScreen, "Tela Cheia");
 	botao_update(btFullScreen, tela);
 	botao_setPosicao(btFullScreen, 50, 500);
-/*
+
 	caixaTexto_setFonte(caixaTexto, "fonte.ttf", 50);
-	caixaTexto_setTamanho(caixaTexto, tela, 300, 200);
-*/
+	caixaTexto_setTamanho(caixaTexto, tela, 500, 40);
+	caixaTexto_setPosicao(caixaTexto, 100, 200 );
+
+	caixaTexto_setFonte(cxSenha, "fonte.ttf", 50);
+	caixaTexto_setTamanho(cxSenha, tela, 500, 40);
+	caixaTexto_setPosicao(cxSenha, 100, 250 );
+
 	FPESSES = SDL_GetTicks();
 
 	while(!close)
@@ -140,7 +146,8 @@ int main( int argc, char* args[] )
 				{
 					tela_setFullScreen(tela);
 				}
-/*				caixaTexto_ouvinte(caixaTexto, tela);*/
+				caixaTexto_ouvinte(caixaTexto, tela);
+				caixaTexto_ouvinte(cxSenha, tela);
 			}
 
 
@@ -158,7 +165,8 @@ int main( int argc, char* args[] )
 		botao_print(botao, tela);
 		player_print(player, tela);
 		player_print(player2, tela);
-/*		caixaTexto_print(caixaTexto, tela);*/
+		caixaTexto_print(caixaTexto, tela);
+		caixaTexto_print(cxSenha, tela);
 		texto_print(texto, tela);
 		texto_print(texto2, tela);
 		botao_print(btSair, tela);
@@ -171,10 +179,15 @@ int main( int argc, char* args[] )
 	delete_botao(btSair);
 	delete_texto(texto);
 	delete_texto(texto2);
+
+	delete_caixaTexto(caixaTexto);
+	delete_caixaTexto(cxSenha);
+
 	delete_tela(tela);
 	delete_player(player);
 	delete_player(player2);
-/*	delete_caixaTexto(caixaTexto);*/
+
+
 /*	sair(window);*/
 
 	return 0;

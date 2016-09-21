@@ -45,6 +45,15 @@ all : Tela Player Texto Retangulo Botao Imagem CaixaTexto
 	@echo "Removendo Arquivos remanescentes da compilação"
 	cd $(PASTA_FONTE); rm $(OBJETO)
 
+SDL2:
+	SDL= whereis SDL2
+	if test -n "$(SDL)"
+	then
+		echo "Print something"
+	else then
+		echo "Print anotherThing"
+	fi
+
 Tela:
 	@echo
 	@echo "Compilando arquivos para funcionamento da tela"

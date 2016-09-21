@@ -10,6 +10,10 @@
 #define TAMANHO_PADRAO 40
 #endif
 
+#ifndef TAMANHO_MAX_TEXTO
+#define TAMANHO_MAX_TEXTO 300
+#endif
+
 typedef struct CaixaTexto CaixaTexto;
 
 /*CONSTRUTOR*/
@@ -20,7 +24,8 @@ void delete_caixaTexto(CaixaTexto*);
 
 /*SETTERS*/
 void caixaTexto_setTamanho(CaixaTexto*, Tela*, int, int);
-/*void caixaTexto_setFonte(CaixaTexto*, char*, int);*/
+void caixaTexto_setPosicao(CaixaTexto*, int, int);
+void caixaTexto_setFonte(CaixaTexto*, char*, int);
 void caixaTexto_setCorFundo(CaixaTexto*, int, int, int);
 void caixaTexto_setCorTexto(CaixaTexto*, int, int, int);
 
