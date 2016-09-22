@@ -178,7 +178,7 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 	{
 		printf("Alguma tecla foi apertada\n");
 	}
-	/*Funcionando */
+	/*Funcionando (com erros... mas ok) */
 	else if(tela_getTipoEvento(tela) == SDL_TEXTINPUT)
 	 {
 		if(caixaTexto->texto == NULL || caixaTexto->entrada == NULL )
@@ -189,6 +189,8 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 			printf("\t\tEntrada == %d\n", caixaTexto->entrada);
 			return;
 		}
+/*		printf("Realocando\n");*/
+/*		realloc(caixaTexto->entrada, sizeof(caixaTexto->entrada + 1));*/
 		strncat(caixaTexto->entrada, tela_getEventoRaw(tela)->text.text, TAMANHO_MAX_TEXTO);
 		if(sizeof(caixaTexto->entrada) > TAMANHO_MAX_TEXTO )
 		{
@@ -197,6 +199,7 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 			return;
 		}
 		texto_setTexto(caixaTexto->texto, caixaTexto->entrada); 
+		/* ERRO AQUI */
 		texto_updateTexto(caixaTexto->texto, tela);
 		return;
 	}

@@ -23,9 +23,10 @@ OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO
 EXE = jogo
 
 #Bandeiras de Compilador
+WARNING_FLAGS=-Wunused-result
 OTIMIZADOR=-o3 -ansi
 PASSO1 = -c -ansi
-PASSO2 =$(OTIMIZADOR) -o
+PASSO2 = $(WARNING_FLAGS) $(OTIMIZADOR) -o
 
 #Atenção! Passo 2 com Otimização 3  (de 0 → 3)
 
@@ -34,6 +35,9 @@ LINKER= -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 #ESPECIFICA COMPILADOR
 CC = gcc
+
+#ESPECIFICA PROGRAMA DEBUGGER A SER USADO
+DEBUGGER=valgrind
 
 #Esse é o Alvo que compila o executável
 all : Tela Player Texto Retangulo Botao Imagem CaixaTexto
@@ -99,3 +103,6 @@ CaixaTexto: Tela Retangulo Texto
 
 run:
 	./$(EXE)
+
+debug:
+	$(DEBUGGER) ./$(EXE)

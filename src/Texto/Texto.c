@@ -198,6 +198,12 @@ bool texto_setFonte(Texto* texto, char* endereco, int tamanhoFonte) /*OK*/
 		printf("ERRO: Texto apontando para NULL (não foi possível atribuir fonte selecionada)\n");
 		return false;
 	}
+
+	if(texto->fonte != NULL)/* Tratamento de erros */
+	{
+		TTF_CloseFont(texto->fonte);
+		texto->fonte = NULL;
+	}
 	texto->fonte = TTF_OpenFont(texto->nomeFonte, texto->tamanhoFonte);
 	if(texto->fonte == NULL)
 	{
@@ -332,21 +338,26 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 		return;
 	}
 	/*	
-	 	if(texto->cor == NULL)
+		if(texto->cor == NULL)
 		{
-			printf("EM: Texto -> texto_updateTexto(Texto*, Tela*)\n");
-			printf("\t ERRO: Cor do texto não foi setada (NULL)\n");
-			return;
+		printf("EM: Texto -> texto_updateTexto(Texto*, Tela*)\n");
+		printf("\t ERRO: Cor do texto não foi setada (NULL)\n");
+		return;
 		}
-	*/
+		*/
 
-
-	surface = TTF_RenderUTF8_Solid(texto->fonte, texto->texto, texto->cor);
+	if(surface != NULL)
+	{
+		printf("Já pode arrancar os Cabelos... variável não declarada apontando pro infinito\n");
+	}
+	/* ERRO AQUI   (TODO)) */
+	surface = TTF_RenderText_Solid(texto->fonte, texto->texto, texto->cor);
 	if(surface == NULL)
 	{
 		printf("EM: Texto->texto_updateTexto(Texto*, Tela*);\n");
 		printf("\tERRO: Não foi possível renderizar texto corretamente\n");
 		printf("\tLog da SDL: %s\n", SDL_GetError());
+		SDL_FreeSurface(surface);
 		return;
 	}
 	texto_getDimensao(texto, surface);/*TODO*/
@@ -354,13 +365,20 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 	{
 		printf("EM: Texto->texto_updateTexto(Texto*, Tela);\n");
 		printf("\tErro, não foi possível gerar surface\n");
+		SDL_FreeSurface(surface);
 		return;
+	}
+	if(texto->textura != NULL)
+	{
+		SDL_DestroyTexture(texto->textura);/* Tratamento de erros  */
+		texto->textura == NULL;
 	}
 	texto->textura = SDL_CreateTextureFromSurface(tela_getRenderizador(tela), surface);
 	if(texto->textura == NULL)
 	{
 		printf("EM: Texto->texto_updateTexto(Texto*, Tela*)\n");
 		printf("\tErro, não foi possível criar textura a partir de surface\n");
+		SDL_FreeSurface(surface);
 		return;
 	}
 	SDL_QueryTexture(texto->textura, NULL, NULL, &texto->posicao.w, &texto->posicao.h);
