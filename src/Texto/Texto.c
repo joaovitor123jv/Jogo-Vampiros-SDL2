@@ -54,12 +54,12 @@ void delete_texto(Texto* texto)
 	}
 	if(texto->nomeFonte != NULL)
 	{
-/*		free(texto->nomeFonte);*/
+		/*		free(texto->nomeFonte);*/
 		texto->nomeFonte = NULL;
 	}
 	if(texto->texto != NULL)
 	{
-/*		free(texto->texto);*/
+		/*		free(texto->texto);*/
 		texto->texto=NULL;
 	}
 	if(texto->textura != NULL)
@@ -73,11 +73,11 @@ void delete_texto(Texto* texto)
 		texto->fonte=NULL;
 	}
 	/*
-	if(texto->cor !=NULL)
-	{
-		free(color);
-		color = NULL;
-	}*/
+	   if(texto->cor !=NULL)
+	   {
+	   free(color);
+	   color = NULL;
+	   }*/
 	free(texto);
 	texto = NULL;
 }
