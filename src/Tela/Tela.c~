@@ -269,7 +269,16 @@ SDL_Event* tela_getEventoRaw(Tela* tela)
 /*COMANDOS*/
 int tela_upgrade(Tela* tela)
 {
-	SDL_DestroyWindow(tela->janela);
+	if(tela == NULL)
+	{
+		printf("Em: Tela->tela_upgrade(Tela*))\n");
+		printf("\t Tela == NULL\n");
+		return ERRO;
+	}
+	if(tela->janela != NULL)
+	{
+		SDL_DestroyWindow(tela->janela);
+	}
 	tela->janela = SDL_CreateWindow(tela->titulo, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, tela->width, tela->height, SDL_WINDOW_OPENGL);
 	if(tela->janela == NULL)
 	{

@@ -368,11 +368,14 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 		SDL_FreeSurface(surface);
 		return;
 	}
+
 	if(texto->textura != NULL)
 	{
-		SDL_DestroyTexture(texto->textura);/* Tratamento de erros  */
+		SDL_DestroyTexture(texto->textura); /* Tratamento de erros  */
 		texto->textura == NULL;
 	}
+
+
 	texto->textura = SDL_CreateTextureFromSurface(tela_getRenderizador(tela), surface);
 	if(texto->textura == NULL)
 	{

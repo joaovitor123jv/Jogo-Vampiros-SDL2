@@ -54,12 +54,12 @@ void delete_texto(Texto* texto)
 	}
 	if(texto->nomeFonte != NULL)
 	{
-/*		free(texto->nomeFonte);*/
+		/*		free(texto->nomeFonte);*/
 		texto->nomeFonte = NULL;
 	}
 	if(texto->texto != NULL)
 	{
-/*		free(texto->texto);*/
+		/*		free(texto->texto);*/
 		texto->texto=NULL;
 	}
 	if(texto->textura != NULL)
@@ -73,11 +73,11 @@ void delete_texto(Texto* texto)
 		texto->fonte=NULL;
 	}
 	/*
-	if(texto->cor !=NULL)
-	{
-		free(color);
-		color = NULL;
-	}*/
+	   if(texto->cor !=NULL)
+	   {
+	   free(color);
+	   color = NULL;
+	   }*/
 	free(texto);
 	texto = NULL;
 }
@@ -368,11 +368,16 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 		SDL_FreeSurface(surface);
 		return;
 	}
+
+/*
 	if(texto->textura != NULL)
 	{
-		SDL_DestroyTexture(texto->textura);/* Tratamento de erros  */
+		SDL_DestroyTexture(texto->textura);    COMENTARIO Tratamento de erros  
 		texto->textura == NULL;
 	}
+*/
+
+
 	texto->textura = SDL_CreateTextureFromSurface(tela_getRenderizador(tela), surface);
 	if(texto->textura == NULL)
 	{
