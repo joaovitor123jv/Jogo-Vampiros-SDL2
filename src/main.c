@@ -8,6 +8,7 @@ int main( int argc, char* args[] )
 	int numeroDeAtualizacoes = 0;
 	int FPESSES;
 	int w, h;
+	char texto_do_teste[]= "Esse                                             ";
 	Player* player = new_player();
 	Player* player2 = new_player();
 	Texto* texto = new_texto();
@@ -148,6 +149,8 @@ int main( int argc, char* args[] )
 				{
 					printf("Atualizando texto -> %d \n", numeroDeAtualizacoes);
 					numeroDeAtualizacoes = numeroDeAtualizacoes +1;
+					texto_do_teste[numeroDeAtualizacoes] = 'C';
+					texto_setTexto(teste, texto_do_teste);
 					texto_updateTexto(teste, tela);
 					printf("Texto atualizado\n");
 				}

@@ -4,6 +4,8 @@
 
 Porque fiz testes de atualização de texto, com o botão (entrar), e não deu problema, sendo que o texto, tem mais de 31 caracteres.
 
+*Desenvolver uma "classe" para _armazenar_ e cuidar de Strings (Ponteiros para caracter)*
+
 #Isso será um "Futuro jogo de Vampiros" escrito em C
 
 Para compilar (NO GNU/LINUX) faça-o com "make"
