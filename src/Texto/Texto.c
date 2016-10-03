@@ -351,7 +351,7 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 		printf("Já pode arrancar os Cabelos... variável não declarada apontando pro infinito\n");
 	}
 	/* ERRO AQUI   (TODO)) */
-	surface = TTF_RenderText_Solid(texto->fonte, texto->texto, texto->cor);
+	surface = TTF_RenderUTF8_Solid(texto->fonte, texto->texto, texto->cor);
 	if(surface == NULL)
 	{
 		printf("EM: Texto->texto_updateTexto(Texto*, Tela*);\n");

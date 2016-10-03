@@ -5,6 +5,7 @@ void sair(SDL_Window *janela);
 int main( int argc, char* args[] )
 {
 	bool close=false;
+	int numeroDeAtualizacoes = 0;
 	int FPESSES;
 	int w, h;
 	Player* player = new_player();
@@ -81,6 +82,12 @@ int main( int argc, char* args[] )
 
 	FPESSES = SDL_GetTicks();
 
+	Texto* teste = new_texto();
+	texto_setFonte(teste, "fonte2.ttf", 30);
+	texto_setTexto(teste, "Este texto tem mais de trinta e uma posições, falo isso com quase que absoluta certeza, porque não contei");
+	texto_setPosicao(teste, 0, 350);
+	texto_updateTexto(teste, tela);
+
 	while(!close)
 	{
 		while(tela_getEvento(tela))
@@ -137,7 +144,13 @@ int main( int argc, char* args[] )
 			else 
 			{
 				tela_getMouse(tela);
-				botao_ouvinte(botao, tela);
+				if(botao_ouvinte(botao, tela))
+				{
+					printf("Atualizando texto -> %d \n", numeroDeAtualizacoes);
+					numeroDeAtualizacoes = numeroDeAtualizacoes +1;
+					texto_updateTexto(teste, tela);
+					printf("Texto atualizado\n");
+				}
 				if(!close)
 				{
 					close = botao_ouvinte(btSair, tela);
@@ -169,6 +182,7 @@ int main( int argc, char* args[] )
 		caixaTexto_print(cxSenha, tela);
 		texto_print(texto, tela);
 		texto_print(texto2, tela);
+		texto_print(teste, tela);
 		botao_print(btSair, tela);
 		botao_print(btFullScreen, tela);
 		tela_update(tela);
@@ -179,6 +193,8 @@ int main( int argc, char* args[] )
 	delete_botao(btSair);
 	delete_texto(texto);
 	delete_texto(texto2);
+
+	delete_texto(teste);
 
 	delete_caixaTexto(caixaTexto);
 	delete_caixaTexto(cxSenha);

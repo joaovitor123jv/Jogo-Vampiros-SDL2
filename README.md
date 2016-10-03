@@ -1,5 +1,9 @@
 # Jogo-Vampiros-SDL2
 
+#Problema Não está em (texto), mas em (caixaTexto)
+
+Porque fiz testes de atualização de texto, com o botão (entrar), e não deu problema, sendo que o texto, tem mais de 31 caracteres.
+
 #Isso será um "Futuro jogo de Vampiros" escrito em C
 
 Para compilar (NO GNU/LINUX) faça-o com "make"
