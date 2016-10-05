@@ -6,14 +6,17 @@ struct CaixaTexto
 	Retangulo* retangulo;
 	char* entrada;
 	char* composicao;
+	bool ativo;
 	int cursor;
 	int selecao;
+	int tamanhoDeAlocacao;
 };
 
 
 /*CONSTRUTOR*/
 CaixaTexto* new_caixaTexto(void)
 {
+	int tamanhoDeAlocacao;
 	CaixaTexto* caixaTexto = malloc(sizeof(CaixaTexto));
 	caixaTexto->texto = new_texto();
 	caixaTexto->retangulo = new_retangulo();
@@ -25,7 +28,9 @@ CaixaTexto* new_caixaTexto(void)
 	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO);/*Texto se encarrega do tratamento de erros*/
 	texto_setTexto(caixaTexto->texto, " ");/*Por padrão inicializa zerado*/
 	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);/*Cor branca por padrão*/
-	caixaTexto->entrada = malloc(sizeof(TAMANHO_MAX_TEXTO));
+
+	caixaTexto_setTamanhoString(caixaTexto, 100); /* Determina tamanho máximo padrão da String de entrada */
+
 	if(caixaTexto->entrada == NULL)
 	{
 		printf("Em: CaixaTexto->new_caixaTexto()\n" );
@@ -35,6 +40,7 @@ CaixaTexto* new_caixaTexto(void)
 	caixaTexto->composicao = NULL;
 	caixaTexto->cursor = 0;
 	caixaTexto->selecao = 0;	
+	caixaTexto->ativo = false;
 /*	printf("SEM PROBLEMAS ATÉ AQUI\n");*/
 	return caixaTexto;/*Sem problemas até aqui*/
 }
@@ -50,25 +56,65 @@ void delete_caixaTexto(CaixaTexto* caixaTexto)
 	if(caixaTexto->retangulo == NULL)
 	{
 		printf("EM: CaixaTexto -> delete_caixaTexto(CaixaTexto*)\n");
-		printf("Estrutura (retângulo, não inicializada)\n");
+		printf("\tEstrutura (retângulo, não inicializada)\n");
 	}
 	if(caixaTexto->texto == NULL)
 	{
 		printf("EM: CaixaTexto -> delete_caixaTexto(CaixaTexto*)\n");
-		printf("Estrutura (texto, não inicializada)\n");
+		printf("\tEstrutura (texto, não inicializada)\n");
+	}
+	if(caixaTexto->entrada == NULL)
+	{
+		printf("EM: CaixaTexto -> delete_caixaTexto(CaixaTexto*)\n");
+		printf("\t caixaTexto->entrada não inicializada");
+	}
+	else
+	{
+		free(caixaTexto->entrada);
 	}
 	delete_retangulo(caixaTexto->retangulo);
 	caixaTexto->retangulo = NULL;
 	caixaTexto->composicao = NULL;
 	caixaTexto->entrada = NULL;
 	delete_texto(caixaTexto->texto);
-	free(caixaTexto->entrada);
 	caixaTexto->texto = NULL;
 	return;
 }
 
 
 /*SETTERS*/
+void caixaTexto_setTamanhoString(CaixaTexto* caixaTexto, int tamanhoDeAlocacao)
+{
+	if(caixaTexto == NULL)
+	{
+		printf("EM: CaixaTexto-> caixaTexto_setTamanhoString(CaixaTexto*, int)\n");
+		printf("\t ERRO: Argumento CaixaTexto* igual a NULL\n");
+		return;
+	}
+	if(tamanhoDeAlocacao < 0)
+	{
+		printf("EM: CaixaTexto-> caixaTexto_setTamanhoString(CaixaTexto*, int)\n");
+		printf("\t ERRO: Tamanho de alocação não pode ser negativo\n");
+		return;
+	}
+	caixaTexto->tamanhoDeAlocacao = tamanhoDeAlocacao;
+	texto_setTamanhoMaximoString(caixaTexto->texto, tamanhoDeAlocacao);
+	if(caixaTexto->entrada == NULL)
+	{
+		caixaTexto->entrada = malloc((caixaTexto->tamanhoDeAlocacao+1) * (sizeof(char)));
+	}
+	else
+	{
+		caixaTexto->entrada = realloc(caixaTexto->entrada, (1 + caixaTexto->tamanhoDeAlocacao) * (sizeof(char)));
+	}
+	if(caixaTexto->entrada == NULL)
+	{
+		printf(" EM: CaixaTexto-> caixaTexto_setTamanhoString(CaixaTexto*, int)\n");
+		printf("\tERRO: Não foi possível alocar memória suficiente\n");
+	}
+	return;
+}
+
 void caixaTexto_setPosicao(CaixaTexto* caixaTexto, int x, int y )
 {
 	if(caixaTexto == NULL)
@@ -144,6 +190,24 @@ void caixaTexto_setFonte(CaixaTexto* caixaTexto, char *fonte, int tamanho)
 	}
 }
 
+/* GETTERS */
+int caixaTexto_getTamanhoString(CaixaTexto* caixaTexto)
+{
+	if(caixaTexto == NULL)
+	{
+		printf("EM: CaixaTexto-> caixaTexto_getTamanhoString(CaixaTexto*)\n");
+		printf("\t ERRO: argumento CaixaTexto* igual a NULL\n");
+		return ERRO;
+	}
+	if(caixaTexto->tamanhoDeAlocacao < 0)
+	{
+		printf("EM: CaixaTexto-> caixaTexto_getTamanhoString(CaixaTexto*)\n");
+		printf("\t AVISO: caixaTexto->tamanhoDeAlocacao alterado indevidamente \n");
+		return ERRO;
+	}
+	return caixaTexto->tamanhoDeAlocacao;
+}
+
 
 /*COMANDOS*/
 void caixaTexto_print(CaixaTexto* caixaTexto, Tela* tela)
@@ -165,22 +229,22 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 		printf("\t CaixaTexto ou Tela == NULL\n");
 		return;
 	}
-	if(tela_getTipoEvento(tela )== SDL_KEYDOWN )
+	if(tela_getTipoEvento(tela )== SDL_KEYDOWN && caixaTexto->ativo)
 	{
 		printf("Alguma tecla foi apertada" );
 
 	}
-	if(tela_getTecla(tela)== SDLK_BACKSPACE)
+	if(tela_getTecla(tela)== SDLK_BACKSPACE && caixaTexto->ativo)
 	{
 		printf("Tecla BACKSPACE Apertada\n");
 	}
-	if(tela_getTeclaApertada(tela))
+	if(tela_getTeclaApertada(tela) && caixaTexto->ativo)
 	{
 		printf("Alguma tecla foi apertada\n");
 	}
 	/*Funcionando (com erros... mas ok) */
-	else if(tela_getTipoEvento(tela) == SDL_TEXTINPUT)
-	 {
+	else if((tela_getTipoEvento(tela) == SDL_TEXTINPUT) && caixaTexto->ativo)
+	{
 		if(caixaTexto->texto == NULL || caixaTexto->entrada == NULL )
 		{
 			printf("EM: CaixaTexto->caixaTexto_ouvinte(CaixaTexto*, Tela*) \n" );
@@ -189,21 +253,25 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 			printf("\t\tEntrada == %d\n", caixaTexto->entrada);
 			return;
 		}
-/*		printf("Realocando\n");*/
-/*		realloc(caixaTexto->entrada, sizeof(caixaTexto->entrada + 1));*/
-		strncat(caixaTexto->entrada, tela_getEventoRaw(tela)->text.text, TAMANHO_MAX_TEXTO);
-		if(sizeof(caixaTexto->entrada) > TAMANHO_MAX_TEXTO )
+
+		if( strlen(caixaTexto->entrada) >= caixaTexto_getTamanhoString(caixaTexto))
+		{
+			printf("EM: CaixaTexto-> caixaTexto_ouvinte(CaixaTexto*, Tela*)\n");
+			printf("\t Aviso: tamanho máximo atingido, abortando\n");
+			return;
+		}
+		strcat(caixaTexto->entrada, tela_getEventoRaw(tela)->text.text);
+		if((strlen(caixaTexto->entrada)) > caixaTexto_getTamanhoString(caixaTexto))
 		{
 			printf("EM: CaixaTexto->caixaTexto_ouvinte(CaixaTexto*, Tela*);\n" );
 			printf("\tEstouro de memória (entrada)\n" );
 			return;
 		}
 		texto_setTexto(caixaTexto->texto, caixaTexto->entrada); 
-		/* ERRO AQUI */
 		texto_updateTexto(caixaTexto->texto, tela);
 		return;
 	}
-	else if(tela_getTipoEvento(tela) == SDL_TEXTEDITING)
+	else if(tela_getTipoEvento(tela) == SDL_TEXTEDITING && caixaTexto->ativo)
 	{
 		SDL_Event* evento = tela_getEventoRaw(tela);
 		caixaTexto->composicao = evento->edit.text;
@@ -218,12 +286,14 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 		if(tela_getTipoEvento(tela) == SDL_MOUSEBUTTONDOWN)
 		{
 			SDL_StartTextInput();
+			caixaTexto->ativo = true;
 		}
 		return;
 	}
 	else if(tela_getTipoEvento(tela) == SDL_MOUSEBUTTONDOWN)
 	{
 		SDL_StopTextInput();
+		caixaTexto->ativo = false;
 		return;
 	}
 	return;

@@ -9,6 +9,7 @@ struct Texto
 	SDL_Texture* textura;
 	char* nomeFonte;
 	char* texto;
+	int tamanhoMaximoString;
 	int tamanhoFonte;
 };
 
@@ -38,6 +39,7 @@ Texto* new_texto()/*Construtor OK*/
 	texto->textura = NULL;
 	texto->nomeFonte = NULL;
 	texto->texto = NULL;
+	texto_setTamanhoMaximoString(texto, 32); /* Já define tamanho máximo como 32 e aloca */
 	texto->tamanhoFonte = 0;
 	return texto;
 }
@@ -59,7 +61,7 @@ void delete_texto(Texto* texto)
 	}
 	if(texto->texto != NULL)
 	{
-		/*		free(texto->texto);*/
+		free(texto->texto);
 		texto->texto=NULL;
 	}
 	if(texto->textura != NULL)
@@ -85,6 +87,32 @@ void delete_texto(Texto* texto)
 /*GETTERS*/
 
 /*Função privada*/
+int texto_getTamanhoMaximoString(Texto* texto)
+{
+	if(texto == NULL)
+	{
+		printf("EM: Texto-> texto_getTamanhoMaximoString(Texto*)\n");
+		printf("\t ERRO: argumento Texto* igual a NULL\n");
+		return ERRO;
+	}
+	return texto->tamanhoMaximoString -1;
+}
+
+int texto_getTamanhoString(Texto* texto)
+{
+	if(texto == NULL)
+	{
+		printf("EM: Texto-> texto_getTamanhoString(Texto*)\n");
+		printf("\t ERRO: argumento Texto* igual a NULL\n");
+		return ERRO;
+	}
+	if(texto->texto == NULL)
+	{
+		return 0;
+	}
+	return strlen(texto->texto);
+}
+
 char* texto_getTexto(Texto* texto)
 {
 	if(texto == NULL)
@@ -150,6 +178,55 @@ int texto_getY(Texto* texto)
 
 
 /*SETTERS*/
+bool texto_setTamanhoMaximoString(Texto* texto, int tamanhoString)
+{
+	if(texto == NULL)
+	{
+		printf(" EM: Texto->texto_setTamanhoString(Texto*, int)\n");
+		printf("\t ERRO: argumento Texto* igual a NULL, abortando\n");
+		return false;
+	}
+	if(tamanhoString <0)
+	{
+		printf(" EM: Texto->texto_setTamanhoMaximoString(Texto*, int)\n");
+		printf("\t ERRO: argumanto int (tamanho da String) não pode ser negativo, abortando\n");
+		return false;
+	}
+	texto->tamanhoMaximoString = tamanhoString + 2;
+	return true;
+}
+
+bool texto_setTamanhoString(Texto* texto, int tamanhoString)
+{
+	if(texto == NULL)
+	{
+		printf(" EM: Texto->texto_setTamanhoString(Texto*, int)\n");
+		printf("\t ERRO: argumento Texto* igual a NULL, abortando\n");
+		return false;
+	}
+	if(tamanhoString >= texto->tamanhoMaximoString || tamanhoString < 0)
+	{
+		printf(" EM: Texto->texto_setTamanhoString(Texto*, int)\n");
+		printf("\t ERRO: argumento int (tamanho da String) não pode ser negativo, nem maior que o tamanho máximo anteriormente definido \"%d\" abortando\n", texto_getTamanhoMaximoString(texto));
+		printf("\t Tamanho recebido → %d\n", tamanhoString);
+		return false;
+	}
+	if(texto->texto == NULL)
+	{
+		texto->texto = malloc((tamanhoString + 1) * (sizeof(char)));
+		return true;
+	}
+	texto->texto = realloc(texto->texto, (tamanhoString + 1) * (sizeof(char)));
+	if(texto->texto == NULL)
+	{
+		printf(" EM: Texto-> texto_setTamanhoString(Texto*, int)\n");
+		printf("\t ERRO: Não foi possível alocar memória suficiente\n");
+		return false;
+	}
+	return true;
+}
+
+
 bool texto_setFonte(Texto* texto, char* endereco, int tamanhoFonte) /*OK*/
 {
 	int size;
@@ -236,40 +313,42 @@ void texto_setCor(Texto* texto, int r, int g, int b)/*OK*/
 
 void texto_setTexto(Texto* texto, char* linha)/*OK*/
 {
-	if(texto != NULL)
-	{
-		int size;
-		size = strlen(linha);
-		if(size > TAMANHO_MAX_TEXTO)
-		{
-			printf("Erro, Texto muito extenso\n");
-			return;
-		}
-		texto->texto = malloc( size * sizeof(char) );
-		if(texto->texto == NULL)
-		{
-			printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
-			printf("\tErro: não foi possível inicializar texto(string) (memória insuficiente)\n");
-			return;
-		}
-		texto->texto = linha;
-		if(texto->texto == NULL)
-		{
-			printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
-			printf("\tErro: não foi possível copiar string\n");
-			return;
-		}
-		return;
-	}
 	if(texto == NULL)
 	{
-		printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
-		printf("\tErro: Texto == NULL\n");
+		printf(" EM: Texto->setTexto(Texto*, char*)\n");
+		printf("\t ERRO: argumento Texto* igual a NULL\n");
 		return;
 	}
-	printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
-	printf("\tErro: Desconhecido\n");
-	printf("\tJá pode entrar em pânico\n");
+	
+	if( strlen(linha) > texto_getTamanhoMaximoString(texto))
+	{
+		printf("EM: Texto-> texto_setTexto(Texto*, char*)\n");
+		printf("\t ERRO: argmento char* excede tamanho proposto\n");
+		printf("\t argumento de entrada tem %d caracteres\n", strlen(linha));
+		printf("\t suporta %d caracteres\n", texto_getTamanhoMaximoString(texto));
+		return;
+	}
+	if(! (texto_setTamanhoString(texto, strlen(linha) + 1)))
+	{
+		printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
+		printf("\tNão foi possível alocar memória para o texto recebido\n");
+		printf("\tTexto recebido : ↓\n\t\t%s\n\n", linha);
+		return;
+	}
+	strcpy(texto->texto, linha);
+	if(texto->texto == NULL)
+	{
+		printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
+		printf("\tErro: não foi possível copiar texto(string) String == NULL\n");
+		return;
+	}
+/*	texto->texto = linha;*/
+	if(texto->texto == NULL)
+	{
+		printf("EM: Texto->texto_setTexto(Texto*, char*)\n");
+		printf("\tErro: não foi possível copiar string\n");
+		return;
+	}
 	return;
 }
 
@@ -322,6 +401,8 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 	{
 		printf("EM: Texto -> texto_updateTexto(Texto*, Tela*)\n");
 		printf("\tERRO: Fonte == NULL (nao inicializada) \n");
+		printf("\t\tAbortando\n");
+		return;
 	}
 	SDL_Surface* surface = NULL;
 	/*	surface = TTF_RenderText_Blended(*texto->fonte, texto->texto, texto->cor);*/
@@ -344,7 +425,7 @@ void texto_updateTexto(Texto* texto, Tela* tela)
 		printf("\t ERRO: Cor do texto não foi setada (NULL)\n");
 		return;
 		}
-		*/
+	 */
 
 	if(surface != NULL)
 	{

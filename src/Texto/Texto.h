@@ -37,6 +37,8 @@ void texto_setTexto(Texto*, char*);
 void texto_updateTexto(Texto*, Tela*);
 void texto_setPosicao(Texto*, int, int);
 void texto_setTamanho(Texto*, int);
+bool texto_setTamanhoString(Texto*, int);
+bool texto_setTamanhoMaximoString(Texto*, int);
 
 /*GETTERS*/
 int texto_getY(Texto*);
