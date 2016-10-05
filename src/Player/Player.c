@@ -277,3 +277,50 @@ void player_movimenta(Player* player, Tela* tela)
 			player_setX(player, player_getX(player)+player_getVelocidade(player));
 	}
 }
+
+void player_ouvinte(Player* player, Tela* tela)
+{
+	if(tela_getTeclaApertada(tela))
+	{
+		switch(tela_getTecla(tela))
+		{
+			case(SDLK_w):
+				player_setCima(player, true);
+				break;
+
+			case(SDLK_a):
+				player_setEsquerda(player, true);
+				break;
+
+			case(SDLK_s):
+				player_setBaixo(player, true);
+				break;
+
+			case(SDLK_d):
+				player_setDireita(player, true);
+				break;
+		}
+	}
+	else if(tela_getTeclaSolta(tela))
+	{
+		switch(tela_getTecla(tela))
+		{
+			case(SDLK_w):
+				player_setCima(player, false);
+				break;
+
+			case(SDLK_a):
+				player_setEsquerda(player, false);
+				break;
+
+			case(SDLK_s):
+				player_setBaixo(player, false);
+				break;
+
+			case(SDLK_d):
+				player_setDireita(player, false);
+				break;
+		}
+	}
+	return;
+}

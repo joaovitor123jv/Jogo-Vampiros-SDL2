@@ -82,70 +82,21 @@ int main( int argc, char* args[] )
 		while(tela_getEvento(tela))
 		{
 			close = tela_getSair(tela);
-			if(tela_getTeclaApertada(tela))
+			tela_getMouse(tela);
+			player_ouvinte(player, tela);
+			player_ouvinte(player2, tela);
+			if(botao_ouvinte(botao, tela))
 			{
-				switch(tela_getTecla(tela))
-				{
-					case(SDLK_w):
-						player_setCima(player,true);
-						player_setCima(player2,true);
-						break;
-					case(SDLK_a):
-						player_setEsquerda(player, true);
-						player_setEsquerda(player2, true);
-						break;
-					case(SDLK_s):
-						player_setBaixo(player, true);
-						player_setBaixo(player2, true);
-						break;
-					case(SDLK_d):
-						player_setDireita(player, true);
-						player_setDireita(player2, true);
-						break;
-					default:
-						break;
-				}
 			}
-			else if(tela_getTeclaSolta(tela))
+			if(!close)
 			{
-				switch(tela_getTecla(tela))
-				{
-					case(SDLK_w):
-						player_setCima(player,false);
-						player_setCima(player2,false);
-						break;
-					case(SDLK_a):
-						player_setEsquerda(player, false);
-						player_setEsquerda(player2, false);
-						break;
-					case(SDLK_s):
-						player_setBaixo(player, false);
-						player_setBaixo(player2, false);
-						break;
-					case(SDLK_d):
-						player_setDireita(player, false);
-						player_setDireita(player2, false);
-						break;
-					default:
-						break;
-				}
+				close = botao_ouvinte(btSair, tela);
 			}
-			else 
+			if(botao_ouvinte(btFullScreen, tela))
 			{
-				tela_getMouse(tela);
-				if(botao_ouvinte(botao, tela))
-				{
-				}
-				if(!close)
-				{
-					close = botao_ouvinte(btSair, tela);
-				}
-				if(botao_ouvinte(btFullScreen, tela))
-				{
-					tela_setFullScreen(tela);
-				}
-				caixaTexto_ouvinte(caixaTexto, tela);
+				tela_setFullScreen(tela);
 			}
+			caixaTexto_ouvinte(caixaTexto, tela);
 
 
 		}

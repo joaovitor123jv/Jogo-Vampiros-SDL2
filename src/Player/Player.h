@@ -63,3 +63,4 @@ void player_toString(Player* player);
 /*COMANDOS*/
 bool player_print(Player *, Tela*);
 void player_movimenta(Player*, Tela*);
+void player_ouvinte(Player*, Tela*);
