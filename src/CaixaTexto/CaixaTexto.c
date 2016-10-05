@@ -29,7 +29,7 @@ CaixaTexto* new_caixaTexto(void)
 	texto_setTexto(caixaTexto->texto, " ");/*Por padrão inicializa zerado*/
 	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);/*Cor branca por padrão*/
 
-	caixaTexto_setTamanhoString(caixaTexto, 100); /* Determina tamanho máximo padrão da String de entrada */
+	caixaTexto_setTamanhoString(caixaTexto, 32); /* Determina tamanho máximo padrão da String de entrada */
 
 	if(caixaTexto->entrada == NULL)
 	{
@@ -210,6 +210,27 @@ int caixaTexto_getTamanhoString(CaixaTexto* caixaTexto)
 
 
 /*COMANDOS*/
+void caixaTexto_removeUltimaLetra(CaixaTexto* caixaTexto)
+{
+	int posicao;
+	if(caixaTexto == NULL)
+	{
+		printf("EM: CaixaTexto->caixaTexto_removeUltimaLetra(CaixaTexto*)\n");
+		printf("\tErro: argumento CaixaTexto* igual a NULL\n");
+		return;
+	}
+	if(strlen(caixaTexto->entrada) <= 1)
+	{
+		caixaTexto->entrada[0] = ' ';
+		texto_setTexto(caixaTexto->texto, caixaTexto->entrada);
+		return;
+	}
+	posicao = strlen(caixaTexto->entrada)-1;
+	caixaTexto->entrada[posicao] = '\0';
+	texto_setTexto(caixaTexto->texto, caixaTexto->entrada);
+	return;
+}
+
 void caixaTexto_print(CaixaTexto* caixaTexto, Tela* tela)
 {
 	if(caixaTexto == NULL || tela == NULL)
@@ -231,18 +252,12 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 	}
 	if(tela_getTipoEvento(tela )== SDL_KEYDOWN && caixaTexto->ativo)
 	{
-		printf("Alguma tecla foi apertada" );
-
+		if(tela_getTecla(tela)== SDLK_BACKSPACE)
+		{
+			caixaTexto_removeUltimaLetra(caixaTexto);
+			texto_updateTexto(caixaTexto->texto, tela);
+		}
 	}
-	if(tela_getTecla(tela)== SDLK_BACKSPACE && caixaTexto->ativo)
-	{
-		printf("Tecla BACKSPACE Apertada\n");
-	}
-	if(tela_getTeclaApertada(tela) && caixaTexto->ativo)
-	{
-		printf("Alguma tecla foi apertada\n");
-	}
-	/*Funcionando (com erros... mas ok) */
 	else if((tela_getTipoEvento(tela) == SDL_TEXTINPUT) && caixaTexto->ativo)
 	{
 		if(caixaTexto->texto == NULL || caixaTexto->entrada == NULL )
