@@ -29,8 +29,11 @@ void delete_imagem(Imagem*);
 
 /*SETTERS*/
 void imagem_setPosicao(Imagem*, int, int);
-void imagem_setTamanho(Imagem*, int, int);
 bool imagem_setImagem(Imagem*, Tela*, char*);
+bool imagem_setTamanho(Imagem*, Tela*, int, int);
+
+/*GETTERS*/
+void imagem_getTamanhoSurface(Imagem*, int, int);
 
 /*COMANDOS*/
 void imagem_print(Imagem*, Tela*);

@@ -112,27 +112,84 @@ void imagem_setPosicao(Imagem* imagem, int x, int y)
 	return;
 }
 
-void imagem_setTamanho(Imagem* imagem, int w, int h)
+bool imagem_setTamanho(Imagem* imagem, Tela* tela, int w, int h)
 {
 	if(imagem == NULL)
 	{
-		printf("Imagem não inicializada\n");
-		return;
+		printf(" EM: Imagem-> imagem_setTamanho(Imagem*, int, int)\n");
+		printf(" \tERRO: argumento Imagem* == NULL, abortando\n");
+		return false;
 	}
-	imagem->posicao.h = h;
-	imagem->posicao.w = w;
-	return;
+	if(tela == NULL)
+	{
+		printf(" EM: Imagem-> imagem_setImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: Argumento Tela* == NULL, abortando\n");
+		return false;
+	}
+	if(w < 0  || h < 0)
+	{
+		printf(" EM: Imagem-> imagem_setTamanho(Imagem*, int, int)\n");
+		printf(" \tERRO: Argumento \"int\" não pode ser negativo, abortando\n");
+		return false;
+	}
+	/*
+	SDL_Surface* surface = imagem_carregaImagem(imagem, tela, imagem->endereco);
+	if(surface == NULL)
+	{
+		printf("ERRO: Não foi possível carregar imagem\n");
+		return false;
+	}
+	imagem_getTamanhoSurface(imagem, surface->w, surface->h);
+	if(imagem->textura != NULL)
+	{
+		SDL_DestroyTexture(imagem->textura);
+		imagem->textura == NULL;
+	}
+	imagem->textura = SDL_CreateTextureFromSurface(tela_getRenderizador(tela), surface);
+	SDL_FreeSurface(surface);
+	if(imagem->textura == NULL)
+	{
+		printf("Erro ao converter para textura\n");
+		return false;
+	}
+	*/
+	SDL_QueryTexture(imagem->textura, NULL, NULL, &w, &h);
+	return true;
 }
+
 
 bool imagem_setImagem(Imagem* imagem, Tela* tela, char* endereco)
 {
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem-> imagem_setImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: Argumento Imagem* == NULL, abortando\n");
+		return false;
+	}
+	if(tela == NULL)
+	{
+		printf(" EM: Imagem-> imagem_setImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: Argumento Tela* == NULL, abortando\n");
+		return false;
+	}
+	if(endereco == NULL)
+	{
+		printf(" EM: Imagem-> imagem_setImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: Argumento char* == NULL, abortando\n");
+		return false;
+	}
 	SDL_Surface* surface = imagem_carregaImagem(imagem, tela, endereco);
 	if(surface == NULL)
 	{
 		printf("ERRO: Não foi possível carregar imagem\n");
 		return false;
 	}
-	imagem_setTamanho(imagem, surface->w, surface->h);
+	imagem_getTamanhoSurface(imagem, surface->w, surface->h);
+	if(imagem->textura != NULL)
+	{
+		SDL_DestroyTexture(imagem->textura);
+		imagem->textura == NULL;
+	}
 	imagem->textura = SDL_CreateTextureFromSurface(tela_getRenderizador(tela), surface);
 	SDL_FreeSurface(surface);
 	if(imagem->textura == NULL)
@@ -143,4 +200,16 @@ bool imagem_setImagem(Imagem* imagem, Tela* tela, char* endereco)
 	return true;
 }
 
+/* GETTERS */
 
+void imagem_getTamanhoSurface(Imagem* imagem, int w, int h)
+{
+	if(imagem == NULL)
+	{
+		printf("Imagem não inicializada\n");
+		return;
+	}
+	imagem->posicao.h = h;
+	imagem->posicao.w = w;
+	return;
+}

@@ -11,6 +11,7 @@ void main()
 
 	Animacao* animacao = new_animacao();
 	animacao_loadTabela(animacao, tela, "../../images/sprites/spritesheet.png", 4, 3);
+	animacao_setTamanhoTotal(animacao, tela, 300, 300);
 
 	while(!close)
 	{

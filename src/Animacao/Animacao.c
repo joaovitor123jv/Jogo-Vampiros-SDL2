@@ -2,7 +2,7 @@
 
 struct Animacao
 {
-	SDL_Rect* posicao;
+	SDL_Rect** posicao;
 	Imagem* imagem;
 	SDL_Rect total;
 	int linhas;
@@ -52,6 +52,30 @@ void delete_animacao(Animacao* animacao)
 	}
 	free(animacao);
 	animacao = NULL;
+}
+
+/* SETTERS */
+bool animacao_setTamanhoTotal(Animacao* animacao, Tela* tela, int w, int h)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_setTamanhoTotal(Animacao*, Tela*, int, int)\n");
+		printf(" \tERRO: argumento Animacao* igual a NULL, abortando\n");
+		return false;
+	}
+	if(w < 0 || h < 0 )
+	{
+		printf(" EM: Animacao-> animacao_setTamanhoTotal(Animacao*, Tela*, int, int)\n");
+		printf(" \tERRO: argumento \"int\" deve ser positivo, abortando\n");
+		return false;
+	}
+	if(animacao->imagem == NULL)
+	{
+		printf(" EM: Animacao-> animacao_setTamanhoTotal(Animacao*, Tela*, int, int)\n");
+		printf(" \tERRO: não foi possível carregar spritesheet, abortando\n");
+		return false;
+	}
+	return imagem_setTamanho(animacao->imagem, tela, w, h);
 }
 
 /* COMANDOS */
