@@ -39,8 +39,10 @@ Texto* new_texto()/*Construtor OK*/
 	texto->textura = NULL;
 	texto->nomeFonte = NULL;
 	texto->texto = NULL;
+	texto_setCor(texto, 0x88, 0x88, 0x88);
 	texto_setTamanhoMaximoString(texto, 32); /* Já define tamanho máximo como 32 e aloca */
 	texto->tamanhoFonte = 0;
+	texto_setFonte(texto, FONTE_PADRAO_TEXTO, TAMANHO_PADRAO_TEXTO);
 	return texto;
 }
 
@@ -85,6 +87,16 @@ void delete_texto(Texto* texto)
 }
 
 /*GETTERS*/
+TTF_Font* texto_getFont(Texto* texto)
+{
+	if(texto == NULL)
+	{
+		printf(" EM: Texto-> texto_getFont(Texto*)\n");
+		printf(" \tArgumento Texto* == NULL, Abortando\n");
+		return NULL;
+	}
+	return texto->fonte;
+}
 
 /*Função privada*/
 int texto_getTamanhoMaximoString(Texto* texto)

@@ -28,6 +28,7 @@ CaixaTexto* new_caixaTexto(void)
 	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO);/*Texto se encarrega do tratamento de erros*/
 	texto_setTexto(caixaTexto->texto, " ");/*Por padrão inicializa zerado*/
 	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);/*Cor branca por padrão*/
+	texto_setCor(caixaTexto->texto, 0x01, 0x01, 0x01);
 
 	caixaTexto_setTamanhoString(caixaTexto, 32); /* Determina tamanho máximo padrão da String de entrada */
 
@@ -141,13 +142,13 @@ void caixaTexto_setTamanho(CaixaTexto* caixaTexto, Tela* tela, int w, int h)/*OK
 		printf("EM: CaixaTexto -> caixaTexto_setTamanho(CaixaTexto*, Tela*, int, int)\n");
 		printf("\t texto (da caixa de texto) não existe\n");
 	}
-	texto_setTamanho(caixaTexto->texto, h);/*PROBLEMA EM setTamanho Resolvido*/
-	texto_updateTexto(caixaTexto->texto, tela);/*RESOLVER*/
+	texto_setTamanho(caixaTexto->texto, h);
+	texto_updateTexto(caixaTexto->texto, tela);
 	retangulo_setTamanho(caixaTexto->retangulo, w, h);
 	return;
 }
 
-void caixaTexto_setCorFundo(CaixaTexto* caixaTexto, int r, int g, int b)
+void caixaTexto_setCorFundo(CaixaTexto* caixaTexto, int r, int g, int b)/* OK */
 {
 	if(caixaTexto == NULL)
 	{
@@ -160,7 +161,7 @@ void caixaTexto_setCorFundo(CaixaTexto* caixaTexto, int r, int g, int b)
 }
 
 
-void caixaTexto_setCorTexto(CaixaTexto* caixaTexto, int r, int g, int b)
+void caixaTexto_setCorTexto(CaixaTexto* caixaTexto, int r, int g, int b)/* OK */
 {
 	if(caixaTexto == NULL)
 	{
@@ -172,7 +173,7 @@ void caixaTexto_setCorTexto(CaixaTexto* caixaTexto, int r, int g, int b)
 	return;
 }
 
-void caixaTexto_setFonte(CaixaTexto* caixaTexto, char *fonte, int tamanho)
+void caixaTexto_setFonte(CaixaTexto* caixaTexto, char *fonte, int tamanho)/* OK */
 {
 	if(caixaTexto == NULL)
 	{
@@ -184,14 +185,15 @@ void caixaTexto_setFonte(CaixaTexto* caixaTexto, char *fonte, int tamanho)
 		printf("ERRO: Não foi possível criar o Texto da caixa de texto \n");
 		return ;
 	}
-	if(!texto_setFonte(caixaTexto->texto, fonte, tamanho))/*ERRO AQUI*/
+	if(!texto_setFonte(caixaTexto->texto, fonte, tamanho))
 	{
 		printf("Aviso: Não foi possível definir fonte padrão a ser usada!(CaixaTexto->Construtor)\n");
 	}
+	return;
 }
 
 /* GETTERS */
-int caixaTexto_getTamanhoString(CaixaTexto* caixaTexto)
+int caixaTexto_getTamanhoString(CaixaTexto* caixaTexto)/* OK */
 {
 	if(caixaTexto == NULL)
 	{
@@ -255,6 +257,7 @@ void caixaTexto_ouvinte(CaixaTexto* caixaTexto, Tela* tela)
 		if(tela_getTecla(tela)== SDLK_BACKSPACE)
 		{
 			caixaTexto_removeUltimaLetra(caixaTexto);
+/*			TTF_SetFontOutline(texto_getFont(caixaTexto->texto), 1);*/
 			texto_updateTexto(caixaTexto->texto, tela);
 		}
 	}

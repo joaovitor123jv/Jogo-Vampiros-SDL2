@@ -25,6 +25,14 @@
 #define ERRO -1
 #endif
 
+#ifndef FONTE_PADRAO_TEXTO
+#define FONTE_PADRAO_TEXTO "fonts/MankSans.ttf"
+#endif
+
+#ifndef TAMANHO_PADRAO_TEXTO
+#define TAMANHO_PADRAO_TEXTO 40
+#endif
+
 typedef struct Texto Texto;
 
 Texto* new_texto(void);
@@ -46,6 +54,7 @@ int texto_getX(Texto*);
 int texto_getWidth(Texto*);
 int texto_getHeight(Texto*);
 char* texto_getTexto(Texto*);
+TTF_Font* texto_getFont(Texto*);
 
 /*COMANDOS*/
 void texto_toString(Texto*);

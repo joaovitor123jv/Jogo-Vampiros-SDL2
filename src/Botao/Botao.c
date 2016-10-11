@@ -28,6 +28,10 @@ Botao* new_botao()
 	botao->cor3.r = 0;
 	botao->cor3.g = 0;
 	botao->cor3.b = 0;
+	botao_setCorTexto(botao, 255, 255, 255);
+	botao_setCorFora(botao, 0x31, 0x61, 0x94);
+	botao_setCorDentro(botao, 0x21, 0x41, 0x74);
+	botao_setCorClique(botao, 0x21, 0x39, 0x5B);
 	return botao;
 }
 
@@ -38,8 +42,16 @@ void delete_botao(Botao* botao)
 	{
 		return;
 	}
-	delete_texto(botao->texto);
-	delete_retangulo(botao->retangulo);
+	if(botao->texto != NULL)
+	{
+		delete_texto(botao->texto);
+		botao->texto = NULL;
+	}
+	if(botao->retangulo != NULL)
+	{
+		delete_retangulo(botao->retangulo);
+		botao->retangulo = NULL;
+	}
 	free(botao);
 	botao = NULL;
 	return;
@@ -141,11 +153,38 @@ void botao_setTamanho(Botao* botao, Tela* tela, int tamanho)
 	retangulo_setTamanho(botao->retangulo, texto_getWidth(botao->texto), texto_getHeight(botao->texto));
 }
 
+/* GETTERS */
+int botao_getWidth(Botao* botao)
+{
+	if(botao == NULL)
+	{
+		printf(" EM: Botao-> botao_getWidth(Botao*)\n");
+		printf(" \tERRO: Argumento igual a NULL\n");
+		return -1;
+	}
+	return retangulo_getWidth(botao->retangulo);
+}
+
+int botao_getHeight(Botao* botao)
+{
+	if(botao == NULL)
+	{
+		printf(" EM: Botao-> botao_getHeight(Botao*)\n");
+		printf(" \tERRO: Argumento igual a NULL\n");
+		return -1;
+	}
+	return retangulo_getHeight(botao->retangulo);
+}
 
 /*COMANDOS*/
-/*TODO*/
 void botao_print(Botao* botao, Tela* tela)
 {
+	if(botao == NULL || tela == NULL)
+	{
+		printf(" EM: Botao-> botao_print(Botao*, Tela*);\n");
+		printf(" \tERRO: Argumento Botao* e/ou Tela*, igual a NULL, abortando\n");
+		return;
+	}
 	if(botao->dentro)
 	{
 		retangulo_setCor(botao->retangulo, botao->cor1.r, botao->cor1.g, botao->cor1.b);

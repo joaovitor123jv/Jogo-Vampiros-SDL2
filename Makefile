@@ -17,10 +17,10 @@ PASTA_BOTAO=Botao
 PASTA_IMAGEM=Imagem
 PASTA_CAIXA_TEXTO=CaixaTexto
 
-OBJETO = $(FONTE:.c=.o) $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o) $(IMAGEM:.c=.o) $(CAIXA_TEXTO:.c=.o)
+OBJETO = $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o) $(IMAGEM:.c=.o) $(CAIXA_TEXTO:.c=.o)
 
 #EXE especifica o nome do executavel
-EXE = jogo
+EXE = play
 
 #Bandeiras de Compilador
 WARNING_FLAGS=-Wunused-result
@@ -40,23 +40,31 @@ CC = gcc
 DEBUGGER=valgrind
 
 #Esse é o Alvo que compila o executável
-all : Tela Player Texto Retangulo Botao Imagem CaixaTexto
+all : Tela Player Texto Retangulo Botao Imagem CaixaTexto telaDeLogin
 	@echo
 	@echo "Compilando arquivos para funcionamento do principal"
 	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(FONTE)
-	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(OBJETO) $(LINKER)
+	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(FONTE:.c=.o) $(OBJETO) $(LINKER)
 	@echo
 	@echo "Removendo Arquivos remanescentes da compilação"
-	cd $(PASTA_FONTE); rm $(OBJETO)
+	cd $(PASTA_FONTE); rm $(OBJETO) $(FONTE:.c=.o)
 
-SDL2:
-	SDL= whereis SDL2
-	if test -n "$(SDL)"
-	then
-		echo "Print something"
-	else 
-		echo "Print anotherThing"
-	fi
+#----------------------------------------------------------------------------------------------
+#TELA DE LOGIN
+TELA_DE_LOGIN=telaDeLogin.c
+
+telaDeLogin: Bibliotecas 
+	@echo
+	@echo "Compilando arquivos para funcionamento da Tela de Login"
+	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(TELA_DE_LOGIN)
+	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(TELA_DE_LOGIN:.c=) $(TELA_DE_LOGIN:.c=.o) $(OBJETO) $(LINKER)
+	@echo
+	@echo "Removendo Arquivos remanescentes da Tela de Login"
+	cd $(PASTA_FONTE); rm $(TELA_DE_LOGIN:.c=.o)
+#FIM TELA_DE_LOGIN ----------------------------------------------------------------------------
+
+#BIBLIOTECAS ----------------------------------------------------------------------------------
+Bibliotecas: Tela Player Texto Retangulo Botao Imagem CaixaTexto
 
 Tela:
 	@echo
@@ -99,6 +107,11 @@ CaixaTexto: Tela Retangulo Texto
 	@echo "Compilando arquivos para funcionamento de Entrada de Texto "
 	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); $(CC) $(PASSO1) $(CAIXA_TEXTO)
 	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); mv $(CAIXA_TEXTO:.c=.o) ../
+#FIM BIBLIOTECAS----------------------------------------------------------------------------
+
+
+
+	
 
 
 run:

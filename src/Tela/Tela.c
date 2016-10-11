@@ -100,7 +100,12 @@ int tela_setTitle(Tela* tela, char *titulo)
 	{
 		return TELA_NAO_INICIALIZADA;
 	}
+	if(titulo == NULL)
+	{
+		tela->titulo = " ";
+	}
 	tela->titulo = titulo;
+	return OK;
 }
 
 int tela_setCor(Tela* tela, int r, int g, int b)

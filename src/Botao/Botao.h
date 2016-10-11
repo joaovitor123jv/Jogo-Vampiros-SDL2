@@ -16,7 +16,7 @@
 #endif
 
 #ifndef FONTE_PADRAO
-#define FONTE_PADRAO "fonte.ttf"
+#define FONTE_PADRAO "fonts/MankSans.ttf"
 #endif
 
 #ifndef TAMANHO_PADRAO
@@ -40,6 +40,9 @@ void botao_setTexto(Botao*, char*);
 void botao_setPosicao(Botao*, int, int);
 void botao_setTamanho(Botao*, Tela*, int);
 
+/* GETTERS */
+int botao_getWidth(Botao*);
+int botao_getHeight(Botao*);
 
 /*COMANDOS*/
 void botao_print(Botao*, Tela*);
