@@ -16,8 +16,8 @@ Animacao* new_animacao(void);
 void delete_animacao(Animacao*);
 
 /* SETTERS */
-bool animacao_setTamanhoTotal(Animacao*, Tela*, int, int);
+bool animacao_setTamanhoTotal(Animacao*, int, int);
 
 /* COMANDOS */
-bool animacao_loadTabela(Animacao*, Tela*, char*, int, int);
+bool animacao_loadSheet(Animacao*, Tela*, char*, int, int);
 void animacao_printTotal(Animacao*, Tela*);

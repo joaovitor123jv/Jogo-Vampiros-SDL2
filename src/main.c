@@ -13,7 +13,7 @@ int main( int argc, char* args[] )
 	Botao* botao = new_botao();
 	Botao* btSair = new_botao();
 	Botao* btFullScreen = new_botao();
-/*	Imagem* imagem = new_imagem();*/
+	Imagem* imagem = new_imagem();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Tela de Login ");
@@ -21,7 +21,8 @@ int main( int argc, char* args[] )
 	tela_setCor(tela, 50, 50, 70);
 	tela_setAlpha(tela, 50);
 
-/*	imagem_setImagem(imagem, tela, "images/fundo.png");*/
+	imagem_setImagem(imagem, tela, "images/fundo.png");
+	imagem_setTamanho(imagem, tela_getWidth(tela), tela_getHeight(tela));
 
 	player_setVelocidade(player,  5);
 	player_setTextura(player, tela, "images/sprites/player.png");
@@ -77,7 +78,7 @@ int main( int argc, char* args[] )
 		}
 
 		tela_limpa(tela);
-/*		imagem_print(imagem, tela);*/
+		imagem_print(imagem, tela);
 		botao_print(botao, tela);
 		player_print(player, tela);
 		player_print(player2, tela);
@@ -91,7 +92,7 @@ int main( int argc, char* args[] )
 	delete_botao(btSair);
 
 
-/*	delete_imagem(imagem);*/
+	delete_imagem(imagem);
 
 	delete_tela(tela);
 	delete_player(player);

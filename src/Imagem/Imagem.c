@@ -113,7 +113,7 @@ void imagem_setPosicao(Imagem* imagem, int x, int y)
 	return;
 }
 
-bool imagem_setTamanho(Imagem* imagem, Tela* tela, int w, int h)
+bool imagem_setTamanho(Imagem* imagem, int w, int h)
 {
 	if(imagem == NULL)
 	{
@@ -121,12 +121,13 @@ bool imagem_setTamanho(Imagem* imagem, Tela* tela, int w, int h)
 		printf(" \tERRO: argumento Imagem* == NULL, abortando\n");
 		return false;
 	}
+	/* 
 	if(tela == NULL)
 	{
 		printf(" EM: Imagem-> imagem_setImagem(Imagem*, Tela*, char*)\n");
 		printf(" \tERRO: Argumento Tela* == NULL, abortando\n");
 		return false;
-	}
+		}*/
 	if(w < 0  || h < 0)
 	{
 		printf(" EM: Imagem-> imagem_setTamanho(Imagem*, int, int)\n");
@@ -154,7 +155,9 @@ bool imagem_setTamanho(Imagem* imagem, Tela* tela, int w, int h)
 		return false;
 	}
 	*/
-	SDL_QueryTexture(imagem->textura, NULL, NULL, &w, &h);
+/*	SDL_QueryTexture(imagem->textura, NULL, NULL, &w, &h);*/
+	imagem->posicao.w = w;
+	imagem->posicao.h = h;
 	return true;
 }
 

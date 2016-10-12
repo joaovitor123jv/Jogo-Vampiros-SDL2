@@ -30,7 +30,7 @@ void delete_imagem(Imagem*);
 /*SETTERS*/
 void imagem_setPosicao(Imagem*, int, int);
 bool imagem_setImagem(Imagem*, Tela*, char*);
-bool imagem_setTamanho(Imagem*, Tela*, int, int);
+bool imagem_setTamanho(Imagem*, int, int);
 
 /*GETTERS*/
 void imagem_getTamanhoSurface(Imagem*, int, int);

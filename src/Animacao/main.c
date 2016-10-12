@@ -10,8 +10,8 @@ void main()
 	tela_setCor(tela, 50,50,50);
 
 	Animacao* animacao = new_animacao();
-	animacao_loadTabela(animacao, tela, "../../images/sprites/spritesheet.png", 4, 3);
-	animacao_setTamanhoTotal(animacao, tela, 300, 300);
+	animacao_loadSheet(animacao, tela, "../../images/sprites/spritesheet.png", 4, 3);
+	animacao_setTamanhoTotal(animacao, 300, 300);
 
 	while(!close)
 	{

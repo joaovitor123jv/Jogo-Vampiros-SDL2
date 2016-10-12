@@ -55,7 +55,7 @@ void delete_animacao(Animacao* animacao)
 }
 
 /* SETTERS */
-bool animacao_setTamanhoTotal(Animacao* animacao, Tela* tela, int w, int h)
+bool animacao_setTamanhoTotal(Animacao* animacao, int w, int h)
 {
 	if(animacao == NULL)
 	{
@@ -75,37 +75,37 @@ bool animacao_setTamanhoTotal(Animacao* animacao, Tela* tela, int w, int h)
 		printf(" \tERRO: não foi possível carregar spritesheet, abortando\n");
 		return false;
 	}
-	return imagem_setTamanho(animacao->imagem, tela, w, h);
+	return imagem_setTamanho(animacao->imagem, w, h);
 }
 
 /* COMANDOS */
-bool animacao_loadTabela(Animacao* animacao, Tela* tela, char* endereco, int linhas, int colunas)
+bool animacao_loadSheet(Animacao* animacao, Tela* tela, char* endereco, int linhas, int colunas)
 {
 	Imagem* imagem = new_imagem();
 	if(animacao == NULL)
 	{
-		printf(" EM: Animacao-> animacao_loadTabela(Animacao*, char*, int, int)\n");
+		printf(" EM: Animacao-> animacao_loadSheet(Animacao*, char*, int, int)\n");
 		printf(" \tERRO: argumento Animacao* igual a NULL, abortando\n");
 		delete_imagem(imagem);
 		return false;
 	}
 	if(endereco == NULL)
 	{
-		printf(" EM: Animacao-> animacao_loadTabela(Animacao*, char*, int, int)\n");
+		printf(" EM: Animacao-> animacao_loadSheet(Animacao*, char*, int, int)\n");
 		printf(" \tERRO: argumento char* igual a NULL, abortando\n");
 		delete_imagem(imagem);
 		return false;
 	}
 	if(linhas < 0 || colunas < 0 )
 	{
-		printf(" EM: Animacao-> animacao_loadTabela(Animacao*, char*, int, int)\n");
+		printf(" EM: Animacao-> animacao_loadSheet(Animacao*, char*, int, int)\n");
 		printf(" \tERRO: argumento \"int\" deve ser positivo, abortando\n");
 		delete_imagem(imagem);
 		return false;
 	}
 	if(imagem == NULL)
 	{
-		printf(" EM: Animacao-> animacao_loadTabela(Animacao*, char*, int, int)\n");
+		printf(" EM: Animacao-> animacao_loadSheet(Animacao*, char*, int, int)\n");
 		printf(" \tERRO: não foi possível carregar spritesheet, abortando\n");
 		delete_imagem(imagem);
 		return false;
@@ -133,7 +133,7 @@ void animacao_printTotal(Animacao* animacao, Tela* tela)
 	if(animacao->imagem == NULL)
 	{
 		printf(" EM: Animacao-> animacao_printTotal(Animacao*, Tela*)\n");
-		printf(" \tERRO: Tabela de Sprites ainda não foi carregada\n");
+		printf(" \tERROR: SpriteSheet not loaded \n");
 		printf(" \tAnimacao->imagem == NULL, abortando\n");
 		return;
 	}
