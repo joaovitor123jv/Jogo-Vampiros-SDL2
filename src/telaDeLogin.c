@@ -8,7 +8,7 @@ int main(/*int argc, char* args[] */)
 	int retorno = 0;
 
 	Tela* tela = new_tela();
-	CaixaTexto* caixaTexto = new_caixaTexto();
+/*	CaixaTexto* caixaTexto = new_caixaTexto();*/
 	Botao* btEntrar = new_botao();
 	Botao* btSair = new_botao();
 	Botao* btFullScreen = new_botao();
@@ -34,12 +34,12 @@ int main(/*int argc, char* args[] */)
 	botao_setTexto(btFullScreen, "Tela Cheia");
 	botao_update(btFullScreen, tela);
 	botao_setPosicao(btFullScreen, 0, 300);
-
+/*
 	caixaTexto_setFonte(caixaTexto, "fonte.ttf", 50);
 	caixaTexto_setTamanho(caixaTexto, tela, 300, 30);
 	caixaTexto_setPosicao(caixaTexto, texto_getX(txtLogin)+texto_getWidth(txtLogin), tela_getHeight(tela)/2 );
 	caixaTexto_setTamanhoString(caixaTexto, 30);
-
+*/
 	while(!fechar)
 	{
 		while(tela_getEvento(tela))
@@ -59,12 +59,12 @@ int main(/*int argc, char* args[] */)
 			{
 				tela_setFullScreen(tela);
 			}
-			caixaTexto_ouvinte(caixaTexto, tela);
+	/*		caixaTexto_ouvinte(caixaTexto, tela);*/
 		}
 		tela_limpa(tela);
 		texto_print(txtLogin, tela);
 		botao_print(btEntrar, tela);
-		caixaTexto_print(caixaTexto, tela);
+/*		caixaTexto_print(caixaTexto, tela);*/
 		botao_print(btSair, tela);
 		botao_print(btFullScreen, tela);
 		tela_update(tela);
@@ -90,11 +90,11 @@ int main(/*int argc, char* args[] */)
 		botao_setTexto(btFullScreen, "Tela Cheia");
 		botao_update(btFullScreen, tela);
 		botao_setPosicao(btFullScreen, 0, 300);
-
+/*
 		caixaTexto_setFonte(caixaTexto, "fonte.ttf", 50);
 		caixaTexto_setTamanho(caixaTexto, tela, 300, 30);
 		caixaTexto_setPosicao(caixaTexto, texto_getX(txtLogin)+texto_getWidth(txtLogin), tela_getHeight(tela)/2 );
-		caixaTexto_setTamanhoString(caixaTexto, 30);
+		caixaTexto_setTamanhoString(caixaTexto, 30);*/
 		fechar = false;
 
 		while(!fechar)
@@ -115,12 +115,12 @@ int main(/*int argc, char* args[] */)
 				{
 					tela_setFullScreen(tela);
 				}
-				caixaTexto_ouvinte(caixaTexto, tela);
+			/*	caixaTexto_ouvinte(caixaTexto, tela);*/
 			}
 			tela_limpa(tela);
 			texto_print(txtLogin, tela);
 			botao_print(btEntrar, tela);
-			caixaTexto_print(caixaTexto, tela);
+		/*	caixaTexto_print(caixaTexto, tela);*/
 			botao_print(btSair, tela);
 			botao_print(btFullScreen, tela);
 			tela_update(tela);
@@ -131,7 +131,7 @@ int main(/*int argc, char* args[] */)
 	delete_botao(btSair);
 
 	delete_texto(txtLogin);
-	delete_caixaTexto(caixaTexto);
+/*	delete_caixaTexto(caixaTexto);*/
 
 	delete_tela(tela);
 	return 0;

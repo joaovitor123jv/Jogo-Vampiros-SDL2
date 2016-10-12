@@ -46,10 +46,11 @@ void imagem_print(Imagem* imagem, Tela* tela)
 {
 	if(imagem == NULL || tela == NULL)
 	{
-		printf("ERRO: Tela e/ou Imagem não inicializados \n");
+		printf(" EM: Imagem-> imagem_print(Imagem*, Tela*)\n");
+		printf("\tERRO: Tela e/ou Imagem não inicializados \n");
 		return;
 	}
-	SDL_RenderCopy(tela_getRenderizador(tela), imagem->textura, NULL, NULL);
+	SDL_RenderCopyEx(tela_getRenderizador(tela), imagem->textura, NULL, &imagem->posicao, 0.0,  NULL, SDL_FLIP_NONE);
 }
 
 SDL_Surface* imagem_carregaImagem(Imagem* imagem, Tela* tela, char* endereco)
