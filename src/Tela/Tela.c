@@ -1,4 +1,5 @@
 #include"Tela.h"
+#include<SDL2/SDL_image.h>/* To use the IMG_Quit */
 #define TAMANHO_MAXIMO_TITULO 200;
 
 struct Tela
@@ -21,6 +22,12 @@ Tela* new_tela(void)
 	Tela* tela = malloc(sizeof(Tela));
 	if(tela == NULL)
 	{
+		return NULL;
+	}
+	if(SDL_Init(SDL_INIT_VIDEO) == -1)
+	{
+		printf(" EM: Tela->new_tela()\n");
+		printf(" \tERRO: Failed to init SDL2, aborting\n");
 		return NULL;
 	}
 	tela->width = 100;
@@ -47,6 +54,7 @@ int delete_tela(Tela* tela)
 		return TELA_NAO_INICIALIZADA;
 	}
 	SDL_Quit();
+	IMG_Quit();
 	SDL_DestroyWindow(tela->janela);
 	if(tela->janela != NULL)
 	{
@@ -86,10 +94,6 @@ bool tela_setFullScreen(Tela* tela)
 	if(SDL_GetWindowFlags(tela->janela) != SDL_WINDOW_FULLSCREEN)
 	{
 		SDL_SetWindowFullscreen(tela->janela, SDL_WINDOW_FULLSCREEN);
-	}
-	else
-	{
-		SDL_SetWindowFullscreen(tela->janela, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 	return true;
 }
