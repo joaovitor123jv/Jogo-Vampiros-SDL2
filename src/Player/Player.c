@@ -1,3 +1,4 @@
+#include "../Animacao/Animacao.h"
 #include "Player.h"
 
 struct Player
@@ -7,7 +8,7 @@ struct Player
 	unsigned short baixo;
 	unsigned short esquerda;
 	unsigned short direita;
-
+/*	Animacao* animacao;*/
 	SDL_Rect posicao;
 	SDL_Texture* textura;
 };
@@ -29,6 +30,7 @@ Player* new_player(void)
 	player->baixo = false;
 	player->esquerda = false;
 	player->direita = false;
+/*	animacao = new_animacao();*/
 	return player;
 }
 
@@ -39,6 +41,7 @@ int delete_player(Player* player)
 	{
 		return ERRO;
 	}
+/*	delete_animacao(player->animacao);*/
 	free(player);
 	if(player != NULL)
 	{
@@ -251,6 +254,7 @@ bool player_print(Player* player, Tela* tela)
 	{
 		return false;
 	}
+/*	animacao_printTotal*/
 	SDL_RenderCopy(tela_getRenderizador(tela), player_getTextura(player), NULL, player_getPosicao(player));
 }
 
@@ -286,6 +290,7 @@ void player_ouvinte(Player* player, Tela* tela)
 		{
 			case(SDLK_w):
 				player_setCima(player, true);
+
 				break;
 
 			case(SDLK_a):

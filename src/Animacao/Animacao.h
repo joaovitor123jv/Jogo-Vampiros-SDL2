@@ -36,8 +36,10 @@ bool animacao_setColunaFixa(Animacao*, bool);
 /* COMANDOS */
 bool animacao_loadSheet(Animacao*, Tela*, char*, int, int);
 void animacao_printTotal(Animacao*, Tela*);
+void animacao_print(Animacao*, Tela*);
 void animacao_setLinha(Animacao*, int);
 void animacao_setColuna(Animacao*, int);
+void animacao_setDefaultSprite(Animacao*, int);
 
 /* THREADS */
 void animacao_start(Animacao*);

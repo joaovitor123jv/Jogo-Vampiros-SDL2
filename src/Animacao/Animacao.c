@@ -12,6 +12,7 @@ struct Animacao
 	int coluna;
 	int linhas;
 	int colunas;
+	int defaultSprite;
 };
 
 SDL_ThreadFunction animacao_trocaSprites(Animacao*); /* Protótipo (linker) */
@@ -40,6 +41,7 @@ Animacao* new_animacao(void)
 	animacao->running = false;
 	animacao->ColunaFixa = false;
 	animacao->parado = true;
+	animacao->defaultSprite = 0;
 	return animacao;
 }
 
@@ -68,6 +70,18 @@ void delete_animacao(Animacao* animacao)
 }
 
 /* SETTERS */
+void animacao_setDefaultSprite(Animacao* animacao, int numero)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao->animacao_setDefaultSprite(Animacao*, int)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return;
+	}
+	animacao->defaultSprite=numero;
+	return;
+}
+
 void animacao_setColuna(Animacao* animacao, int coluna)
 {
 	if(animacao == NULL)
@@ -269,8 +283,6 @@ bool animacao_loadSheet(Animacao* animacao, Tela* tela, char* endereco, int linh
 	animacao->imagem = imagem;
 	animacao->linhas = linhas;
 	animacao->colunas = colunas;
-	printf(" %d linhas\n",linhas);
-	printf(" %d colunas\n",colunas);
 	for(x=0; x<colunas; x++)
 	{
 		for(y=0; y<linhas; y++)
@@ -401,12 +413,12 @@ SDL_ThreadFunction animacao_trocaSprites(Animacao* animacao)
 		{
 			if(animacao->parado)
 			{
-				animacao->coluna = 4;
+				animacao->coluna = animacao->defaultSprite;
 			}
 			else
 			{
-				SDL_Delay(400);
-				if((animacao->coluna+ 2)>=animacao->colunas)
+				SDL_Delay(200);
+				if((animacao->coluna+ 2)>animacao->colunas)
 				{
 					animacao->coluna = 0;
 				}
