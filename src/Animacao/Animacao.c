@@ -5,11 +5,16 @@ struct Animacao
 	SDL_Rect** posicao;
 	Imagem* imagem;
 	SDL_Rect total;
+	bool running;
+	bool parado;
+	bool ColunaFixa;
 	int linha;
 	int coluna;
 	int linhas;
 	int colunas;
 };
+
+SDL_ThreadFunction animacao_trocaSprites(Animacao*); /* Protótipo (linker) */
 
 /* CONSTRUTOR */ 
 Animacao* new_animacao(void) 
@@ -32,6 +37,9 @@ Animacao* new_animacao(void)
 	animacao->colunas = 0;/* QUantidade de colunas */
 	animacao->linha = 0;/* Linha de print */
 	animacao->coluna = 0;/* Coluna de print */
+	animacao->running = false;
+	animacao->ColunaFixa = false;
+	animacao->parado = true;
 	return animacao;
 }
 
@@ -44,6 +52,7 @@ void delete_animacao(Animacao* animacao)
 		printf("\tERRO: argumento Animacao* igual a NULL\n");
 		return;
 	}
+	animacao->running = false;
 	if(animacao->imagem != NULL)
 	{
 		delete_imagem(animacao->imagem);
@@ -59,6 +68,61 @@ void delete_animacao(Animacao* animacao)
 }
 
 /* SETTERS */
+void animacao_setColuna(Animacao* animacao, int coluna)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao->animacao_setColuna(Animacao*, int)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return;
+	}
+	if(!animacao->ColunaFixa)
+	{
+		printf(" EM: Animacao->animacao_setColuna(Animacao*, int)\n");
+		printf(" \tERRO: Coluna Fixa ativada, abortando\n");
+		return;
+	}
+	if(coluna<0 || coluna>=animacao->colunas)
+	{
+		printf(" EM: Animacao->animacao_setColuna(Animacao*, int)\n");
+		printf(" \tERRO: Número incorreto de colunas, abortando\n");
+		return;
+	}
+	animacao->coluna = coluna;
+}
+void animacao_setLinha(Animacao* animacao, int linha)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao->animacao_setColuna(Animacao*, int)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return;
+	}
+	if(animacao->ColunaFixa)
+	{
+		printf(" EM: Animacao->animacao_setColuna(Animacao*, int)\n");
+		printf(" \tERRO: Coluna Fixa ativada, abortando\n");
+		return;
+	}
+	if(linha<0 || linha>=animacao->linhas)
+	{
+		printf(" EM: Animacao->animacao_setColuna(Animacao*, int)\n");
+		printf(" \tERRO: Número incorreto de colunas, abortando\n");
+		return;
+	}
+	animacao->linha = linha;
+}
+bool animacao_setColunaFixa(Animacao* animacao, bool teste)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_setColunaFixa(Animacao*, bool)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return false;
+	}
+	animacao->ColunaFixa=teste;
+	return true;
+}
 bool animacao_setTamanhoTotal(Animacao* animacao, int w, int h)
 {
 	if(animacao == NULL)
@@ -205,6 +269,8 @@ bool animacao_loadSheet(Animacao* animacao, Tela* tela, char* endereco, int linh
 	animacao->imagem = imagem;
 	animacao->linhas = linhas;
 	animacao->colunas = colunas;
+	printf(" %d linhas\n",linhas);
+	printf(" %d colunas\n",colunas);
 	for(x=0; x<colunas; x++)
 	{
 		for(y=0; y<linhas; y++)
@@ -215,7 +281,46 @@ bool animacao_loadSheet(Animacao* animacao, Tela* tela, char* endereco, int linh
 			animacao->posicao[x][y].h = (int)imagem_getHeight(imagem)/linhas;
 		}
 	}
+	/* Início de Thread */
+	animacao->running = true;
+	SDL_CreateThread((SDL_ThreadFunction)animacao_trocaSprites, "TrocaSprites", (void*)animacao);/* Não recebe parâmetros*/
 	return true;
+}
+
+void animacao_start(Animacao* animacao)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_start(Animacao*)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return;
+	}
+	if(!animacao->running)
+	{
+		printf(" EM: Animacao-> animacao_start(Animacao*)\n");
+		printf(" \tSpritesheet não carregada, abortando\n");
+		return;
+	}
+	animacao->parado = false;
+	return;
+}
+
+void animacao_stop(Animacao* animacao)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_start(Animacao*)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return;
+	}
+	if(!animacao->running)
+	{
+		printf(" EM: Animacao-> animacao_start(Animacao*)\n");
+		printf(" \tSpritesheet não carregada, abortando\n");
+		return;
+	}
+	animacao->parado = true;
+	return;
 }
 
 void animacao_printTotal(Animacao* animacao, Tela* tela)
@@ -263,6 +368,54 @@ void animacao_print(Animacao* animacao, Tela* tela)
 		printf(" \tERRO: Tabela de Sprites não foi carregada, abortando\n");
 		return;
 	}
-	imagem_printPart(animacao->imagem, tela, animacao->posicao[animacao->linha][animacao->coluna]);
+	imagem_printPart(animacao->imagem, tela, animacao->posicao[animacao->coluna][animacao->linha]);
+	return;
+}
+
+/* THREADS */
+SDL_ThreadFunction animacao_trocaSprites(Animacao* animacao)
+{
+	/*
+	if(animacao->ColunaFixa)
+	{
+		while(animacao->running)
+		{
+			if(animacao->parado)
+			{
+				animacao->linha  = 1;
+			}
+			else
+			{
+				SDL_Delay(500);
+				if((animacao->linha = animacao->linha+1) > animacao->linha-1)
+				{
+					animacao->linha = 0;
+				}
+			}
+		}
+		return;
+	}
+	else
+	{*/
+		while(animacao->running)
+		{
+			if(animacao->parado)
+			{
+				animacao->coluna = 4;
+			}
+			else
+			{
+				SDL_Delay(400);
+				if((animacao->coluna+ 2)>=animacao->colunas)
+				{
+					animacao->coluna = 0;
+				}
+				else 
+				{
+					animacao->coluna = animacao->coluna+1;
+				}
+			}
+		}
+/*	}*/
 	return;
 }
