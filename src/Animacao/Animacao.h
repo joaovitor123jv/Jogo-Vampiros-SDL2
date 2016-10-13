@@ -17,6 +17,8 @@ void delete_animacao(Animacao*);
 
 /* SETTERS */
 bool animacao_setTamanhoTotal(Animacao*, int, int);
+bool animacao_setPosicao(Animacao*, int, int);
+bool animacao_setParte(Animacao*, int, int);
 
 /* COMANDOS */
 bool animacao_loadSheet(Animacao*, Tela*, char*, int, int);

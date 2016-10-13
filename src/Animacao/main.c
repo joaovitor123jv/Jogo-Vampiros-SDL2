@@ -12,16 +12,26 @@ void main()
 	Animacao* animacao = new_animacao();
 	animacao_loadSheet(animacao, tela, "../../images/sprites/spritesheet.png", 4, 3);
 	animacao_setTamanhoTotal(animacao, 300, 300);
+	animacao_setPosicao(animacao, 0, 0);
+		tela_limpa(tela);
 
+	animacao_setParte(animacao, 2, 2);
+		animacao_print(animacao, tela);
+
+	animacao_setParte(animacao, 1, 1);
+	animacao_setPosicao(animacao, 100, 100);
+		animacao_print(animacao, tela);
+
+
+	tela_update(tela);
 	while(!close)
 	{
 		while(tela_getEvento(tela))
 		{
 			close = tela_getSair(tela);
 		}
-		tela_limpa(tela);
-		animacao_printTotal(animacao, tela);
-		tela_update(tela);
 	}
+	delete_tela(tela);
+	delete_animacao(animacao);
 	return;
 }

@@ -53,6 +53,34 @@ void imagem_print(Imagem* imagem, Tela* tela)
 	SDL_RenderCopyEx(tela_getRenderizador(tela), imagem->textura, NULL, &imagem->posicao, 0.0,  NULL, SDL_FLIP_NONE);
 }
 
+void imagem_printPart(Imagem* imagem, Tela* tela, SDL_Rect corte)
+{
+	SDL_Rect quadrado;
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem-> imagem_printPart(Imagem*, Tela*, SDL_Rect)\n");
+		printf(" \tERRO: argumento Imagem* == NULL, abortando\n");
+		return;
+	}
+	if(tela == NULL)
+	{
+		printf(" EM: Imagem-> imagem_printPart(Imagem*, Tela*, SDL_Rect)\n");
+		printf(" \tERRO: argumento Imagem* == NULL, abortando\n");
+		return;
+	}
+	if(&corte == NULL)
+	{
+		printf(" EM: Imagem-> imagem_printPart(Imagem*, Tela*, SDL_Rect)\n");
+		printf(" \tArgumento SDL_Rect inválido\n");
+	}
+	quadrado.x = imagem->posicao.x;
+	quadrado.y = imagem->posicao.y;
+	quadrado.w = corte.w;
+	quadrado.h = corte.h;
+	SDL_RenderCopy(tela_getRenderizador(tela), imagem->textura, &corte, &quadrado);/* Renderizador, textura, recorte, quadrado */
+	return;
+}
+
 SDL_Surface* imagem_carregaImagem(Imagem* imagem, Tela* tela, char* endereco)
 {
 	if(imagem == NULL || tela == NULL)
@@ -216,4 +244,47 @@ void imagem_getTamanhoSurface(Imagem* imagem, int w, int h)
 	imagem->posicao.h = h;
 	imagem->posicao.w = w;
 	return;
+}
+
+int imagem_getWidth(Imagem* imagem)
+{
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem-> imagem_getWidth(Imagem*)\n");
+		printf(" \tArgumento Imagem* == NULL, abortando\n");
+		return -1;
+	}
+	return imagem->posicao.w;
+}
+
+int imagem_getHeight(Imagem* imagem)
+{
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem-> imagem_getHeight(Imagem*)\n");
+		printf(" \tArgumento Imagem* == NULL, abortando\n");
+		return -1;
+	}
+	return imagem->posicao.h;
+}
+
+int imagem_getX(Imagem* imagem)
+{
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem-> imagem_getX(Imagem*)\n");
+		printf(" \tArgumento Imagem* == NULL, abortando\n");
+		return -1;
+	}
+	return imagem->posicao.x;
+}
+int imagem_getY(Imagem* imagem)
+{
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem-> imagem_getY(Imagem*)\n");
+		printf(" \tArgumento Imagem* == NULL, abortando\n");
+		return -1;
+	}
+	return imagem->posicao.y;
 }

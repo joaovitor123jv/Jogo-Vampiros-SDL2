@@ -34,6 +34,11 @@ bool imagem_setTamanho(Imagem*, int, int);
 
 /*GETTERS*/
 void imagem_getTamanhoSurface(Imagem*, int, int);
+int imagem_getX(Imagem*);
+int imagem_getY(Imagem*);
+int imagem_getWidth(Imagem*);
+int imagem_getHeight(Imagem*);
 
 /*COMANDOS*/
 void imagem_print(Imagem*, Tela*);
+void imagem_printPart(Imagem*, Tela*, SDL_Rect);
