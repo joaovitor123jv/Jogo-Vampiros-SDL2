@@ -24,12 +24,16 @@ int main( int argc, char* args[] )
 	imagem_setImagem(imagem, tela, "images/fundo.png");
 	imagem_setTamanho(imagem, tela_getWidth(tela), tela_getHeight(tela));
 
+	player_loadSheet(player, tela, "images/sprites/spritesheet.png", 4, 4);
+	player_start(player);
 	player_setVelocidade(player,  5);
-	player_setTextura(player, tela, "images/sprites/player.png");
 	player_setX(player, 10);
 	player_setY(player, 10);
+
+
+	player_loadSheet(player2, tela, "images/sprites/spritesheet.png", 4, 4);
+	player_start(player2);
 	player_setVelocidade(player2, 2);
-	player_setTextura(player2, tela, "images/sprites/player.png");
 	player_setX(player2, 90);
 	player_setY(player2, 90);
 

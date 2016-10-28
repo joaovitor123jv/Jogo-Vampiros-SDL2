@@ -7,6 +7,7 @@ RETANGULO=Retangulo.c
 BOTAO=Botao.c
 IMAGEM=Imagem.c
 CAIXA_TEXTO=CaixaTexto.c
+ANIMACAO=Animacao.c
 
 PASTA_FONTE=src
 PASTA_TELA=Tela
@@ -17,7 +18,7 @@ PASTA_BOTAO=Botao
 PASTA_IMAGEM=Imagem
 PASTA_CAIXA_TEXTO=CaixaTexto
 
-OBJETO = $(TELA:.c=.o) $(PLAYER:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o) $(IMAGEM:.c=.o) $(CAIXA_TEXTO:.c=.o)
+OBJETO = $(TELA:.c=.o) $(TEXTO:.c=.o) $(RETANGULO:.c=.o) $(BOTAO:.c=.o) $(IMAGEM:.c=.o) $(CAIXA_TEXTO:.c=.o)
 
 #EXE especifica o nome do executavel
 EXE = play
@@ -40,14 +41,14 @@ CC = gcc
 DEBUGGER=valgrind
 
 #Esse é o Alvo que compila o executável
-all : Tela Player Texto Retangulo Botao Imagem CaixaTexto telaDeLogin
+all : Tela Player Texto Retangulo Botao Imagem CaixaTexto telaDeLogin Animacao
 	@echo
 	@echo "Compilando arquivos para funcionamento do principal"
 	cd $(PASTA_FONTE); $(CC) $(PASSO1) $(FONTE)
-	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(FONTE:.c=.o) $(OBJETO) $(LINKER)
+	cd $(PASTA_FONTE); $(CC) $(PASSO2) ../$(EXE) $(FONTE:.c=.o) $(OBJETO) $(ANIMACAO:.c=.o) $(PLAYER:.c=.o) $(LINKER)
 	@echo
 	@echo "Removendo Arquivos remanescentes da compilação"
-	cd $(PASTA_FONTE); rm $(OBJETO) $(FONTE:.c=.o)
+	cd $(PASTA_FONTE); rm $(OBJETO) $(FONTE:.c=.o) $(ANIMACAO:.c=.o) $(PLAYER:.c=.o)
 
 #----------------------------------------------------------------------------------------------
 #TELA DE LOGIN
@@ -63,6 +64,9 @@ telaDeLogin: Bibliotecas
 	cd $(PASTA_FONTE); rm $(TELA_DE_LOGIN:.c=.o)
 #FIM TELA_DE_LOGIN ----------------------------------------------------------------------------
 
+
+
+
 #BIBLIOTECAS ----------------------------------------------------------------------------------
 Bibliotecas: Tela Player Texto Retangulo Botao Imagem CaixaTexto
 
@@ -72,7 +76,7 @@ Tela:
 	cd $(PASTA_FONTE)/$(PASTA_TELA); $(CC) $(PASSO1) $(TELA)
 	cd $(PASTA_FONTE)/$(PASTA_TELA); mv $(TELA:.c=.o) ../
 
-Player: Tela
+Player: Tela Animacao
 	@echo
 	@echo "Compilando arquivos para funcionamento do player"
 	cd $(PASTA_FONTE)/$(PASTA_PLAYER); $(CC) $(PASSO1) $(PLAYER)
@@ -107,6 +111,13 @@ CaixaTexto: Tela Retangulo Texto
 	@echo "Compilando arquivos para funcionamento de Entrada de Texto "
 	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); $(CC) $(PASSO1) $(CAIXA_TEXTO)
 	cd $(PASTA_FONTE)/$(PASTA_CAIXA_TEXTO); mv $(CAIXA_TEXTO:.c=.o) ../
+
+Animacao: Tela Texto Imagem
+	@echo
+	@echo "Compilando arquivos para funcionamento de Animacao de Personagem "
+	cd $(PASTA_FONTE)/$(ANIMACAO:.c=); $(CC) $(PASSO1) $(ANIMACAO)
+	cd $(PASTA_FONTE)/$(ANIMACAO:.c=); mv $(ANIMACAO:.c=.o) ../
+
 #FIM BIBLIOTECAS----------------------------------------------------------------------------
 
 

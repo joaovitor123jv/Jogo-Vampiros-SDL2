@@ -4,6 +4,10 @@ struct Imagem
 {
 	SDL_Rect posicao;
 	SDL_Texture* textura;
+	bool haveTransparency;
+	int rTransparency;
+	int gTransparency;
+	int bTransparency;
 	char* endereco;
 };
 
@@ -12,12 +16,29 @@ struct Imagem
 Imagem* new_imagem(void)
 {
 	Imagem* imagem = malloc(sizeof(Imagem));
+	int flags, initted;
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem->new_imagem()\n");
+		printf(" \tERROR: Couldn't initialize Image, aborting\n");
+		return NULL;
+	}
+	flags = IMG_INIT_PNG|IMG_INIT_JPG;
+	initted = IMG_Init(flags);
+	if(initted&flags != flags)
+	{
+		printf(" EM: Imagem->new_imagem()\n");
+		printf(" \tFailed to load PNG and JPG support\n");
+		printf(" \tERROR: %s\n", IMG_GetError());
+		return;
+	}
 	imagem->posicao.x = 0;
 	imagem->posicao.y = 0;
 	imagem->posicao.w = 0;
 	imagem->posicao.h = 0;
 	imagem->textura = NULL;
 	imagem->endereco = NULL;
+	imagem->haveTransparency = false;
 	return imagem;
 }
 
@@ -78,6 +99,7 @@ void imagem_printPart(Imagem* imagem, Tela* tela, SDL_Rect corte)
 	quadrado.w = corte.w;
 	quadrado.h = corte.h;
 	SDL_RenderCopy(tela_getRenderizador(tela), imagem->textura, &corte, &quadrado);/* Renderizador, textura, recorte, quadrado */
+	/* SDL_RenerCopyEx(tela_getRenderizador(tela), imagem->textura, NULL, &quadrado, ,&corte, 0); */
 	return;
 }
 
@@ -117,6 +139,12 @@ SDL_Surface* imagem_carregaImagem(Imagem* imagem, Tela* tela, char* endereco)
 		printf("Não foi possível carregar a imagem (1) \n");
 		return NULL;
 	}
+
+	if(imagem->haveTransparency)/* Suporte a transparencia mesmo em não png */
+	{
+		SDL_SetColorKey(surfacePrimaria, SDL_TRUE, SDL_MapRGB(surfacePrimaria->format, imagem->rTransparency, imagem->gTransparency, imagem->bTransparency));
+	}
+
 	surfaceOtimizada = SDL_ConvertSurface( surfacePrimaria, SDL_GetWindowSurface(tela_getJanela(tela))->format , 0);
 	if(surfaceOtimizada == NULL)
 	{
@@ -129,11 +157,33 @@ SDL_Surface* imagem_carregaImagem(Imagem* imagem, Tela* tela, char* endereco)
 }
 
 /*SETTERS*/
+void imagem_setTransparencyColor(Imagem* imagem, int r, int g, int b)
+{
+	if(imagem == NULL)
+	{
+		printf(" At: Imagem-> imagem_setTransparencyColor(Imagem*, int, int, int)\n");
+		printf(" \tERROR: Imagem* == NULL, aborting\n");
+		return;
+	}
+	if(!((r >= 0 && r < 256) && (g >= 0 && g < 256) && (b >= 0 && b < 256)))
+	{
+		printf(" At: Imagem-> imagem_setTransparencyColor(Imagem*, int, int, int)\n");
+		printf(" \tERROR: int argument must e positive and not bigger than 255, aborting\n");
+		return;
+	}
+	imagem->haveTransparency = true;
+	imagem->rTransparency=r;
+	imagem->gTransparency=g;
+	imagem->bTransparency=b;
+	return;
+}
+
 void imagem_setPosicao(Imagem* imagem, int x, int y)
 {
 	if(imagem == NULL)
 	{
-		printf("Imagem não inicializada\n");
+		printf(" At: Imagem-> imagem_setPosicao\n");
+		printf(" \tImagem not initialized, aborting\n");
 		return;
 	}
 	imagem->posicao.x = x;

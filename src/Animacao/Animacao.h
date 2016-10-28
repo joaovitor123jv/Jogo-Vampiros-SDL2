@@ -27,19 +27,23 @@ Animacao* new_animacao(void);
 /* DESTRUTOR */
 void delete_animacao(Animacao*);
 
+/* GETTERS */
+int animacao_getWidth(Animacao*);
+int animacao_getHeight(Animacao*);
+
 /* SETTERS */
 bool animacao_setTamanhoTotal(Animacao*, int, int);
 bool animacao_setPosicao(Animacao*, int, int);
 bool animacao_setParte(Animacao*, int, int);
 bool animacao_setColunaFixa(Animacao*, bool);
+void animacao_setLinha(Animacao*, int);
+void animacao_setColuna(Animacao*, int);
+void animacao_setDefaultSprite(Animacao*, int);
 
 /* COMANDOS */
 bool animacao_loadSheet(Animacao*, Tela*, char*, int, int);
 void animacao_printTotal(Animacao*, Tela*);
 void animacao_print(Animacao*, Tela*);
-void animacao_setLinha(Animacao*, int);
-void animacao_setColuna(Animacao*, int);
-void animacao_setDefaultSprite(Animacao*, int);
 
 /* THREADS */
 void animacao_start(Animacao*);

@@ -431,3 +431,42 @@ SDL_ThreadFunction animacao_trocaSprites(Animacao* animacao)
 /*	}*/
 	return;
 }
+
+/* GETTERS */
+int animacao_getWidth(Animacao* animacao)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_getWidth(Animacao*)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return ERRO;
+	}
+	if(animacao->posicao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_getWidth(Animacao*)\n");
+		printf(" \tERRO: Tabela de Sprites não inicializada\n");
+		printf(" \tplease call animacao_loadSheet(Animacao*, Tela*, char*, int, int)\n");
+		printf("\n\t Abortando\n");
+		return ERRO;
+	}
+	return animacao->posicao[0][0].w;
+}
+
+int animacao_getHeight(Animacao* animacao)
+{
+	if(animacao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_getHeight(Animacao*)\n");
+		printf(" \tERRO: Animacao* == NULL, abortando\n");
+		return ERRO;
+	}
+	if(animacao->posicao == NULL)
+	{
+		printf(" EM: Animacao-> animacao_getHeight(Animacao*)\n");
+		printf(" \tERRO: Tabela de Sprites não inicializada\n");
+		printf(" \tplease call animacao_loadSheet(Animacao*, Tela*, char*, int, int)\n");
+		printf("\n\t Abortando\n");
+		return ERRO;
+	}
+	return animacao->posicao[0][0].h;
+}
