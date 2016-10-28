@@ -43,22 +43,18 @@ bool player_getCima(Player* player);
 bool player_getEsquerda(Player* player);
 bool player_getDireita(Player* player);
 
-SDL_Texture* player_getTextura(Player* player);
 SDL_Rect* player_getPosicao(Player* player);
 
 /*Setters*/
 void player_setVelocidade(Player* player, int velocidade);
 void player_setY(Player* player, int y);
 void player_setX(Player* player, int x);
-void player_setWidth(Player* player, int w);
-void player_setHeight(Player* player, int h);
 void player_setTamanhoTotal(Player*, int, int);
 
 void player_setBaixo(Player* player, bool x);
 void player_setEsquerda(Player* player, bool x);
 void player_setDireita(Player* player, bool x);
 void player_setCima(Player* player, bool x);
-int player_setTextura(Player* player, Tela* tela, char* endereco);
 
 /*COMANDOS*/
 void player_start(Player*);
