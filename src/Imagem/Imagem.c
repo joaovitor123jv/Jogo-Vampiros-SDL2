@@ -350,3 +350,14 @@ int imagem_getY(Imagem* imagem)
 	}
 	return imagem->posicao.y;
 }
+
+SDL_Texture* imagem_getTextura(Imagem* imagem)/* Only for tests */
+{
+	if(imagem == NULL)
+	{
+		printf(" EM: Imagem->imagem_getTextura(Imagem*)\n");
+		printf(" \tERRO: Imagem* == NULL, abortando\n");
+		return NULL;
+	}
+	return imagem->textura;
+}

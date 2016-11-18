@@ -38,6 +38,7 @@ int imagem_getX(Imagem*);
 int imagem_getY(Imagem*);
 int imagem_getWidth(Imagem*);
 int imagem_getHeight(Imagem*);
+SDL_Texture* imagem_getTextura(Imagem*);/* Comentar após testes */
 
 /*COMANDOS*/
 void imagem_print(Imagem*, Tela*);

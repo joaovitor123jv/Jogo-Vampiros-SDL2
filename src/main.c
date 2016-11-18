@@ -11,8 +11,10 @@ int main( int argc, char* args[] )
 	Player* player = new_player();
 	Botao* btSair = new_botao();
 	Botao* btFullScreen = new_botao();
-	/*
-	Imagem* imagem = new_imagem();*/
+	Imagem* imgTeste;
+	SDL_Texture* textura;
+	int modoImagem;
+	Imagem* imagem = new_imagem();
 	
 	Tela* tela = new_tela();
 	tela_setTitle(tela, "Tela de Login ");
@@ -20,16 +22,19 @@ int main( int argc, char* args[] )
 	tela_setCor(tela, 50, 50, 70);
 	tela_setAlpha(tela, 50);
 
-/*
 	imagem_setImagem(imagem, tela, "images/fundo.png");
 	imagem_setTamanho(imagem, tela_getWidth(tela), tela_getHeight(tela));
-*/
 
 	player_loadSheet(player, tela, "images/sprites/spritesheet.png", 4, 4);
 	player_start(player);
 	player_setVelocidade(player,  2);
 	player_setX(player, 10);
 	player_setY(player, 10);
+	
+	/* Início Teste */
+	imgTeste = player_getImagem(player);
+	SDL_SetTextureBlendMode(imagem_getTextura(player_getImagem(player)), SDL_BLENDMODE_MOD);/* MOD deu meio certo */
+	/* Fim teste */
 
 	botao_setTexto(btSair, "Sair");
 	botao_update(btSair, tela);
@@ -67,7 +72,7 @@ int main( int argc, char* args[] )
 		}
 
 		tela_limpa(tela);
-/*		imagem_print(imagem, tela);*/
+		imagem_print(imagem, tela);
 		player_print(player, tela);
 		botao_print(btSair, tela);
 		botao_print(btFullScreen, tela);
@@ -77,7 +82,7 @@ int main( int argc, char* args[] )
 	delete_botao(btFullScreen);
 	delete_botao(btSair);
 
-/*	delete_imagem(imagem);*/
+	delete_imagem(imagem);
 
 	delete_player(player);
 
