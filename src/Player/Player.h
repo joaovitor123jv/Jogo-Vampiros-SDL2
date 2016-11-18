@@ -26,12 +26,13 @@
 
 typedef struct Player Player;
 
-Player* new_player(void);/*construtor*/
+/* CONSTRUTOR */
+Player* new_player(void);
 
-int delete_player(Player* player);/*destrutor*/
-/*int delete_player();*/
+/* DESTRUTOR */
+int delete_player(Player* player);
 
-/*Getters*/
+/*GETTERS*/
 int player_getHeight(Player* player);
 int player_getWidth(Player* player);
 int player_getX(Player* player);
@@ -44,8 +45,10 @@ bool player_getEsquerda(Player* player);
 bool player_getDireita(Player* player);
 
 SDL_Rect* player_getPosicao(Player* player);
+Imagem* player_getImagem(Player*);
+Animacao* player_getAnimacao(Player*);
 
-/*Setters*/
+/*SETTERS*/
 void player_setVelocidade(Player* player, int velocidade);
 void player_setY(Player* player, int y);
 void player_setX(Player* player, int x);

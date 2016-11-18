@@ -470,3 +470,14 @@ int animacao_getHeight(Animacao* animacao)
 	}
 	return animacao->posicao[0][0].h;
 }
+
+Imagem* animacao_getImagemCompleta(Animacao* animacao)
+{
+	if(animacao == NULL)
+	{
+		printf("EM: Animação->animacao_getImagemCompleta(Animacao*)\n");
+		printf("\tERROR: Animacao* == NULL, abortando\n");
+		return NULL;
+	}
+	return animacao->imagem;
+}

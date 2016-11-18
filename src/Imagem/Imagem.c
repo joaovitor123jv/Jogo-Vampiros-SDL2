@@ -20,7 +20,7 @@ Imagem* new_imagem(void)
 	if(imagem == NULL)
 	{
 		printf(" EM: Imagem->new_imagem()\n");
-		printf(" \tERROR: Couldn't initialize Image, aborting\n");
+		printf(" \tERRO: Não foi possível Alocar memória suficiente, abortando\n");
 		return NULL;
 	}
 	flags = IMG_INIT_PNG|IMG_INIT_JPG;
@@ -28,9 +28,8 @@ Imagem* new_imagem(void)
 	if(initted&flags != flags)
 	{
 		printf(" EM: Imagem->new_imagem()\n");
-		printf(" \tFailed to load PNG and JPG support\n");
-		printf(" \tERROR: %s\n", IMG_GetError());
-		return;
+		printf(" \tAVISO: Falhou ao carregar suporte a JPG e PNG\n");
+		printf(" \tERRO IMG: %s\n", IMG_GetError());
 	}
 	imagem->posicao.x = 0;
 	imagem->posicao.y = 0;
@@ -105,32 +104,45 @@ void imagem_printPart(Imagem* imagem, Tela* tela, SDL_Rect corte)
 
 SDL_Surface* imagem_carregaImagem(Imagem* imagem, Tela* tela, char* endereco)
 {
+	int tamanho;
 	if(imagem == NULL || tela == NULL)
 	{
-		printf("Imagem ou Tela não inicializada\n");
+		printf(" EM: Imagem->imagem_carregaImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: Imagem ou Tela não inicializada, abortando\n");
 		return NULL;
 	}
 	if(endereco == NULL)
 	{
-		printf("Endereço inválido\n");
+		printf(" EM: Imagem->imagem_carregaImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: Endereço inválido (char* == NULL), abortando\n");
 		return NULL;
 	}
-	int tamanho;
+
 	tamanho = strlen(endereco);
+
 	if(!(tamanho < TAMANHO_MAX_ENDERECO))
 	{
-		printf("Endereco muito grande\n");
+		printf(" EM: Imagem->imagem_carregaImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: Endereco muito grande\n");
+		printf(" \t\t(sizeof(char*) == %d) > %d\n", tamanho, TAMANHO_MAX_ENDERECO);
+		printf(" \tAbortando\n");
 		return NULL;
 	}
+
+
+
 	imagem->endereco = malloc(tamanho * sizeof(char));
 /*	imagem->endereco = endereco;*/
 	strcpy(imagem->endereco, endereco);
 	if(imagem->endereco == NULL)
 	{
-		printf("ERRO, não foi possível armazenar o endereço da imagem (memória insuficiente)\n");
+		printf(" EM: Imagem->imagem_carregaImagem(Imagem*, Tela*, char*)\n");
+		printf(" \tERRO: não foi possível armazenar o endereço da imagem (memória insuficiente), abortando\n");
 		return NULL;
 	}
 	
+
+
 	SDL_Surface* surfaceOtimizada = NULL;
 	SDL_Surface* surfacePrimaria = NULL;
 	surfacePrimaria = IMG_Load(imagem->endereco);

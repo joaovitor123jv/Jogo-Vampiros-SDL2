@@ -38,6 +38,8 @@ int delete_player(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->delete_player(Player*)\n");
+		printf(" \tPlayer* == NULL, abortando\n");
 		return ERRO;
 	}
 	if(player->animacao != NULL)
@@ -54,10 +56,41 @@ int delete_player(Player* player)
 }
 
 /*GETTERS*/
+Animacao* player_getAnimacao(Player* player)
+{
+	if(player == NULL)
+	{
+		printf(" EM: Player->player_getAnimacao(Player*)\n");
+		printf(" \t ERRO: Player* == NULL, abortando\n");
+		return NULL;
+	}
+	return player->animacao;
+}
+
+Imagem* player_getImagem(Player* player)
+{
+	if(player == NULL)
+	{
+		printf(" EM: Player->player_getImagem(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
+		return NULL;
+	}
+	if(player->animacao == NULL)
+	{
+		printf(" EM: Player->player_getImagem(Player*)\n");
+		printf(" \tERRO: Player*->animacao == NULL\n");
+		printf(" \tCarregou a tabela de Sprites ? (abortando)\n");
+		return NULL;
+	}
+	return animacao_getImagemCompleta(player->animacao);
+}
+
 int player_getVelocidade(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getVelocidade(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return ERRO;
 	}
 	return player->velocidade;
@@ -67,6 +100,8 @@ int player_getX(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getX(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return ERRO;
 	}
 	return player->posicao.x;
@@ -76,6 +111,8 @@ int player_getY(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getY(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return ERRO;
 	}
 	return player->posicao.y;
@@ -92,7 +129,9 @@ int player_getWidth(Player* player)
 	if(player->animacao == NULL)
 	{
 		printf(" EM: Player->player_getWidth(Player*)\n");
-		printf(" \tERRO: Tabela de Sprites não inicializada (please, call player_loadSheet(Player*, Tela*, cha*, int, int)) == NULL, abortando \n");
+		printf(" \tERRO: animacao não inicializada\n");
+		printf(" \tDica: carregue a tabela de sprites antes de chamar essa função\n");
+		printf(" \tAbortando\n");
 		return ERRO;
 	}
 	return animacao_getWidth(player->animacao);
@@ -102,6 +141,16 @@ int player_getHeight(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getHeight(Player*)\n");
+		printf(" \tERRO: Player* == NULL\n");
+		return ERRO;
+	}
+	if(player->animacao == NULL)
+	{
+		printf(" EM: Player->player_getHeight(Player*)\n");
+		printf(" \tERRO: animacao não inicializada\n");
+		printf(" \tDica: carregue a tabela de sprites antes de chamar essa função\n");
+		printf(" \tAbortando\n");
 		return ERRO;
 	}
 	return animacao_getHeight(player->animacao);
@@ -111,6 +160,8 @@ SDL_Rect* player_getPosicao(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getPosicao(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return NULL;
 	}
 	return &player->posicao;
@@ -120,6 +171,8 @@ bool player_getBaixo(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getBaixo(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return false;
 	}
 	return player->baixo;
@@ -129,6 +182,8 @@ bool player_getCima(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getCima(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return false;
 	}
 	return player->cima;
@@ -137,6 +192,8 @@ bool player_getEsquerda(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getEsquerda(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return false;
 	}
 	return player->esquerda;
@@ -145,6 +202,8 @@ bool player_getDireita(Player* player)
 {
 	if(player == NULL)
 	{
+		printf(" EM: Player->player_getDireita(Player*)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
 		return false;
 	}
 	return player->direita;
@@ -159,26 +218,56 @@ void player_setTamanhoTotal(Player* player, int width, int height)
 		printf(" \tERRO: Player* == NULL, abortando\n");
 		return;
 	}
+	if(player->animacao == NULL)
+	{
+		printf(" EM: Player->player_setTamanhoTotal(Player*, int, int)\n");
+		printf(" \tERRO: Player*->animacao == NULL\n");
+		printf(" \tCarregou a tabela de sprites ?\n");
+		printf(" \tAbortando\n");
+		return;
+	}
 	animacao_setTamanhoTotal(player->animacao, width, height);
 	return;
 }
 
 void player_setX(Player* player, int x)/* Para Movimentação Facilitada */
 {
-	if(player != NULL)
+	if(player == NULL)
 	{
-		player->posicao.x = x;
-		animacao_setPosicao(player->animacao, player->posicao.x, player->posicao.y);
+		printf(" EM: Player->player_setX(Player*, int)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
+		return;
 	}
+	if(player->animacao == NULL)
+	{
+		printf(" EM: Player->player_setX(Player*, int)\n");
+		printf(" \tERRO: Player*->animacao == NULL\n");
+		printf(" \tCarregou a tabela de sprites ? (abortando)\n");
+		return;
+	}
+	player->posicao.x = x;
+	animacao_setPosicao(player->animacao, player->posicao.x, player->posicao.y);
+	return;
 }
 
 void player_setY(Player* player, int y)/* Para Movimentação facilitada */
 {
-	if(player != NULL)
+	if(player == NULL)
 	{
-		player->posicao.y = y;
-		animacao_setPosicao(player->animacao, player->posicao.x, player->posicao.y);
+		printf(" EM: Player->player_setY(Player*, int)\n");
+		printf(" \tERRO: Player* == NULL, abortando\n");
+		return;
 	}
+	if(player->animacao == NULL)
+	{
+		printf(" EM: Player->player_setY(Player*, int)\n");
+		printf(" \tERRO: Player*->animacao == NULL\n");
+		printf(" \tCarregou a tabela de sprites ? (abortando)\n");
+		return;
+	}
+	player->posicao.y = y;
+	animacao_setPosicao(player->animacao, player->posicao.x, player->posicao.y);
+	return;
 }
 
 void player_setPosicao(Player* player, int x, int y)/* Para posicionamento inicial */
@@ -189,6 +278,13 @@ void player_setPosicao(Player* player, int x, int y)/* Para posicionamento inici
 		printf(" \tERRO: Player* == NULL, abortando\n");
 		return;
 	}
+	if(player->animacao == NULL)
+	{
+		printf(" EM: Player-> player_setPosicao(Player*, int, int)\n");
+		printf(" \tERRO: Player*->animacao == NULL\n");
+		printf(" \tCarregou a tabela de sprites ? (abortando)\n");
+		return;
+	}
 	animacao_setPosicao(player->animacao, x, y);
 	player_setX(player, x);
 	player_setY(player, y);
@@ -197,10 +293,13 @@ void player_setPosicao(Player* player, int x, int y)/* Para posicionamento inici
 
 void player_setVelocidade(Player* player, int velocidade)
 {
-	if(player != NULL)
+	if(player == NULL)
 	{
-		player->velocidade = velocidade;
+		printf(" EM: Player->player_getVelocidade(Player*, int)");
+		printf(" \tERRO: Player* == NULL, abortando\n");
+		return;
 	}
+	player->velocidade = velocidade;
 }
 
 void player_setBaixo(Player* player, bool x)

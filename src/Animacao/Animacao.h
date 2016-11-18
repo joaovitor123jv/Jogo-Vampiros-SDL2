@@ -30,6 +30,7 @@ void delete_animacao(Animacao*);
 /* GETTERS */
 int animacao_getWidth(Animacao*);
 int animacao_getHeight(Animacao*);
+Imagem* animacao_getImagemCompleta(Animacao*);
 
 /* SETTERS */
 bool animacao_setTamanhoTotal(Animacao*, int, int);
