@@ -17,13 +17,13 @@ struct Animacao
 
 SDL_ThreadFunction animacao_trocaSprites(Animacao*); /* Protótipo (linker) */
 
-/* CONSTRUTOR */ 
-Animacao* new_animacao(void) 
+/* CONSTRUTOR */
+Animacao* new_animacao(void)
 {
-	Animacao* animacao = malloc(sizeof(Animacao)); 
-	if(animacao == NULL) 
+	Animacao* animacao = malloc(sizeof(Animacao));
+	if(animacao == NULL)
 	{
-		printf("EM: Animacao-> new_animacao(void)\n"); 
+		printf("EM: Animacao-> new_animacao(void)\n");
 		printf("\tERRO: Não foi possível criar animação:\n");
 		printf("\tMemória insuficiente\n");
 		return NULL;
@@ -422,7 +422,7 @@ SDL_ThreadFunction animacao_trocaSprites(Animacao* animacao)
 				{
 					animacao->coluna = 0;
 				}
-				else 
+				else
 				{
 					animacao->coluna = animacao->coluna+1;
 				}

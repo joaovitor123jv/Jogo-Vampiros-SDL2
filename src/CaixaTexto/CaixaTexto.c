@@ -3,6 +3,7 @@
 struct CaixaTexto
 {
 	Texto* texto;
+	
 	Retangulo* retangulo;
 	char* entrada;
 	char* composicao;
@@ -18,6 +19,7 @@ CaixaTexto* new_caixaTexto(void)
 {
 	int tamanhoDeAlocacao;
 	CaixaTexto* caixaTexto = malloc(sizeof(CaixaTexto));
+	printf(" %d", sizeof(CaixaTexto));
 	caixaTexto->texto = new_texto();
 	caixaTexto->retangulo = new_retangulo();
 	if(caixaTexto-> retangulo == NULL)
@@ -25,12 +27,12 @@ CaixaTexto* new_caixaTexto(void)
 		printf("ERRO: Não foi possível criar o retângulo da caixa de texto\n");
 		return NULL;
 	}
-	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO);/*Texto se encarrega do tratamento de erros*/
-	texto_setTexto(caixaTexto->texto, " ");/*Por padrão inicializa zerado*/
-	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF);/*Cor branca por padrão*/
+	texto_setFonte(caixaTexto->texto, FONTE_PADRAO, TAMANHO_PADRAO); /* Texto se encarrega do tratamento de erros*/
+	texto_setTexto(caixaTexto->texto, " ");      /*   Por padrão inicializa zerado*/
+	retangulo_setCor(caixaTexto->retangulo, 0xFF, 0xFF, 0xFF); /*    Cor branca por padrão*/
 	texto_setCor(caixaTexto->texto, 0x01, 0x01, 0x01);
 
-	caixaTexto_setTamanhoString(caixaTexto, 32); /* Determina tamanho máximo padrão da String de entrada */
+	caixaTexto_setTamanhoString(caixaTexto, 32);  /*   Determina tamanho máximo padrão da String de entrada */
 
 	if(caixaTexto->entrada == NULL)
 	{

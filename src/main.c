@@ -5,8 +5,20 @@ int main( int argc, char* args[] )
 	bool close=false;
 	int FPESSES;
 	int w, h;
+	int resposta;
 
-	system("./telaDeLogin");
+	resposta = system("./telaDeLogin");
+
+	if(resposta == 0 || (resposta == 35584))
+	{
+		printf(" Não Autorizado\n");
+		printf(" Retorno : %d\n", resposta);
+		return 0;
+	}
+	else
+	{
+		printf(" Retorno : %d\n", resposta);
+	}
 
 	Player* player = new_player();
 	Botao* btSair = new_botao();
@@ -33,7 +45,8 @@ int main( int argc, char* args[] )
 	
 	/* Início Teste */
 	imgTeste = player_getImagem(player);
-	SDL_SetTextureBlendMode(imagem_getTextura(player_getImagem(player)), SDL_BLENDMODE_MOD);/* MOD deu meio certo */
+	SDL_SetTextureBlendMode(imagem_getTextura(player_getImagem(player)), SDL_BLENDMODE_MOD); /* MOD deu meio certo */
+/*	SDL_SetTextureAlphaMod(imagem_getTextura(player_getImagem(player)), 192);*/
 	/* Fim teste */
 
 	botao_setTexto(btSair, "Sair");
@@ -43,6 +56,7 @@ int main( int argc, char* args[] )
 	botao_setTexto(btFullScreen, "Tela Cheia");
 	botao_update(btFullScreen, tela);
 	botao_setPosicao(btFullScreen, 50, 500);
+
 
 
 	FPESSES = SDL_GetTicks();

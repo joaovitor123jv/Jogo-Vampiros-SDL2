@@ -60,7 +60,7 @@ int delete_tela(Tela* tela)
 	{
 		tela->janela = NULL;
 	}
-	if(tela->tela == NULL)
+	if(tela->tela != NULL)
 	{
 		SDL_FreeSurface(tela->tela);
 	}
@@ -288,7 +288,7 @@ int tela_upgrade(Tela* tela)
 	{
 		SDL_DestroyWindow(tela->janela);
 	}
-	tela->janela = SDL_CreateWindow(tela->titulo, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, tela->width, tela->height, SDL_WINDOW_OPENGL);
+	tela->janela = SDL_CreateWindow(tela->titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, tela->width, tela->height, SDL_WINDOW_BORDERLESS);
 	if(tela->janela == NULL)
 	{
 		printf("Erro ao inicializar janela\n");
